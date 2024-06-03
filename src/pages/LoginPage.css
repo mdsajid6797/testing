@@ -1,0 +1,345 @@
+
+@media only screen and (min-width: 767px){
+.loginpage{
+    margin-top: 56px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.logincard{
+    max-height: 550px;
+    width: 400px;
+    height: 70vh;
+    overflow-y: auto;
+    background-Color:#ebebeb;
+    border-radius: 0;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.145);
+}
+.login_submit_form{
+    height: 94%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.logincard::-webkit-scrollbar {
+    width: 4px;
+}
+.logincard::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+.logincard::-webkit-scrollbar-thumb {
+    background-color: #b0b0b6;
+    border-radius: 5px; 
+}
+.logincard::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+.card-header{
+    z-index: 999;
+    height: 71px;
+    border: none;
+    background-color:#dcd2d2 ;
+    padding: 10px;
+    /* position: sticky; */
+    top: 0;
+    border-radius: 0px !important;
+}
+.logincard:hover{
+    transform: scale(1.01);
+    box-shadow: 4px 4px 10px gray;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.logincard h3{
+    text-align: center;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color:rgb(0, 0, 0);
+    padding: 10px 0px 10px;
+}
+.login-card-details{
+    color: rgb(0, 0, 0);
+    padding: 10px ;
+}
+.inputfiled::placeholder{
+    color: rgb(0, 0, 0);
+}
+.forgot-btn{
+    width: 100%;
+    text-align: right;
+}
+.forgot-button{
+    background-color: inherit;
+    border: none;
+    color: rgb(118, 124, 255);
+    text-align: right;
+    margin: 20px 10px ;
+    font-weight: 500;
+}
+.forgot-button:hover{
+    background-color: inherit;
+    border: none;
+    color: rgb(79, 79, 97);
+}
+.loginbuttonspace{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0px;
+}
+.cler-button{
+    width: 35%;
+    border: 2px solid #4aafff;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    border-radius: 20px;
+}
+.cler-button:hover{
+    color: #000;
+    border: 2px solid #ff5a58;
+    background-color: inherit;
+}
+.login-button{
+    color: #181818;
+    border: 2px solid #4aafff;
+    font-weight: 600;
+    width: 35%;
+    border-radius: 20px;
+}
+.login-button:hover{
+    color: #000;
+    border: 2px solid #ff5a58;
+    background-color: inherit;
+}
+.text-center{
+    height: 35px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+    color: rgb(255, 0, 0); 
+    border-radius: 0px !important;
+}
+.text-center-success{
+    height: 35px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+    color: rgb(0, 131, 31);
+    text-align: center;
+    border-radius: 0px !important;
+}
+
+}
+@media only screen and (min-width: 463px) and (max-width: 767px){
+    .loginpage{
+        margin-top: 56px;
+        height: 80vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    .logincard{
+        max-height: 450px;
+        height: 60vh;
+        overflow-y: scroll;
+        background-Color:#ebebeb;
+        width: 350px;
+        border-radius: 0px;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.145);
+    }
+    .card-header{
+        z-index: 999;
+        height: 60px;
+        border: none;
+        background-color:#dcd2d2 ;
+        padding: 10px;
+        /* position: sticky; */
+        top: 0;
+        border-radius: 0px !important;
+    }
+    .logincard h3{
+        text-align: center;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color:rgb(0, 0, 0);
+    }
+    .login-card-details{
+        color: rgb(0, 0, 0);
+
+    }
+    .inputfiled::placeholder{
+        color: rgb(0, 0, 0);
+    }
+    .forgot-btn{
+        width: 100%;
+        text-align: right;
+    }
+    .forgot-button{
+        background-color: inherit;
+        border: none;
+        color: rgb(118, 124, 255);
+        text-align: right;
+    }
+    .forgot-button:hover{
+        background-color: inherit;
+        border: none;
+        color: rgb(79, 79, 97);
+    }
+    .loginbuttonspace{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .cler-button{
+        width: 40%;
+        color: #000;
+        border: 2px solid #4aafff;
+        font-weight: 400;
+        border-radius: 20px;
+    }
+    .cler-button:hover{
+        color: #000;
+        border: 2px solid #ff5a58;
+        background-color: inherit;
+    }
+    .login-button{
+        color: #000;
+        border: 2px solid #4aafff;
+        font-weight: 400;
+        width: 40%;
+        border-radius: 20px;
+    }
+    .login-button:hover{
+        color: #000;
+        border: 2px solid #ff5a58;
+        background-color: inherit;
+    }
+    .text-center{
+        height: 35px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+        color: rgb(255, 0, 0);
+        border-radius: 0px !important;
+    }
+    .text-center-success{
+        height: 35px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+        color: rgb(0, 131, 31);
+        text-align: center;
+        border-radius: 0px !important;
+    }
+
+  }
+  @media only screen and (max-width: 462px){
+    .loginpage{
+        margin-top: 56px;
+        height: 80vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    .logincard{
+        max-height: 450px;
+        height: 60vh;
+        overflow-y: scroll;
+        background-Color:#ebebeb;
+        width: 350px;
+        border-radius: 0px;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.145);
+    }
+    .card-header{
+        z-index: 999;
+        height: 60px;
+        border: none;
+        background-color:#dcd2d2 ;
+        padding: 10px;
+        /* position: sticky; */
+        top: 0;
+        border-radius: 0px !important;
+    }
+    .logincard h3{
+        text-align: center;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color:rgb(0, 0, 0);
+    }
+    .login-card-details{
+        color: rgb(0, 0, 0);
+    }
+    .inputfiled::placeholder{
+        color: rgb(0, 0, 0);
+    }
+    .forgot-btn{
+        width: 100%;
+        text-align: right;
+    }
+    .forgot-button{
+        background-color: inherit;
+        border: none;
+        color:  rgb(118, 124, 255);
+        text-align: right;
+    }
+    .forgot-button:hover{
+        background-color: inherit;
+        border: none;
+        color: rgb(79, 79, 97);
+    }
+    .loginbuttonspace{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .cler-button{
+        width: 40%;
+        color: #000;
+        border: 2px solid #4aafff;
+        font-weight: 400;
+        border-radius: 20px;
+    }
+    .cler-button:hover{
+        color: #000;
+        border: 2px solid #ff5a58;
+        background-color: inherit;
+    }
+    .login-button{
+        color: #000;
+        border: 2px solid #4aafff;
+        font-weight: 400;
+        width: 40%;
+        border-radius: 20px;
+    }
+    .login-button:hover{
+        color: #000;
+        border: 2px solid #ff5a58;
+        background-color: inherit;
+    }
+    .text-center{
+        height: 35px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+        color: rgb(255, 0, 0);
+        border-radius: 0px !important;
+    }
+    .text-center-success{
+        height: 35px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+        color: rgb(0, 131, 31);
+        text-align: center;
+        border-radius: 0px !important;
+    }
+  }

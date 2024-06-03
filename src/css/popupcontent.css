@@ -1,0 +1,13 @@
+.popup-content{
+    display: flex;
+    flex-direction: column;
+}
+.user_diary_add_note{
+    width: 100%;
+}
+.popup_btn{
+    position:fixed;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 100000;
+}

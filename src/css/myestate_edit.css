@@ -1,0 +1,50 @@
+.custom-select {
+    .MuiSelect-icon {
+      display: none; 
+    }
+  }
+
+
+.propertyform{
+    width: 100%;
+    padding-top: 10px;
+}
+.edit_container{
+    min-width: 300px !important;
+    max-width: 550px !important;
+}
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    width: 100% !important;
+}
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
+    width: 100%;
+}
+
+.overlay1-edit
+{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    padding: 20px 0;
+    background-color: white;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+@media  (max-width:600px){
+    .form1-double{
+       display: block !important;
+    }
+    .form1-double>*{
+       /* display: block !important; */
+       width: 100% !important;
+       margin-top: 10px;
+    }
+    /* in banking it was creating problem so giving it value manually */
+    .accno,.sabox{
+        margin-top: 16px;
+    }
+    
+ }
+

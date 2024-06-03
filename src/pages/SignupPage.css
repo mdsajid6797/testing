@@ -1,0 +1,116 @@
+.signup{
+    height: 90%;
+    width: 98vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginpage{
+    min-width: 350px;
+    max-height: 780px;
+}
+.regcard{
+    border-radius: 0;
+    height: 100%;
+    max-height: 780px;
+    overflow-y: auto;
+    width: 500px;
+    min-width: 350px;
+    border: none;
+    background-color: #ebebeb;
+}
+.regcard::-webkit-scrollbar {
+    width: 4px;
+}
+.regcard::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+.regcard::-webkit-scrollbar-thumb {
+    background-color: #b0b0b6;
+    border-radius: 5px; 
+}
+.regcard::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+.signuppage{
+    display: flex;
+    height:100vh;
+    justify-content: right;
+}
+.cardheading{
+    text-align: center;
+    padding-top: 4%;
+    text-transform: uppercase;
+    border: none;
+    background-color: #dcd2d2;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cardheading h3{
+    padding: 0 !important;
+}
+.heading{
+    font-weight: 800;
+    font-family: 'Candara';
+    color: rgb(0, 0, 0);
+}
+.textfield{
+    /*margin: 3%;*/
+    color: rgb(0, 0, 0);
+    caret-color:rgb(0, 0, 0);
+}
+.inputfiled{
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid rgb(0, 0, 0) ;
+    background-color: #ebebeb;
+    color: rgb(0, 0, 0);
+
+}
+
+.page{
+    padding-top: 60px;
+    display: flex;
+    float: right;
+    height: 100vh;
+    /* width: 40%; */
+}
+.headingname{
+    margin: 0;
+    font-weight: bold;
+}
+
+.cler-button{
+    width: 35%;
+    border: 2px solid #4aafff;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    border-radius: 20px;
+}
+.cler-button:hover{
+    border: 2px solid #ff5a58;
+    color: rgb(0, 0, 0);
+}
+.login-button{
+    border: 2px solid #4aafff;
+    color:rgb(0, 0, 0) ;
+    font-weight: 600;
+    width: 35%;
+    border-radius: 20px;
+    
+}
+.login-button:hover{
+    border: 2px solid #ff5a58;
+    color:rgb(0, 0, 0) ;
+}
+.loginbuttonspace{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0px;
+}

@@ -1,0 +1,1187 @@
+.userprofile_mainpage {
+    margin-top: 62px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userprofile_content_left {
+    margin-top: 20px;
+    height: auto;
+    min-width: 20vw;
+    background-color: rgb(245 245 245);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 5px;
+}
+
+.userprofilr_page_details {
+    display: flex;
+}
+
+.userprofile_basepage {
+    width: 85vw;
+}
+
+.userprofile_image {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.userprofile_img {
+    height: 160px;
+    width: 160px;
+    border: 8px solid #dbdce1;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.default-profile {
+    display: flex;
+}
+
+.upload {
+    margin-top: 98px;
+    margin-left: -28px;
+}
+
+.delete-button {
+    background-color: #ffffff;
+    height: 40px;
+    width: 40px;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #181818;
+    border: 2px solid #4aafff;
+}
+
+.delete-button:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+.upload-button {
+    background-color: #ffffff;
+    height: 40px;
+    width: 40px;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #181818;
+    border: 2px solid #4aafff;
+}
+
+.upload-button:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+
+
+.userprofile_about {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: auto;
+    margin-top: 10px;
+    width: 100%;
+    color: black;
+}
+
+.userprofile_about .userprofile_name {
+    text-transform: capitalize;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 30px;
+    color: black;
+    margin-top: 20px;
+}
+
+.userprofile_about_deatils {
+    display: flex;
+}
+
+.userprofile_about_deatils li {
+    margin-left: 20px;
+}
+
+.userprofile_list {
+    /* width: 100px; */
+    width: 180px;
+    font-weight: bold;
+}
+
+.userprofile_edit_btn {
+    width: 130px;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 5px 0px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.userprofile_edit_btn:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+.userprofile_edit {
+    height: 50px;
+    margin-top: 30px;
+    margin-right: 100px;
+}
+
+.userprofile_edit_icon {
+    height: 15px;
+    margin-left: 25px;
+}
+
+/* second page  */
+.userprofile_content_right {
+    display: flex;
+    margin-top: 3px;
+    width: auto;
+}
+
+.userprofile_container {
+    margin-bottom: 20px;
+    color: black;
+}
+
+.userprofile_page_details {
+    width: 50%;
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 5px;
+    background-color: rgb(245 245 245);
+}
+
+.userprofile_page_details h3 {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-left: 20px;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.userprofile_page_main_list {
+    display: flex;
+    padding-left: 30px;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.userprofile_page_list {
+    /* width: 150px; */
+    width: 175px;
+    font-weight: bold;
+}
+
+.dropdown-options {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    text-transform: capitalize;
+}
+
+/* security page */
+
+.userprofile_security {
+    width: 50%;
+    margin-left: 3px;
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 5px;
+    background-color: rgb(245 245 245);
+}
+
+.userprofile_security h3 {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-left: 20px;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.userprofile_buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 30px;
+}
+
+.userprofile_changePassword {
+    text-transform: capitalize;
+    background-color: inherit;
+}
+
+.userprofile_changePassword:hover {
+    color: #4aafff;
+    background-color: inherit;
+}
+
+.change_pass {
+    display: flex;
+    width: 100%;
+}
+
+.change_pass_main {
+    display: flex;
+    flex-direction: column;
+}
+
+.change_pass_list {
+    display: flex;
+    align-items: baseline;
+}
+
+.change_pass_list h4 {
+    font-size: 14px;
+    width: 150px;
+    font-weight: 600;
+}
+
+.change_pass_list input {
+    width: 200px;
+    padding: 0px 8px;
+    padding-right: 32px;
+}
+
+.change_pass_btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 5px;
+}
+
+.change_pass_cancel_btn {
+    width: 90px;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 1px 0px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.change_pass_cancel_btn:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+.change_pass_save_btn {
+    width: 90px;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 1px 0px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.change_pass_save_btn:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.toggle-password-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.toggle-password-button.show {
+    color: #007bff;
+    /* You can adjust the color as needed */
+}
+
+/* customer care and hepl center */
+.userprofile_content_down {
+    display: flex;
+    margin-top: 3px;
+    width: auto;
+}
+
+.userprofile_customer_care {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 5px;
+    background-color: rgb(245 245 245);
+}
+
+.userprofile_customer_care h3 {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-left: 20px;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.userprofile_helpcenter_btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.userprofile_faq {
+    text-transform: capitalize;
+    background-color: inherit;
+}
+
+.userprofile_faq:hover {
+    color: #4aafff;
+    background-color: inherit;
+}
+
+.userprofile_helpcenter {
+    text-transform: capitalize;
+    background-color: inherit;
+}
+
+.userprofile_helpcenter:hover {
+    color: #4aafff;
+    background-color: inherit;
+}
+
+/* Address*/
+.userprofile_address {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3px;
+    width: 50%;
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 5px;
+    background-color: rgb(245 245 245);
+}
+
+.userprofile_address h3 {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.userprofile_permanent_address {
+    /* display: flex; */
+
+}
+
+.userprofile_permanent_address_list {
+    width: 100%;
+    padding-right: 30px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.userprofile_current_address {
+    /* display: flex; */
+}
+
+.userprofile_current_address_list {
+    width: 100%;
+    padding-right: 30px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.userprofile_address_list {
+    margin-left: 30px;
+    margin-bottom: 5px;
+    color: black;
+}
+
+/* social media  */
+
+.userprofile_social_media {
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    width: auto;
+    width: 100%;
+    background-color: rgb(245 245 245);
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.usaerprofile_social_media_contect {
+    display: flex;
+    justify-content: space-evenly;
+    width: 40vw;
+}
+
+.userprofile_social_icon {
+    height: 30px;
+    width: 30px;
+    padding: 3px;
+    background-color: rgb(207, 207, 207);
+    border-radius: 50%;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* trustee and beneficiary details */
+.userprofile_trustee_beneficiary_details {
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    width: auto;
+    width: 100%;
+    background-color: rgb(245 245 245);
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 5px;
+}
+
+.userprofile_trustee_beneficiary_base {
+    color: black;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.userprofile_trustee_details {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.userprofile_trustee_details h3 {
+    font-weight: 600;
+    padding-top: 20px;
+    padding-left: 20px;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.userprofile_beneficiary_details h3 {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-left: 20px;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.userprofile_trustee_name {
+    text-transform: capitalize;
+    margin-left: 50px;
+}
+
+.userprofile_beneficiary_name {
+    text-transform: capitalize;
+    margin-left: 50px;
+}
+@media only screen and (min-width: 980px) {
+    .userprofile_page_main_list{
+        display: flex;
+        padding-left: 20px;
+        text-transform: capitalize;
+        font-size: 13px;
+        flex-direction: row;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1000px) {
+    .userprofile_content_left {
+        margin-top: 20px;
+        height: auto;
+        min-width: 20vw;
+        background-color: rgb(245 245 245);
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        border: solid 1px rgb(209, 209, 209);
+        border-radius: 5px;
+    }
+
+    .userprofilr_page_details {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .userprofile_about {
+        padding-left: 20px;
+        padding-right: 20px;
+        height: auto;
+        width: 100%;
+        color: black;
+    }
+
+    .userprofile_about .userprofile_name {
+        text-transform: capitalize;
+        padding-bottom: 10px;
+        font-weight: bold;
+        font-size: 30px;
+        color: black;
+    }
+
+    .userprofile_permanent_address {
+        /* display: flex; */
+        flex-direction: column;
+    }
+
+    .userprofile_current_address {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .change_pass {
+        display: flex;
+        width: 100%;
+    }
+
+    .change_pass_main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .change_pass_list {
+        display: block;
+        align-items: baseline;
+    }
+
+    .change_pass_list h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: -7px;
+    }
+
+    .change_pass_list input {
+        width: 263px;
+        padding: 0px 8px;
+        padding-right: 32px;
+    }
+
+    .change_pass_btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .change_pass_cancel_btn {
+        width: 90px;
+        padding: 3px 10px 2px 10px;
+        border-radius: 3px;
+        font-weight: 500;
+        background: #ff8d8d;
+        color: white;
+    }
+
+    .change_pass_save_btn {
+        width: 90px;
+        padding: 3px 10px 2px 10px;
+        border-radius: 3px;
+        font-weight: 500;
+        background: #37ec89;
+        color: white;
+    }
+}
+
+@media only screen and (min-width: 590px) and (max-width: 768px) {
+    .userprofilr_page_details {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .userprofile_image {
+        display: flex;
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+
+    .userprofile_content_left {
+        margin-top: 20px;
+        height: auto;
+        min-width: 20vw;
+        background-color: rgb(245 245 245);
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column-reverse;
+        border: solid 1px rgb(209, 209, 209);
+        border-radius: 5px;
+    }
+
+    .userprofile_about .userprofile_name {
+        text-transform: capitalize;
+        padding-bottom: 10px;
+        font-weight: bold;
+        font-size: 30px;
+        color: black;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .userprofile_about_deatils {
+        display: flex;
+        margin-left: 62px;
+    }
+
+    .userprofile_edit {
+        width: 95%;
+        height: 50px;
+        margin-top: 30px;
+        margin-right: 100px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .userprofile_permanent_address {
+        /* display: flex; */
+        flex-direction: column;
+    }
+
+    .userprofile_current_address {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .userprofile_page_list {
+        width: 114px;
+        font-weight: bold;
+    }
+
+    .change_pass {
+        display: flex;
+        width: 100%;
+    }
+
+    .change_pass_main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .change_pass_list {
+        display: block;
+        align-items: baseline;
+    }
+
+    .change_pass_list h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: -7px;
+    }
+
+    .change_pass_list input {
+        width: 203px;
+        padding: 0px 8px;
+        padding-right: 32px;
+    }
+
+    .change_pass_btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .change_pass_cancel_btn {
+        width: 90px;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 1px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .change_pass_cancel_btn:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    .change_pass_save_btn {
+        width: 90px;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 1px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .change_pass_save_btn:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+}
+
+@media only screen and (max-width: 590px) {
+    .userprofile_basepage {
+        width: 95vw;
+    }
+
+    .userprofile_page_details {
+        width: 100%;
+        border: solid 1px rgb(209, 209, 209);
+        border-radius: 5px;
+        background-color: rgb(245 245 245);
+        margin-bottom: 3px;
+    }
+
+    .userprofile_image {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .userprofile_img {
+        height: 120px;
+        width: 120px;
+        border: 8px solid #dbdce1;
+        border-radius: 50%;
+    }
+
+    .userprofile_content_right {
+        display: flex;
+        margin-top: 3px;
+        width: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .userprofile_content_left {
+        margin-top: 20px;
+        height: auto;
+        min-width: 20vw;
+        background-color: rgb(245 245 245);
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column-reverse;
+        border: solid 1px rgb(209, 209, 209);
+        border-radius: 5px;
+    }
+
+    .userprofile_about {
+        padding-left: 20px;
+        padding-right: 20px;
+        height: auto;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        width: 100%;
+        color: black;
+    }
+
+    .userprofile_about .userprofile_name {
+        text-transform: capitalize;
+        padding-bottom: 10px;
+        font-weight: bold;
+        font-size: 22px;
+        color: black;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .userprofile_about_deatils {
+        display: flex;
+        font-size: 13px;
+    }
+
+    .userprofile_list {
+        width: 88px;
+        font-weight: bold;
+    }
+
+    .userprofile_edit {
+        width: 95%;
+        height: 50px;
+        margin-top: 15px;
+        margin-right: 100px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .userprofile_permanent_address {
+        /* display: flex; */
+        flex-direction: column;
+    }
+
+    .userprofile_current_address {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .userprofile_page_list {
+        width: 114px;
+        font-weight: bold;
+    }
+
+    .userprofile_edit_btn {
+        text-transform: capitalize;
+        width: 88px;
+        display: flex;
+        height: 30px;
+        font-size: 17px;
+        color: black;
+        background-color: rgb(255 255 255);
+        border-radius: 3px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .userprofilr_page_details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .userprofile_about_deatils li {
+        margin-left: 0px;
+    }
+
+    .userprofile_page_details h3 {
+        font-weight: bold;
+        font-size: 16px;
+        padding-top: 20px;
+        padding-left: 14px;
+        text-transform: capitalize;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .userprofile_page_main_list {
+        display: flex;
+        padding-left: 20px;
+        text-transform: capitalize;
+        font-size: 13px;
+        flex-direction: column;
+
+    }
+
+    .userprofile_page_list {
+        width: 114px;
+        font-weight: 600;
+    }
+
+    .userprofile_security {
+        width: 100%;
+        margin-left: 0;
+        border: solid 1px rgb(209, 209, 209);
+        border-radius: 5px;
+        background-color: rgb(245 245 245);
+    }
+
+    .userprofile_security h3 {
+        font-weight: bold;
+        padding-top: 20px;
+        padding-left: 10px;
+        font-size: 16px;
+        text-transform: capitalize;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .change_pass {
+        display: flex;
+        width: 100%;
+    }
+
+    .change_pass_main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .change_pass_list {
+        display: block;
+        align-items: baseline;
+    }
+
+    .change_pass_list h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: -7px;
+    }
+
+    .change_pass_list input {
+        width: 312px;
+        padding: 0px 8px;
+        padding-right: 27px;
+        margin: 7px 0px;
+        height: 33px;
+    }
+
+    .change_pass_btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .change_pass_cancel_btn {
+        width: 90px;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 1px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .change_pass_cancel_btn:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    .change_pass_save_btn {
+        width: 90px;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 1px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .change_pass_save_btn:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    .userprofile_buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 15px;
+        font-size: 13px;
+    }
+
+    .userprofile_changePassword {
+        text-transform: capitalize;
+        background-color: inherit;
+        font-weight: 500;
+    }
+
+    .userprofile_customer_care h3 {
+        font-weight: bold;
+        padding-top: 20px;
+        padding-left: 10px;
+        font-size: 16px;
+        text-transform: capitalize;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .userprofile_content_down {
+        display: flex;
+        margin-top: 3px;
+        width: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .userprofile_customer_care {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 3px;
+        border: solid 1px rgb(209, 209, 209);
+        border-radius: 5px;
+        background-color: rgb(245 245 245);
+    }
+
+    .userprofile_helpcenter_btn {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 15px;
+        margin-bottom: 5px;
+    }
+
+    .userprofile_faq {
+        text-transform: capitalize;
+        background-color: inherit;
+        margin: 0;
+        font-size: 13px;
+        display: contents;
+    }
+
+    .userprofile_helpcenter {
+        text-transform: capitalize;
+        background-color: inherit;
+        font-size: 13px;
+    }
+
+    .userprofile_address {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0px;
+        width: 100%;
+        border: solid 1px rgb(209, 209, 209);
+        border-radius: 5px;
+        background-color: rgb(245 245 245);
+    }
+
+    .userprofile_address h3 {
+        margin-top: 20px;
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 16px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .userprofile_address_list {
+        margin-left: 15px;
+        margin-bottom: 5px;
+        color: black;
+    }
+
+    .userprofile_permanent_address_list {
+        width: 100%;
+        padding-right: 30px;
+        font-weight: 600;
+        text-transform: capitalize;
+        font-size: 13px;
+    }
+
+    .userprofile_current_address_list {
+        width: 100%;
+        padding-right: 30px;
+        font-weight: 600;
+        text-transform: capitalize;
+        font-size: 13px;
+    }
+
+    .default-profile {
+        display: flex;
+    }
+
+    .upload {
+        margin-top: 68px;
+        margin-left: -28px;
+    }
+
+    .delete-button {
+        background-color: #ffffff;
+        height: 40px;
+        width: 40px;
+        font-size: 17px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: #181818;
+        border: 2px solid #4aafff;
+    }
+
+    .delete-button:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    .upload-button {
+        background-color: #ffffff;
+        height: 40px;
+        width: 40px;
+        font-size: 17px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: #181818;
+        border: 2px solid #4aafff;
+    }
+
+    .upload-button {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    .userprofile_trustee_beneficiary_base {
+        color: black;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .userprofile_trustee_details {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .userprofile_trustee_details h3 {
+        font-weight: 600;
+        padding-top: 20px;
+        padding-left: 10px;
+        text-transform: capitalize;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .userprofile_beneficiary_details h3 {
+        font-weight: bold;
+        padding-top: 20px;
+        padding-left: 10px;
+        text-transform: capitalize;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .userprofile_trustee_name {
+        text-transform: capitalize;
+        margin-left: 30px;
+    }
+
+    .userprofile_beneficiary_name {
+        text-transform: capitalize;
+        margin-left: 30px;
+    }
+
+}

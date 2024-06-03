@@ -1,0 +1,91 @@
+.timeout_popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 9999;
+    height: 300px;
+    display: flex;
+    max-width: 500px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.time_out_heading{
+    font-size: 20px;
+    font-weight: bold;
+    color: #05124d;
+    text-align: center;
+}
+.timeout_paragraph {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #05124d;
+    text-align: center;
+}
+.timer_text{
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #05124d;
+    text-align: center;
+}
+.timer_card_btn{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-evenly;
+    width: 100%;
+    min-width: 260px;
+}
+.timer_card_refresh_btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    min-width:70px;
+    width:50%;
+    margin-left: 4px;
+    max-width: 130px;
+    border-radius: 5px;
+}
+.timer_card_logout_btn{
+    padding: 8px 16px;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    cursor: pointer;
+    min-width:70px;
+    width:50%;
+    margin-right: 4px;
+    max-width: 130px;
+    border-radius: 5px;
+
+}
+
+.timer_card_refresh_btn:hover {
+    background-color: #0056b3;
+}
+
+.timer_card_logout_btn:hover{
+    background-color: #ba0707;
+}
+.timeout_image_base{
+    width: 100%;
+    height: auto ;
+    display: flex;
+    justify-content: center;
+}
+.timeout_image_card{
+    height: 90px;
+    width: 120px;
+}
+.timeout_image{
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}

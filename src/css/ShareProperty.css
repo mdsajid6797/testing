@@ -1,0 +1,281 @@
+@media (max-width:768px) {
+    .property-col {
+        margin: 0px;
+    }
+
+    .Property-regcard {
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background-color: inherit;
+        border: none;
+    }
+
+    .Property-sharepage {
+        height: auto;
+        width: auto;
+        margin-top: 73px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .Property-cardheading {
+        max-width: 450px;
+        background-color: #dcd2d2 !important;
+    }
+
+    .Property-heading {
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+
+    }
+
+    .Property-cardbody {
+        border-radius: 0px 0px 10px 10px;
+        background-color: #ffffff;
+        max-width: 450px;
+    }
+
+    .Property-headingname {
+        color: rgb(168, 166, 166);
+        font-weight: 300;
+
+    }
+
+    .Property-textfield {
+        color: rgb(0, 0, 0);
+    }
+
+    .Property-inputfiled {
+        color: rgba(0, 0, 0, 0.581);
+
+        background-color: #ffffff;
+    }
+
+    .Property-inputfiled::placeholder {
+        color: rgb(0, 0, 0);
+    }
+
+    .Property-loginbuttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .Property-clearbutton1 {
+        width: 40%;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 5px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .Property-clearbutton1:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    .Property-sendbutton1 {
+        width: 40%;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 5px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .Property-sendbutton1:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    /* shaired propertyes page css */
+    .Property-sharedpage {
+        border-radius: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        background-color: #ebebeb;
+    }
+
+    .Property-share-cardheading1 {
+        background-color: #dcd2d2 !important;
+    }
+
+    .Property-share-heading {
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .Property-table-body {
+        border: solid 0.5px lightslategray;
+        border-radius: 5px;
+        background-color: white;
+        margin-top: -18px;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+    .Property-table-body tr {
+        color: rgb(0, 0, 0);
+    }
+}
+
+
+@media (min-width:768px) {
+    .property-col {
+        margin: 0px;
+        display: flex;
+    }
+
+    .share-property-page {
+        display: flex;
+    }
+
+    .Property-regcard {
+
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background-color: inherit;
+        border: none;
+    }
+
+    .Property-sharepage {
+        height: auto;
+        min-width: 340px;
+        margin-top: 73px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .Property-cardheading {
+        max-width: 450px;
+        background-color: #dcd2d2 !important;
+    }
+
+    .Property-heading {
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        font-size: 20px;
+
+        text-align: center;
+
+    }
+
+    .Property-cardbody {
+        border: 1px solid lightgrey;
+        /* border-radius: 0px 0px 5px 5px; */
+        background-color: #ffffff;
+        max-width: 450px;
+        height: 530px;
+    }
+
+    .Property-headingname {
+        color: rgb(0, 0, 0);
+    }
+
+    .Property-textfield {
+        color: rgb(0, 0, 0);
+    }
+
+    .Property-inputfiled {
+        color: rgba(0, 0, 0, 0.581);
+        background-color: #ffffff;
+    }
+
+    .Property-inputfiled::placeholder {
+        color: rgb(0, 0, 0);
+    }
+
+    .Property-loginbuttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .Property-clearbutton1 {
+        width: 40%;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 5px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .Property-clearbutton1:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    .Property-sendbutton1 {
+        width: 40%;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 5px 0px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .Property-sendbutton1:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+
+    /* shaired propertyes page css */
+    .Property-sharedpage {
+        margin-top: 73px;
+        border-radius: 10px;
+        background-color: #ebebeb;
+        margin-left: 10px;
+        margin-right: 10px;
+
+    }
+
+    .Property-share-cardheading1 {
+        background-color: #dcd2d2 !important;
+    }
+
+    .Property-share-heading {
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .Property-table-body {
+        /* height: auto; */
+        background-color: white;
+        border: solid 0.5px lightslategray;
+        border-radius: 5px;
+        margin-top: -20px;
+        max-height: 530px;
+        width: 60vw;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    .Property-table-body tr {
+        color: rgb(0, 0, 0);
+    }
+}

@@ -1,0 +1,198 @@
+.networth_popup_page_heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.networth_popup_heading_div {
+    /* border-radius: 5px; */
+    /* border: solid 2px gray; */
+    padding: 0px 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.networth_popup_heading {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.networth_popup_show_networth {
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.networth_page {
+    text-transform: capitalize;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.networth_sidebar {
+    width: 30%;
+}
+
+.networth_chat {
+    margin-left: 20px;
+    width: 68%;
+}
+
+.networth_Sidebar_first {
+    padding: 10px;
+    border-radius: 5px;
+    height: auto;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+}
+
+.networth_Sidebar_first:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.200), 0 6px 20px 0 rgba(0, 0, 0, 0.200);
+}
+.networth_Sidebar_Chart{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    /* background-color: aliceblue; */
+    height: fit-content;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+}
+.networth_Sidebar_Chart:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.200), 0 6px 20px 0 rgba(0, 0, 0, 0.200);
+}
+
+.networth_chat_page {
+    height: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+}
+.networth_chat_page:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.200), 0 6px 20px 0 rgba(0, 0, 0, 0.200);
+}
+.total_earning{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.total_earning_list{
+    font-weight: 500;
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+.networth_mane_chat{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.networth_barchat{
+    width: 45%; 
+}
+.networth_linechat{
+    width: 45%; 
+}
+
+@media (max-width: 991px) and (min-width:630px){
+    .networth_page{
+        display: flex;
+        flex-direction: column;
+        text-transform: capitalize;
+        width: 100%;
+    }
+    .networth_sidebar{
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+    }
+    .networth_Sidebar_first{
+        margin-right: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        height: auto;
+        width: 100%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+    }
+    .networth_Sidebar_Chart{
+        display: flex;
+        justify-content: center;
+        margin-top: 0;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+    }
+    .networth_chat {
+        margin-left: 0;
+        margin-top: 20px;
+        width:100%;
+    }
+    .networth_mane_chat{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .networth_barchat{
+        width: 45%; 
+    }
+    .networth_linechat{
+        width: 45%; 
+    }
+}
+@media (max-width: 630px) {
+    .networth_page{
+        display: flex;
+        flex-direction: column;
+        text-transform: capitalize;
+        width: 100%;
+    }
+    .networth_sidebar{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+    .networth_Sidebar_first{
+        margin-right: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        height: auto;
+        width: 100%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+    }
+    .networth_Sidebar_Chart{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+    }
+    .networth_chat {
+        margin-left: 0;
+        margin-top: 20px;
+        width:100%;
+    }
+    .networth_mane_chat{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .networth_barchat{
+        width: 90%; 
+    }
+    .networth_linechat{
+        width: 90%; 
+    }
+}

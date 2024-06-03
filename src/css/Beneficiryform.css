@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@500&display=swap');
+.beneficiary_form {
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.beneficiary_form_submit_card {
+    min-width: 320px;
+    width: 50vw;
+    max-width: 700px;
+    height: auto;
+    margin-top: 20px;
+    /* padding: 20px; */
+    border-radius: 5px;
+    border: solid 0.5px gray;
+}
+
+.beneficiary_form_heading {
+    margin-bottom: 10px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DCD2d2;
+    border-radius: 5px 5px 0px 0px;
+    font-weight: bolder;
+    font-size:18.5px;
+    color: black;
+    text-transform: capitalize;
+    font-family: 'Sarabun', sans-serif;
+    letter-spacing: 0.1rem;
+}
+
+.beneficairy_form_input_area {
+    padding: 0px 20px;
+    color: black;
+    text-transform: capitalize;
+}
+.form-control::placeholder {
+    color: #434444;
+    text-transform: capitalize;
+}
+
+.form-label {
+    font-size: medium;
+    font-weight: 500;
+}
+
+.beneficiary_form_btn {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.beneficiary_form_clear_btn {
+    width: 40%;
+    max-width: 150px;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 5px 0px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.beneficiary_form_clear_btn:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+.beneficiary_form_submit_btn {
+    width: 40%;
+    max-width: 150px;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 5px 0px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.beneficiary_form_submit_btn:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}

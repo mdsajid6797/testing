@@ -1,0 +1,84 @@
+.navbar{
+    margin: 0;
+    background-color:#d1d1d1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #000000;
+    z-index: 1000;
+    box-shadow: 0px 0px 20px 0px #8f8f8f;
+    
+}
+.navlogo{
+    cursor: pointer;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    margin-right: 40px;
+    margin-left: 10px;
+   
+}
+.navlogo:hover{
+    color:rgb(0, 0, 0)
+}
+.navname{
+    background-color: inherit;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+}
+.nav-link{
+    padding-left: 15px;
+    
+}
+.nav-logout{
+    font-weight: 550;
+    background-color: inherit;
+    border: none;
+    cursor:pointer;
+    color:rgb(0, 0, 0);
+    margin-right: 15px;
+   
+}
+.nav-logout:hover{
+    color:rgb(0, 0, 0);
+
+}
+.nav-user-name{
+    text-transform: capitalize;
+    cursor:pointer;
+    font-weight: 550;
+    background-color: inherit;
+    border: none;
+    color:rgb(0, 0, 0);
+    margin-right: 15px;
+}
+.nav-user-name:hover{
+    color:rgb(0, 0, 0);
+}
+@media (max-width:768px) {
+    .nav-logout{
+        font-weight: 550;
+        background-color: inherit;
+        border: none;
+        cursor:pointer;
+        color:rgb(0, 0, 0);
+        margin-left:15px;
+    }
+    .nav-user-name{
+        text-transform: capitalize;
+        font-weight: 550;
+        background-color: inherit;
+        border: none;
+        color:rgb(0, 0, 0);
+        margin-left:15px;
+    } 
+    .nav-logout:hover{
+        color:rgb(0, 0, 0);
+    
+    }
+    .nav-user-name:hover{
+        color:rgb(0, 0, 0);
+    }
+
+}

@@ -1,0 +1,146 @@
+.beneficiary_signup {
+    padding-top: 50px;
+    height: 90%;
+    width: 98vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginpage1 {
+    min-width: 350px;
+    max-height: 780px;
+}
+
+.logincard1 {
+    border-radius: 5px;
+    height: 100%;
+    max-height: 650px;
+    overflow-y: auto;
+    width: 500px;
+    min-width: 350px;
+    border: none;
+    /* background-color: #ebebeb; */
+    background-color:#ffffff;
+}
+.inputfiled1 {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.logincard1::-webkit-scrollbar {
+    width: 4px;
+}
+
+.logincard1::-webkit-scrollbar-track {
+    background-color: #cccccc;
+}
+
+.logincard1::-webkit-scrollbar-thumb {
+    background-color: #b0b0b6;
+    border-radius: 5px;
+}
+
+.logincard1::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.card-header1 {
+    text-align: center;
+    padding-top: 4%;
+    text-transform: uppercase;
+    border: none;
+    background-color: #dcd2d2;
+    padding: 10px;
+    position: sticky;
+    height: 60px !important;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logincard1 h3 {
+    padding: 0 !important;
+    text-align: center;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color: rgb(0, 0, 0);
+}
+
+.login-card-details1 {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+
+}
+
+.inputfiled1::placeholder {
+    color: rgb(0, 0, 0);
+}
+
+.forgot-btn1 {
+    width: 100%;
+    text-align: right;
+}
+
+.forgot-button1 {
+    background-color: inherit;
+    border: none;
+    color: rgb(220, 222, 255);
+    text-align: right;
+
+}
+
+.forgot-button1:hover {
+    background-color: inherit;
+    border: none;
+    color: rgb(79, 79, 97);
+}
+
+.loginbuttonspace1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.cler-button1 {
+    width: 40%;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 5px 0px;
+    border-radius: 5px;
+    text-transform: capitalize;
+
+}
+
+.cler-button1:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+.login-button1 {
+    width: 40%;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 5px 0px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.login-button1:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}

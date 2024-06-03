@@ -1,0 +1,36 @@
+.ichest {
+  background-color: pink;
+  width: "100vw";
+  height: "100%";
+  position: "absolute";
+  z-index: "1000000";
+  /* top: 500px; */
+}
+
+.allSignUp {
+  width: 170px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.allSignUp ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.allSignUp a {
+  padding: 5px;
+  cursor: pointer;
+  color: black;
+}
+
+.allSignUp a:hover {
+  background-color: #f2f2f2;
+}

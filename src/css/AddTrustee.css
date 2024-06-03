@@ -1,0 +1,183 @@
+.add_trustee_base{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+.add_trustee_main {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-radius: 5px;
+    height: 84vh;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+.add_trustee_main::-webkit-scrollbar {
+    width: 2px;
+}
+.add_trustee_main::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+}
+
+.add_trustee_main::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color of the scrollbar track */
+}
+.add_trustee_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:whitesmoke;
+    
+    height: 80px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 16px;
+    border-radius: 5px;
+}
+.add_trustee_details{
+    display: flex;
+   
+}
+.add_trustee_details img{
+    height: 60px;
+    width: 60px;
+    margin: 5px 20px;
+    border-radius: 50%;
+    border:solid 1px gray;
+}
+.add_trustee_name_email{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.add_trustee_name{
+    display: flex;
+}
+.add_trustee_name_line{
+    width: 60px;
+    font-weight:600;
+}
+.add_trustee_email{
+    display: flex;
+}
+.add_trustee_email_line{
+    width: 60px;
+    font-weight:600;
+}
+.add_trustee_btn{
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 20px;
+}
+.add_trustee_details_btn{
+    font-weight: 530;
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    background-color: #A2EFFA;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.add_trustee_Add{
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    background-color:#A2FAB0;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: 530;
+}
+.btn-sendRequest{
+    border: 2px solid rgb(255, 191, 0);
+    padding: 10px;
+    border-radius: 20px;
+    transition: 250ms;
+}
+.btn-sendRequest:hover{
+    background-color:rgb(255, 191, 0);
+    color: white;
+}
+.btn-sendRequest:focus{
+    background-color:rgb(255, 191, 0);
+    color: white; 
+}
+.table2{
+    margin: 20px;
+    /* border: 1px solid black; */
+    box-shadow: 1px 1px -15px black;
+}
+/* .table2,.tablehead,.tablebody{
+    border: 1px solid black;
+} */
+.tablehead>tr>th{
+    /* border: 1px solid black; */
+    padding: 10px;
+}
+.tablebody>tr{
+    border-top: 1px solid black;
+    border-width: 80%;
+    border-bottom: 1px solid black;
+    text-align: left;
+    padding: 10px;
+
+}
+
+@media screen and (min-width:470px) and (max-width:850px) {
+    .add_trustee_list {
+        display: flex;
+        align-items: center;
+        height: 115px;
+        background-color: whitesmoke;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-top: 16px;
+        border-radius: 5px;
+        flex-direction: column;
+    }
+    .add_trustee_btn {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+    
+} 
+
+@media screen and (max-width:470px) {
+    .add_trustee_details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .add_trustee_list {
+        display: flex;
+        height: 175px;
+        align-items: center;
+        background-color: whitesmoke;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-top: 16px;
+        border-radius: 5px;
+        flex-direction: column;
+    }
+    .add_trustee_btn {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+    .add_trustee_details_btn {
+        width: 120px; 
+    }
+    .add_trustee_Add {
+        width: 120px;
+    }
+}

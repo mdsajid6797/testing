@@ -1,0 +1,96 @@
+    .delete-button-comp {
+        /* width: 90px; */
+        font-size: 16px;
+        color: rgb(223, 79, 79);
+        background-color: transparent !important;
+        padding: 0 !important;
+        /* border: 2px solid #4aafff; */
+        border: 0;
+        text-align: center;
+        /* padding: 5px 15px; */
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+    .delete_message{
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        color: red;
+        font-weight: 500;
+    }
+    .book_card_delete_buttons {
+        background-color: inherit;
+        font-size: 20px;
+        color: rgb(223, 79, 79);
+        padding: 0 !important;
+        border: none !important;
+        line-height:2 !important;
+    }
+    .book_card_delete_buttons:hover{
+        background-color: inherit !important;
+        color: rgb(184, 32, 32);
+        transition: 400ms;
+    }
+    .delete-button-comp:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        /* border: 2px solid #ff5a58; */
+        color: #ff5a58;
+    }
+
+    .confirm_delete_btn {
+        width: 90px;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 5px 15px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+    .confirm_delete_btn:hover{
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+    .confirm_cancel_btn{
+        width: 90px;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 5px 15px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+    .confirm_cancel_btn:hover{
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+    .btn.disabled, .btn:disabled, fieldset:disabled .btn {
+        color: #898989;
+        pointer-events: none;
+        background-color: white !important;
+        border-color: #4aafff !important;
+        opacity: var(--bs-btn-disabled-opacity);
+    }
+    .delete_button_warning {
+        width: 100%;
+        display: flex;
+    }
+    .delete_button_warning input{
+        width: 70%;
+        border-radius: 5px;
+        border:solid 1px gray;
+        padding: 0px 10px;
+    }
+    @media  (max-width:640px) {
+        .delete-button-comp{
+            font-size: 13px;
+        }
+    }

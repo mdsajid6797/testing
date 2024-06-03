@@ -1,0 +1,171 @@
+.attorney_container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: red; */
+  background-color: transparent;
+}
+
+.attorney_registration_form {
+  width: 420px;
+  max-width: 1000px;
+  min-width: 300px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 5px;
+}
+
+.attorney_registration_form_heading {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #e9dddd;
+  border-radius: 5px 5px 0 0;
+}
+.attorney_registration_form_heading h1, .joint_registration_form_heading h1 {
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+}
+.attorney_cancel_icon {
+  width: 23px;
+  height: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: rgb(0, 0, 0);
+  transition: all 300ms ease;
+  margin: 5px 5px 0 0;
+}
+
+.attorney_cancel_icon:hover {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.attorney_form_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 18px;
+}
+.attorney_form {
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  /* background-color: green; */
+  width: 100%;
+  max-width: 980px;
+  justify-content: space-evenly;
+}
+/* .attorney_form_left {
+  width: 45%;
+}
+.attorney_form_right {
+  width: 45%;
+} */
+
+.attorney_form_btn_main {
+  /* background-color: aqua !important; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.attorney_form_btn {
+  margin-top: 12px;
+}
+
+.attorney_form_btn button:hover {
+  border: 0.125em solid #ff5a58;
+  color: #000;
+}
+
+.attorney_form_btn button {
+  transition: all 0.3s ease;
+  background-color: unset;
+  border: 0.125em solid #4aafff;
+  padding: 5px 8px;
+  border-radius: 2px;
+  color: #000;
+  font-weight: 500;
+  width: 150px;
+}
+
+.attorney_registration_form::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* for joint account css  */
+
+.joint_registration_form {
+  width: 750px;
+  max-width: 1000px;
+  min-width: 300px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 8px;
+  height: 100%;
+}
+
+.joint_registration_form_heading {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #e9dddd;
+  border-radius: 8px 8px 0 0;
+}
+
+.joint_account_form {
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 980px;
+  justify-content: space-between;
+}
+
+.joint_form_left {
+  width: 49%;
+}
+.joint_form_right {
+  width: 49%;
+}
+
+.joint_form_btn_main {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.joint_form_btn button:hover {
+  border: 0.125em solid #ff5a58;
+  color: #000;
+}
+
+.joint_form_btn button {
+  transition: all 0.3s ease;
+  background-color: unset;
+  border: 0.125em solid #4aafff;
+  padding: 3px 8px;
+  border-radius: 2px;
+  color: #000;
+  font-weight: 500;
+  width: 150px;
+}

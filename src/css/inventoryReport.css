@@ -1,0 +1,123 @@
+.inventory_report_main {
+  margin: 14px 60px 14px 60px;
+}
+
+.inventory_report_heading {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 20px;
+}
+.inventory_report_heading p {
+  font-size: 14px;
+  color: #000;
+}
+
+.inventory_report_card {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 5px;
+  border: 1px solid #000;
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+}
+.fieldNameBold {
+  font-weight: 500;
+  color: #000;
+}
+.inventory_report_card li {
+  color: #000;
+  font-size: 12px;
+}
+.inventory_report_card .inventory_report_card_wid37 {
+  width: 37.5%;
+}
+.inventory_report_card .inventory_report_card_wid25 {
+  width: 25%;
+}
+
+/* media query */
+
+@media screen and (max-width: 735px) {
+  .inventory_report_main {
+    margin: 10px 30px 10px 30px;
+  }
+  .inventory_report_heading {
+    flex-direction: column;
+  }
+  .inventory_report_card {
+    flex-direction: column;
+  }
+  .inventory_report_card .inventory_report_card_wid37 {
+    width: 100%;
+  }
+  .inventory_report_card .inventory_report_card_wid25 {
+    width: 100%;
+  }
+}
+
+.declare {
+  background-color: yellow;
+}
+
+.submit_button {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.submit_button button:hover {
+  border: 0.125em solid #ff5a58;
+  color: #000;
+}
+
+.submit_button button {
+  transition: all 0.3s ease;
+  background-color: unset;
+  border: 0.125em solid #4aafff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  color: #000;
+  font-weight: 500;
+}
+
+.cross_button {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.cross_button .cross_button_main {
+  border-radius: 50%;
+  width: 25px;
+  height: 24px;
+  background-color: #b0bec5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cross_button .cross_button_main:hover {
+  background-color: #455a64;
+}
+
+.agree_continue_btn {
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #007bff;
+  font-weight: 500;
+  color: #fff;
+}
+/* .agree_continue_btn:hover {
+  background-color: #3c99fc;
+} */
+
+.sigCanvas {
+  border: 1px solid #000;
+  border-radius: 5px;
+}

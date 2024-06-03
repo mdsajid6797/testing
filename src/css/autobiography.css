@@ -1,0 +1,178 @@
+.autobiography_Show_content{
+  display: flex;
+  flex-direction: column;
+}
+.displayed_content{
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: rgb(235, 236, 236);
+}
+.jodit-wysiwyg{
+  min-height: 15vh !important;
+  max-height: 55vh !important;
+}
+
+/* displa content */
+.user_autobiography_add_notedisplay {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_autobiography_reasult {
+  width: 750px;
+  height: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  background: url(./../../public/img/watermarkimage1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.autobiography-display-background{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+}
+.autobiography-display-image{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.autobiography-profile-image{
+  width: 175px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: -87.5px;
+  border: 10px solid  rgb(98, 175, 181);
+  box-shadow: 0 0 27px -5px hsla(240, 30%, 28%, 0.859)
+
+}
+
+.user_autobiography_single_entry {
+  width: calc(100% - 20px);
+  min-width: 300px;
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.user_autobiography_buttons{
+  display: flex;
+  margin-top: 20px;
+  justify-content:space-evenly;
+  flex-direction: row;
+
+}
+.user_autobiography_entry_edit_btn{
+  margin-left: 5px;
+  width: 86px;
+  height: 36px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background-color: #facb23;
+  color: white;
+  font-weight: 400;
+}
+.user_autobiography_entry_view_btn{
+  margin-left: 5px;
+  width: 86px;
+  height: 36px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background-color: #59c8ec;
+  color:#ffffff;
+  font-weight: 400;
+
+}
+
+.user_autobiography_single_entry_heading{
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.user_autobiography_single_entry_text{
+  word-wrap: break-word;
+  font-size: 15px;
+  margin-left: 15px;
+  padding-right: 20px;
+  margin-top: 0px;
+  color: black;
+  font-weight: 400;
+  min-height: 50px;
+  height: 540px;
+  max-height: 950px;
+  overflow-y:auto;
+  
+}
+
+.user_autobiography_single_entry_text::-webkit-scrollbar {
+  width: 7px;
+}
+
+.user_autobiography_single_entry_text::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+
+.user_autobiography_single_entry_text::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 3px;
+}
+.user_autobiography_single_entry_date{
+  font-size: 12px;
+  font-weight: 400;
+  color: #3e3d3d;
+  margin:0!important;
+  margin-top: -10px !important;
+}
+.user_autobiography_single_updated_date{
+  font-size: 12px;
+  font-weight: 400;
+  color: #3e3d3d;
+  margin:0!important;
+  margin-top: 10px !important;
+}
+.jodit-status-bar-link{
+  display: none;
+}
+.jodit-ui-group_group_media{
+  display: none;
+}
+.jodit-ui-group_group_script{
+  display: none;
+}
+.jodit-ui-group_group_clipboard{
+  display: none;
+}
+.jodit-ui-group_group_insert{
+  display: none;
+}
+.jodit-ui-group_group_state{
+  display: none;
+}
+.jodit-ui-group_group_other{
+  display: none;
+}
+.jodit-ui-group_group_info{
+  display: none;
+}
+.jodit-ui-group_group_search{
+  display: none;
+}
+.jodit-ui-group_group_source{
+  display: none;
+}
+
+
+
+
+
+
+@media screen and (max-width:1360px) {
+  .jodit-ui-group:last-child{
+    display: none;
+  }
+}

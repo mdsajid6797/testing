@@ -1,0 +1,223 @@
+.add_book_box {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.add_book_input_box {
+    margin: 20px 0;
+    margin-right: 20px;
+    height: 37px;
+    width: 350px;
+    min-width: 150px;
+    /* width: clamp(5em,50%,1000px,); */
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 2px solid #4aafff;
+}
+
+.add_book_input_box:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+.book_card_page {
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+.book_card {
+    width: 160px;
+    min-height: 215px;
+    max-height: 300px;
+    margin: 15px;
+    background-color: rgb(237, 242, 249);
+    border-radius: 5px;
+    transition: all ease 200ms;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.112), 0 6px 20px 0 rgba(0, 0, 0, 0.112);
+}
+
+.book_card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.200), 0 6px 20px 0 rgba(0, 0, 0, 0.200);
+}
+
+.book_card_detalis {
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url(./../../public/img/bookcover.svg);
+    background-size: cover;
+    /* background-color: #ffffff; */
+}
+
+.book_card_image {
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.book_card_image img {
+    width: 75px;
+    border-radius: 50%;
+    margin: 10px 0px;
+    height: 75px;
+    border: solid 3px rgb(255, 255, 255);
+    object-fit: cover;
+}
+
+.book_card_heading_title {
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 140px;
+    height: 40px;
+    overflow-x: auto;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.book_card_action_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px 20px;
+}
+
+.book_card_action_delete_buttons {
+    background-color: inherit;
+    font-size: 20px;
+    color: rgb(223, 79, 79);
+}
+
+.book_card_action_delete_buttons:hover {
+    color: rgb(184, 32, 32);
+    transition: 400ms;
+}
+
+.book_card_action_edit_buttons {
+    margin-top: 5.5px;
+    background-color: inherit;
+    font-size: 20px;
+    color: rgb(75, 225, 105);
+}
+
+.book_card_action_edit_buttons:hover {
+    color: rgb(28, 175, 57);
+    transition: 400ms;
+}
+
+.edit_btn_for_booktitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit_btn_for_booktitle_inputbox {
+    width: 100%;
+    padding: 2px 5px;
+}
+
+.edit_btn_for_booktitle_btn {
+    font-size: 25px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.dairy_add_page {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    height: 90px;
+}
+
+.diary_home_page_base {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.user_diary {
+    /* border: 2px solid red; */
+    flex-wrap: wrap;
+    /* display: flex; */
+    /* justify-content: center; */
+    text-align: center;
+    /* margin: 0 auto; */
+    flex-direction: row;
+}
+.book_card_page{
+    /* flex:0 0 200px;  */
+}
+
+.user_diary_create_new_book_btn {
+    margin-right: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: auto;
+    font-size: 16px;
+    color: #181818;
+    background-color: #ffffff;
+    border: 2px solid #4aafff;
+    text-align: center;
+    padding: 2px 10px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.user_diary_create_new_book_btn:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: 2px solid #ff5a58;
+}
+
+@media screen and (max-width: 549px) and (min-width: 370px) {
+    .add_book_box {
+        margin-top: 10px;
+        min-width: 330px;
+        max-width: 330px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .add_book_input_box {
+        margin-left: 0;
+        margin-right: 15px;
+        height: 37px;
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px 20px;
+        border: 2px solid #4aafff;
+    }
+
+    .user_diary_create_new_book_btn {
+        margin-right: 10px;
+        width: auto;
+        font-size: 16px;
+        color: #181818;
+        background-color: #ffffff;
+        border: 2px solid #4aafff;
+        text-align: center;
+        padding: 2px 10px;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .user_diary_create_new_book_btn:hover {
+        color: rgb(0, 0, 0);
+        background-color: #ffffff;
+        border: 2px solid #ff5a58;
+    }
+}

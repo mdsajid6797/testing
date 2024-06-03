@@ -1,0 +1,631 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap");
+
+/* CSS animation keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Apply the animation to an element */
+.fade-in-element {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  transform: translate(14px, 5px) scale(1) !important;
+}
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 370px;
+}
+
+.property_main {
+  /* width: 87vw; */
+  /* display: flex; */
+  margin-top: 13px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, auto));
+  /* text-align: start; */
+  /* grid-template-columns: 500px repeat(auto-fit,1fr); */
+  /* justify-content: flex-start; */
+}
+
+.property_form > .container {
+  margin-left: 0px;
+}
+
+.property_form {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  /* margin-bottom: 20px; */
+}
+
+.property_table {
+  overflow: hidden;
+  margin-top: 50px;
+}
+
+.myestate_view_btn {
+  /* width: 90px; */
+  font-size: 16px;
+  color: #181818;
+  background-color: #ffffff;
+  border: 0;
+  text-align: center;
+  padding: 5px 15px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.myestate_view_btn:hover {
+  color: #41d84d;
+  /* border: 2px solid ; */
+  background-color: #ffffff;
+  /* border: 2px solid #ff5a58; */
+}
+
+.card-header {
+  justify-content: center;
+  display: flex;
+  justify-content: 0px !important;
+  align-content: center;
+  align-items: center;
+}
+
+.text-center {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my-estate-clear-btn {
+  width: 40%;
+  font-size: 16px;
+  color: #181818;
+  border: 2px solid #4aafff;
+  text-align: center;
+  padding: 5px 0px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.my-estate-clear-btn:hover {
+  color: rgb(0, 0, 0);
+  background-color: #ffffff;
+  border: 2px solid #ff5a58;
+}
+
+.my-estate-add-btn {
+  width: 40%;
+  font-size: 16px;
+  color: #181818;
+  border: 2px solid #4aafff;
+  text-align: center;
+  padding: 5px 0px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.my-estate-add-btn:hover {
+  color: rgb(0, 0, 0);
+  background-color: #ffffff;
+  border: 2px solid #ff5a58;
+}
+
+.css-1yhpg23-MuiTableCell-root {
+  padding: 0 !important;
+}
+
+.note_popup_heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.note_popup_heading_close_btn {
+  background-color: white;
+  font-size: 23px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myestate_download_button {
+  display: flex;
+  align-items: center;
+}
+
+.myestate_download_icon {
+  padding-right: 10px;
+  font-size: 17px;
+  font-weight: 600px;
+  /* color: red !important; */
+}
+
+.myestate_download_icon:hover {
+  color: #00e1ff;
+}
+
+/* credential classes */
+/* .credential-forms{
+   box-sizing: border-box;
+   display: grid;
+   grid-template-columns: repeat(auto-fit,minmax(500px,1fr));
+} */
+.addme > .addme_inner > button {
+  margin-top: 25px;
+  padding: 7px 30px;
+  font-weight: 500;
+  border-radius: 5px;
+  background-color: #0051ff23;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+  transition: 300ms;
+  width: 200px;
+}
+
+.addme {
+  /* margin-left: 5%; */
+  margin-left: clamp(2%, 16px, 4%);
+  /* background-color: #41d84d; */
+}
+
+.addme > .addme_inner > button:hover {
+  color: rgba(255, 255, 255, 0.873);
+  background-color: rgb(77, 93, 236);
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.propCard {
+  margin-top: 30px;
+  margin-left: clamp(2%, 16px, 4%);
+}
+
+.propCard-card {
+  display: flex;
+  gap: 25px;
+  padding-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.propCard-card-body {
+  flex-basis: 200px;
+  /* border: 2px solid rgba(0, 0, 0, 0.085); */
+  padding: 10px 10px 20px 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 6px;
+  transition: 300ms;
+}
+
+.propCard-card-body:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  scale: 1.01;
+}
+
+.propCard-card-title {
+  padding: 0px 0px 0px 0px;
+  font-size: 1.4em;
+  font-weight: 500;
+  text-align: start;
+  font-family: "Playfair Display", serif;
+}
+
+.card_banks {
+  font-size: 1.4em;
+  font-weight: 500;
+  text-align: start;
+  font-family: "Playfair Display", serif;
+}
+
+.propCard-card-text {
+  color: rgba(7, 7, 7, 0.764);
+  font-weight: 500;
+  padding-top: 10px;
+}
+
+/* card button */
+.propCard-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.viewDetails > button {
+  width: 150px;
+  /* border: 1px solid gray ; */
+  padding: 5px 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #0051ff23;
+  font-weight: 500;
+  transition: 300ms;
+}
+
+.viewDetails > button:hover {
+  background-color: rgb(77, 93, 236);
+  color: rgba(255, 255, 255, 0.873);
+  font-weight: 500;
+  border: 0;
+}
+
+/* card data */
+
+p {
+  margin: 0px !important;
+}
+
+.card__data {
+  overflow-x: hidden;
+  height: 89vh;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 46%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.card__data-close {
+  /* margin-left: 20px; */
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  /* position: absolute;
+   top: 12%;
+   right: 13%; */
+}
+
+.card__data-close:hover {
+  color: rgba(255, 0, 0, 0.597);
+  transition: 300ms;
+}
+
+.card__data-container {
+  width: 55%;
+  max-width: 900px;
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.section1 {
+  background-color: rgb(208, 208, 208);
+  border-radius: 5px 5px 0px 0px;
+}
+
+.section1 > div {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  padding: 5px 10px;
+  font-family: "Playfair";
+}
+
+.row1-text > span {
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 10px;
+  color: rgb(67, 67, 67);
+}
+
+.row1-button {
+  display: flex;
+  /* border: 2px solid red; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.row1-button > div {
+  padding: 0px 10px;
+}
+
+.dwnbtn {
+  /* border: 1px solid red; */
+  margin-top: 2px;
+  color: rgb(74, 175, 255);
+  padding: 0;
+}
+
+.section2 {
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.section2 > div {
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
+}
+
+.col1 {
+  /* border: 1px solid black;*/
+  flex-basis: 50%;
+}
+
+.col1 > p,
+.col2 > p {
+  padding: 9px;
+  font-family: "Lora", serif;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.879);
+}
+
+.col1 > p > code,
+.col2 > p > code {
+  font-family: "Roboto Slab", serif;
+  color: rgb(0, 0, 0);
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}
+
+code {
+  font-family: sans-serif !important;
+}
+
+/* displaying form edit responive */
+.form1 {
+  width: 600px;
+}
+
+@media screen and (max-width: 1024px) {
+  .property_main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .property_form {
+    display: flex;
+    width: 60%;
+    min-width: 330px;
+  }
+
+  .myestate-container {
+    display: contents;
+  }
+
+  .myestate-container {
+    background-color: red;
+  }
+}
+
+/* card responsive */
+@media (max-width: 1300px) {
+  .card__data-container {
+    width: 67.5%;
+  }
+}
+
+@media (max-width: 1015px) {
+  .card__data-container {
+    width: 77.5%;
+  }
+}
+
+@media (max-width: 870px) {
+  .section1 > div {
+    display: flex;
+  }
+
+  .card__data {
+    /* top: 150px; */
+    height: 100vh;
+  }
+
+  .section2 > div {
+    display: flex;
+  }
+
+  .card__data-container {
+    width: 77.5%;
+  }
+
+  /* .col2 > p > code {
+    display: block;
+  }
+
+  .col1 > p > code {
+    display: block;
+  } */
+
+  .col1 > p {
+    font-size: 13px;
+  }
+
+  .col2 > p {
+    font-size: 13px;
+  }
+
+  /* .form1 {
+    width: 700px !important;
+  } */
+}
+
+@media (max-width: 804px) {
+  .section2 > div {
+    display: flex;
+  }
+
+  /* .card__data {
+    position: fixed;
+  } */
+
+  .card__data-container {
+    width: 87.5%;
+  }
+
+  .col1 > p {
+    font-size: 12px;
+  }
+
+  /* .col1 > p > code {
+    display: block;
+  } */
+
+  .col2 > p {
+    font-size: 12px;
+  }
+
+  /* .col2 > p > code {
+    display: block;
+  } */
+}
+
+@media (max-width: 690px) {
+  .card__data {
+    height: 100%;
+  }
+
+  .card__data-container {
+    width: 87.5%;
+    margin-top: 100px;
+  }
+
+  .section2 > div {
+    display: block;
+  }
+
+  .col1 {
+    align-items: center;
+  }
+
+  .col2 {
+    align-items: center;
+  }
+
+  .col1 > p {
+    font-size: 13px;
+  }
+
+  /* .col1 > p > code {
+    display: block;
+  } */
+
+  .col2 > p {
+    font-size: 13px;
+  }
+
+  /* .col2 > p > code {
+    display: block;
+  } */
+
+  .myestate_download_icon {
+    font-size: 13px;
+  }
+
+  .row1-text > span {
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .row1-text-icon {
+    font-size: 13px !important;
+  }
+
+  .row1-button > div {
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 400px) {
+  .col1 > p,
+  .col2 > p {
+    letter-spacing: 1px;
+    font-size: 12px;
+  }
+
+  .col1 > p > code,
+  .col2 > p > code {
+    letter-spacing: 1px;
+    font-size: 12px;
+  }
+}
+
+.property_form {
+  /* border: 10px solid orange; */
+  width: 40%;
+  max-width: 650px;
+}
+
+/* media queries for add new from  */
+@media (max-width: 900px) {
+  .property_form {
+    width: 70%;
+  }
+
+  .form1 {
+    width: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+  .property_form {
+    width: 90%;
+  }
+}
+
+@media (max-width: 600px) {
+  .form1-double {
+    display: block !important;
+  }
+
+  .form1-double > * {
+    /* display: block !important; */
+    width: 100% !important;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .property_form {
+    width: 95%;
+  }
+}
+
+/*new ui for bank*/
+.card_bank_main {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 24px;
+  display: flex;
+}
+.bank_new_ui {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: yellow;
+}
+.bank_new_ui_main {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  width: 90%;
+}
+.bank_new_ui_main_lt {
+  width: 40%;
+  background-color: green;
+}
+.bank_new_ui_main_rt {
+  width: 40%;
+  background-color: red;
+}

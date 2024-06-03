@@ -1,0 +1,243 @@
+.overlay1{
+    /* height: 100vh; */
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    padding: 30px 0;
+    background-color: rgb(0 0 0 / 46%);
+    overflow-y: auto;
+}
+.form1-heading{
+    width: 100%;
+    text-align: center;
+}
+.Close{
+    font-size:20px;
+    /* position: absolute; */
+    /* top: 33px; */
+    /* right: 34.5%; */
+    display: flex;
+    margin-left: auto;
+    z-index: 1100;
+}
+.propCard-card-title{
+    text-transform: capitalize;
+    height: 50px;
+}
+.propCard-card-text:nth-of-type(1){
+    color: rgba(7, 7, 7, 0.612);
+}
+
+.myestate_download_icon{
+    /* color: black!important; */
+    padding-left:0px;
+    margin-bottom: 2px;
+}
+.Property-inputfiled{
+    /* color: rgb(124,124,124) !important; */
+}
+.card-image{
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+}
+.card-image>img{
+    object-fit: cover;
+    width: 90px;
+}
+.additional:hover{
+    background-color: rgba(0, 0, 0, 0.144);
+    font-weight: 500;
+    transition: 300ms;
+}
+.addFieldClose{
+    font-size: 23px;
+}
+.AddField{
+    border-radius: 0px !important;
+}
+.Property-headingname{
+    color:rgb(102, 102, 102) !important;
+    font-weight: 300;
+    margin-top: 10px;
+    font-size: 14px !important;
+    margin-bottom: 0;
+}
+.cryptoInput{
+    padding-top: 8px;
+}
+.typep{
+    color:rgb(102, 102, 102) important;
+}
+.readmore{
+    color: rgba(0, 0, 255, 0.682);
+    font-size: 13px;
+    text-transform: lowercase;
+    cursor: pointer;
+}
+.bene-container{
+   background-color: rgb(248, 248, 248);
+    /* border: 1px solid red; */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+     
+}
+.bene-select{
+    /* border-color: ; */
+    border: 1px solid rgb(0 0 0 / 31%);
+    padding: 3.5px 12px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.bene-element{
+    width: 60%;
+    padding: 0 10px;
+}
+
+/* only for bank multi account popup */
+.popup-multiaccount{
+    display: flex;
+    /* border: 2px solid red; */
+    /* row-gap:; */
+}
+.popup-multiaccount>*{
+    /* border: 2px solid red; */
+    flex: 1 1 25%;
+}
+.pop-span{
+    text-align: end;
+    /* border: 2px solid red; */
+    font-family: sans-serif;
+    color: black;
+    font-weight: 300;
+}
+.popup-p{
+    font-family: poppin;
+}
+/* bene-tabble */
+.bene-table{
+    border: 1px solid black;
+    border-collapse: separate;
+}
+.popup-content-download{
+    max-width: 800px !important;
+    min-width: 300px;
+    width: 44%;
+}
+.note_popup{
+    /* border: 10px solid red; */
+    margin-bottom: 50px;
+}
+.custom-tooltip {
+    z-index: 1000; /* Adjust the value based on your needs */
+  }
+
+
+
+/* user share property (multiple beneficiary) */
+.share_property_heading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.share_property_heading h2{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+}
+.share_property_est_value p{
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+}
+.BeneficiarySelectRow{
+    display: flex;
+    flex-direction: row;
+}
+.share_property_Type{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+.share_property_Type_paragraph{
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+}
+.share_property_Type_select{
+    height: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 2px 6px ;
+    border-radius: 5px;
+    border: solid black 1px;
+}
+.SelectContainer{
+    margin-left: 10px;
+}
+.Property-inputfiled{
+    height: 30px;
+    padding: 2px 6px ;
+    border-radius: 5px;
+    border: solid black 1px;
+}
+.share_beneficiary_main_card{
+    width: 100%;
+    display: flex;
+    margin-top: 8px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.share_beneficiary_card{
+    display: flex;
+    width: 48%;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    border: solid 1px rgb(176, 176, 176);
+    border-radius: 5px;
+    min-height: 50px ;
+    padding: 10px 20px;
+    color: black;
+}
+.share_beneficiary_card_close{
+    background-color: #c1c1c1;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.share_beneficiary_card_para{
+    color: black;
+    font-weight: 400;
+    font-size: 15px;
+    margin: 5px 0px !important;
+}
+.share_ben_percentage{
+    width: 220px;
+    color: black;
+    margin: 5px 0px;
+    padding: 0px 5px;
+    border: solid 1px black;
+    border-radius: 3px;
+}
+.Property-inputfiled option[disabled] {
+    color: gray;
+    font-weight: 400;
+  }
+  
+  .Property-inputfiled option:not([disabled]) {
+    color: black;
+    font-weight: 400;
+  }
