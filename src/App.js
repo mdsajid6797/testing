@@ -138,7 +138,8 @@ function App() {
 
         {/* something */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
 
           {/* <Route path="/loading" element={<Loading />} /> */}
           <Route path="/attorney-registration" element={<AttorneySignUp />} />
@@ -302,7 +303,10 @@ function App() {
             <Route path="why-I-Chest" element={<WhyIchestRoute />} />
           </Route>
 
-          <Route path="/trustee" element={<PrivateRoute element={Trusteeroute} />}>
+          <Route
+            path="/trustee"
+            element={<PrivateRoute element={Trusteeroute} />}
+          >
             <Route path="profile" element={<Profile />} />
             <Route path="dashboard" element={<Trusteedasboard />} />
             <Route path="my-estate/banks" element={<TrusteeBanks />} />
