@@ -1,4 +1,11 @@
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import {
+  CssBaseline,
+  IconButton,
+  InputAdornment,
+  TextField,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import "../../src/css/AttorneyForm.css";
 import { Button, Container } from "reactstrap";
 import { faEye, faEyeSlash, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -31,7 +38,7 @@ export default function JointAccount({ userId, onBack }) {
       email: "",
       password: "",
       currentAddress: "",
-      phoneNo: ""
+      phoneNo: "",
     });
   };
 
@@ -98,20 +105,22 @@ export default function JointAccount({ userId, onBack }) {
 
     signup(data)
       .then((res) => {
-
         toast.success("Registration Successful", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         onBack();
       })
-      .catch((err) => {
-        
-      });
+      .catch((err) => {});
   };
+
+  const theme = createTheme();
 
   return (
     <>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <div className="attorney_container">
+        {/* <CssBaseline /> */}
         <div className="joint_registration_form">
           <div className="joint_registration_form_heading">
             <h1 style={{ textAlign: "center", width: "100%" }}>
@@ -219,7 +228,9 @@ export default function JointAccount({ userId, onBack }) {
 
                 <div className="joint_form_btn_main">
                   <div className="joint_form_btn">
-                    <button onClick={reset} type="button">Clear</button>
+                    <button onClick={reset} type="button">
+                      Clear
+                    </button>
                   </div>
                   <div className="joint_form_btn">
                     <button type="submit">Register</button>
@@ -299,6 +310,7 @@ export default function JointAccount({ userId, onBack }) {
           </form>
         </div>
       </div>
+    </ThemeProvider>
     </>
   );
 }
