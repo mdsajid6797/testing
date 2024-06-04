@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from "react";
-import SideBar from "../../components/sidebar/Sidebar";
-import { useNavigate } from "react-router-dom";
-import UserBase from "../../components/user/UserBase";
-import BeneficiarySignup from "../BeneficiarySignup";
-import "./UserDashboard.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Notification } from "../../components/alerting-visitors/notification";
-import GenerateWill from "../my-estate/GenerateWill";
-import { getRealEstates } from "../../services/RealEstate-service";
-import { getCombinedData, getToken, getUser, getUser1 } from "../../services/user-service";
-import { getBank } from "../../services/bank-service";
-import { getJewelries } from "../../services/JewelryService";
-import { getVehicle } from "../../services/VehicleService";
-import { getInvestments } from "../../services/investment-service";
-import { getCryptoAssests } from "../../services/CryptoService";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SideBar from "../../components/sidebar/Sidebar";
+import UserBase from "../../components/user/UserBase";
+import { getCombinedData, getUser } from "../../services/user-service";
+import BeneficiarySignup from "../BeneficiarySignup";
 import JointAccount from "../JointAccount";
+import GenerateWill from "../my-estate/GenerateWill";
+import "./UserDashboard.css";
 
 export default function Userdashboard() {
   const navigate = useNavigate();

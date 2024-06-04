@@ -1,12 +1,18 @@
-import "../../src/css/AttorneyForm.css";
-import { Button, Container } from "reactstrap";
 import { faEye, faEyeSlash, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  IconButton,
+  Input,
+  Textarea,
+} from "@mui/joy";
 import { useState } from "react";
-import validator from "validator";
 import { toast } from "react-toastify";
-import { getToken, getUser1, signup } from "../services/user-service";
-import { Input, FormControl, FormLabel, FormHelperText, IconButton, Textarea } from '@mui/joy';
+import validator from "validator";
+import "../../src/css/AttorneyForm.css";
+import { getToken, signup } from "../services/user-service";
 
 export default function JointAccount({ userId, onBack }) {
   const [data, setData] = useState({
@@ -159,7 +165,6 @@ export default function JointAccount({ userId, onBack }) {
                     onChange={(e) => handleChanges(e, "phoneNo")}
                   />
                 </FormControl>
-                
               </div>
 
               <div className="joint_form_right">
@@ -244,7 +249,7 @@ export default function JointAccount({ userId, onBack }) {
                 <FormControl>
                   <FormLabel>Current Address</FormLabel>
                   <Textarea
-                    sx={{ width: "21.7em" ,height:'6.78em'}}
+                    sx={{ width: "21.7em", height: "6.78em" }}
                     placeholder="Enter current address"
                     value={data.currentAddress}
                     onChange={(e) => handleChanges(e, "currentAddress")}
@@ -322,15 +327,15 @@ export default function JointAccount({ userId, onBack }) {
               </div> */}
             </div>
             <div className="joint_form_btn_main">
-                  <div className="joint_form_btn">
-                    <button onClick={reset} type="button">
-                      Clear
-                    </button>
-                  </div>
-                  <div className="joint_form_btn">
-                    <button type="submit">Register</button>
-                  </div>
-                </div>
+              <div className="joint_form_btn">
+                <button onClick={reset} type="button">
+                  Clear
+                </button>
+              </div>
+              <div className="joint_form_btn">
+                <button type="submit">Register</button>
+              </div>
+            </div>
           </form>
         </div>
       </div>
