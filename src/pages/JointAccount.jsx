@@ -1,11 +1,3 @@
-import {
-  CssBaseline,
-  IconButton,
-  InputAdornment,
-  TextField,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
 import "../../src/css/AttorneyForm.css";
 import { Button, Container } from "reactstrap";
 import { faEye, faEyeSlash, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +6,7 @@ import { useState } from "react";
 import validator from "validator";
 import { toast } from "react-toastify";
 import { getToken, getUser1, signup } from "../services/user-service";
+import { Input, FormControl, FormLabel, FormHelperText, IconButton, Textarea } from '@mui/joy';
 
 export default function JointAccount({ userId, onBack }) {
   const [data, setData] = useState({
@@ -113,14 +106,9 @@ export default function JointAccount({ userId, onBack }) {
       .catch((err) => {});
   };
 
-  const theme = createTheme();
-
   return (
     <>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
       <div className="attorney_container">
-        {/* <CssBaseline /> */}
         <div className="joint_registration_form">
           <div className="joint_registration_form_heading">
             <h1 style={{ textAlign: "center", width: "100%" }}>
@@ -133,65 +121,59 @@ export default function JointAccount({ userId, onBack }) {
           <form className="attorney_form_main" onSubmit={submitForm}>
             <div className="joint_account_form">
               <div className="joint_form_left">
-                <TextField
-                  id="attorney-first-name"
-                  label="First Name"
-                  value={data.firstName}
-                  onChange={(e) => handleChanges(e, "firstName")}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
-                <TextField
-                  id="attorney-last-name"
-                  label="Last Name"
-                  value={data.lastName}
-                  onChange={(e) => handleChanges(e, "lastName")}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
-                <TextField
-                  id="attorney-username"
-                  label="Username"
-                  value={data.username}
-                  onChange={(e) => handleChanges(e, "username")}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
+                <FormControl>
+                  <FormLabel>First Name</FormLabel>
+                  <Input
+                    sx={{ width: "21.7em" }}
+                    placeholder="Enter first name"
+                    value={data.firstName}
+                    onChange={(e) => handleChanges(e, "firstName")}
+                  />
+                </FormControl>
 
-                <TextField
-                  id="attorney-current-address"
-                  label="currentAddress"
-                  value={data.currentAddress}
-                  onChange={(e) => handleChanges(e, "currentAddress")}
-                  fullWidth
-                  margin="normal"
-                  type="text"
-                  required
-                />
+                <FormControl>
+                  <FormLabel>Last Name</FormLabel>
+                  <Input
+                    sx={{ width: "21.7em" }}
+                    placeholder="Enter last name"
+                    value={data.firstName}
+                    onChange={(e) => handleChanges(e, "lastName")}
+                  />
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel>Username</FormLabel>
+                  <Input
+                    sx={{ width: "21.7em" }}
+                    placeholder="Enter username"
+                    value={data.username}
+                    onChange={(e) => handleChanges(e, "username")}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Phone Number</FormLabel>
+                  <Input
+                    sx={{ width: "21.7em" }}
+                    placeholder="Enter phone number"
+                    value={data.phoneNo}
+                    onChange={(e) => handleChanges(e, "phoneNo")}
+                  />
+                </FormControl>
+                
               </div>
 
               <div className="joint_form_right">
-                <TextField
-                  id="contact-number"
-                  label="Contact Number*"
-                  value={data.phoneNo}
-                  onChange={(e) => handleChanges(e, "phoneNo")}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  id="attorney-email"
-                  label="Email"
-                  value={data.email}
-                  onChange={(e) => handleChanges(e, "email")}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
-                <TextField
+                <FormControl>
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    sx={{ width: "21.7em" }}
+                    placeholder="Enter email address"
+                    value={data.email}
+                    onChange={(e) => handleChanges(e, "email")}
+                  />
+                </FormControl>
+
+                {/* <TextField
                   id="attorney-password"
                   label="Password"
                   value={data.password}
@@ -224,18 +206,50 @@ export default function JointAccount({ userId, onBack }) {
                       </InputAdornment>
                     ),
                   }}
-                />
+                /> */}
 
-                <div className="joint_form_btn_main">
-                  <div className="joint_form_btn">
-                    <button onClick={reset} type="button">
-                      Clear
-                    </button>
-                  </div>
-                  <div className="joint_form_btn">
-                    <button type="submit">Register</button>
-                  </div>
-                </div>
+                <FormControl>
+                  <FormLabel>Password</FormLabel>
+                  <Input
+                    sx={{ width: "21.7em" }}
+                    id="attorney-password"
+                    value={data.password}
+                    onChange={(e) => handleChanges(e, "password")}
+                    type={showPassword ? "text" : "password"}
+                    error={!!error}
+                    placeholder="Enter your password"
+                    endDecorator={
+                      <IconButton
+                        onClick={togglePasswordVisibility}
+                        edge="end"
+                        aria-label="toggle password visibility"
+                        style={{ padding: 0 }}
+                      >
+                        <FontAwesomeIcon
+                          icon={showPassword ? faEye : faEyeSlash}
+                          style={{
+                            fontSize: "16px",
+                            marginRight: "4px",
+                            color: "black",
+                          }} // Adjust icon size and color as needed
+                        />
+                      </IconButton>
+                    }
+                    required
+                    fullWidth
+                    autoComplete="new-password"
+                  />
+                  {error && <FormHelperText error>{error}</FormHelperText>}
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Current Address</FormLabel>
+                  <Textarea
+                    sx={{ width: "21.7em" ,height:'6.78em'}}
+                    placeholder="Enter current address"
+                    value={data.currentAddress}
+                    onChange={(e) => handleChanges(e, "currentAddress")}
+                  />
+                </FormControl>
               </div>
 
               {/* <div className="attorney_form_right">
@@ -307,10 +321,19 @@ export default function JointAccount({ userId, onBack }) {
                 
               </div> */}
             </div>
+            <div className="joint_form_btn_main">
+                  <div className="joint_form_btn">
+                    <button onClick={reset} type="button">
+                      Clear
+                    </button>
+                  </div>
+                  <div className="joint_form_btn">
+                    <button type="submit">Register</button>
+                  </div>
+                </div>
           </form>
         </div>
       </div>
-    </ThemeProvider>
     </>
   );
 }
