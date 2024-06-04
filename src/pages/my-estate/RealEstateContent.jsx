@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import {
   Button,
@@ -7,65 +7,48 @@ import {
   CardHeader,
   Container,
   FormFeedback,
-  Input,
-  Label,
-  FormGroup,
 } from "reactstrap";
 import {
+  deleteSingleProperty,
   downloadDocument1,
   downloadTaxDocument,
+  getBeneficiary,
+  getSecondaryUser,
   getToken,
   getUser,
-  realEstateContent,
-  realEstateContentGet,
-  realEstateContentRemove,
-  getBeneficiary,
-  deleteSingleProperty,
-  getSecondaryUser,
 } from "../../services/user-service";
 //import { Accordion, data , AccordionContext } from "reactstrap";
 import {
+  InputLabel,
+  MenuItem,
   TextField,
   TextareaAutosize,
   Tooltip,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
 } from "@mui/material";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+
+import { FormControl, FormLabel, Input, Select, Option } from "@mui/joy";
+
+import {
+  faDownload,
+  faHouse,
+  faMinus,
+  faPlus,
+  faTriangleExclamation,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "../../css/myestare.css";
-import Deletebutton from "./Deletebutton";
-import UpdateButton from "./UpdateButton";
-import {
-  faCalculator,
-  faDownload,
-  faLocationDot,
-  faPlus,
-  faMinus,
-  faXmark,
-  faTriangleExclamation,
-  faHouse,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropertyTaxCalculator from "../../components/TaxCalculatorUs";
-import PropertyTaxCalculatorPopup from "../../components/TaxCalculatorUs";
-import "./../../css/formPOPup.css";
 import {
   deleteRealEstate,
   getRealEstates,
   realEstates,
 } from "../../services/RealEstate-service";
+import "./../../css/formPOPup.css";
+import Deletebutton from "./Deletebutton";
+import UpdateButton from "./UpdateButton";
 
 function RealEstateContent() {
   // set Add data
@@ -103,13 +86,10 @@ function RealEstateContent() {
   });
 
   const [ownerName, setOwnerName] = useState([]);
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
+  const handleChange = (event, newValue) => {
 
     // Convert ownerName array to a single string
-    const comingValue = typeof value === "string" ? value.split(",") : value;
+    const comingValue = typeof newValue === "string" ? newValue.split(",") : newValue;
     const ownerString = comingValue.join(", ");
 
     setData((prevData) => ({
@@ -121,7 +101,8 @@ function RealEstateContent() {
     }));
 
     // Update the ownerName state afterwards
-    setOwnerName(comingValue);
+    setOwnerName(newValue);
+
   };
 
   // Define an array to store user names
@@ -279,6 +260,8 @@ function RealEstateContent() {
   // Set the form
   const AddForm = (event) => {
     event.preventDefault();
+    console.log("data: ", JSON.stringify(data));
+    return;
     toggle();
     let token = "Bearer " + getToken();
     setCardNo(token);
@@ -1130,43 +1113,47 @@ function RealEstateContent() {
                   <Form onSubmit={AddForm}>
                     <div className="mt-2">
                       <Tooltip title="Select Owner">
-                        <FormControl
-                          required
-                          fullWidth
-                          sx={{ minWidth: 120 }}
-                          size="small"
-                        >
-                          <InputLabel id="demo-simple-select-label">
-                            Select Owner
-                          </InputLabel>
+                        <FormControl>
+                          <FormLabel>Select Owner</FormLabel>
+
                           <Select
-                            labelId="demo-simple-select-label"
-                            id="ownerName"
-                            label="Select Owner"
-                            multiple
                             value={ownerName}
+                            multiple
                             onChange={handleChange}
+                            sx={{
+                              minWidth: "13rem",
+                            }}
+                            slotProps={{
+                              listbox: {
+                                sx: {
+                                  width: "100%",
+                                },
+                              },
+                            }}
                           >
                             {ownerNames.map((name) => (
-                              <MenuItem key={name} value={name}>
+                              <Option key={name} value={name}>
                                 {name}
-                              </MenuItem>
+                              </Option>
                             ))}
                           </Select>
+                          
                         </FormControl>
                       </Tooltip>
                     </div>
                     <div className="mt-3">
                       <Tooltip title="Enter Heading For Property ">
-                        <TextField
-                          required
-                          type="text"
-                          label="Property Heading"
-                          id="propertyCaption"
-                          size="normal"
-                          onChange={(e) => handleChanges(e, "propertyCaption")}
-                          value={data.realEstate.propertyCaption}
-                        />
+                        <FormControl>
+                          <FormLabel>Property Heading</FormLabel>
+                          <Input
+                            className="input_mui_joy"
+                            placeholder="Enter property heading"
+                            value={data.realEstate.propertyCaption}
+                            onChange={(e) =>
+                              handleChanges(e, "propertyCaption")
+                            }
+                          />
+                        </FormControl>
                       </Tooltip>
                     </div>
 
