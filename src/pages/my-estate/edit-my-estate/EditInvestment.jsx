@@ -1,53 +1,37 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
 } from "reactstrap";
-import {
-  faCalculator,
-  faDownload,
-  faPlus,
-  faXmark,
-  faLocationDot,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SideBar from "../../../components/sidebar/Sidebar";
 import UserBase from "../../../components/user/UserBase";
-import {
-  getInvestment,
-  getToken,
-  investments,
-  updateInvestment,
-  getUser,
-  getBeneficiary,
-} from "../../../services/user-service";
-import {
-  Tooltip,
-  MenuItem,
-  FormControl,
-  Select,
-  TextField,
-  InputLabel,
-} from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import "../../../css/myestate_edit.css";
 import "../../../css/formPOPup.css";
+import "../../../css/myestate_edit.css";
 import {
   getSingleInvestment,
   updateInvestments,
 } from "../../../services/investment-service";
+import {
+  getBeneficiary,
+  getToken,
+  getUser,
+} from "../../../services/user-service";
 
 function EditInvestment() {
   const { id } = useParams();
@@ -73,14 +57,6 @@ function EditInvestment() {
 
   const [selectedImage, setSelectedImage] = useState([]);
 
-  const [error, setError] = useState({
-    errors: {},
-    isError: false,
-  });
-
-  // const handleChanges = (event, property) => {
-  //   setData({ ...data, [property]: event.target.value });
-  // };
   const handleChanges = (e, field) => {
     const newValue = e.target.value;
     setData((prevData) => ({
@@ -178,90 +154,7 @@ function EditInvestment() {
       });
   };
 
-  // Set the form
-  // const investmentForm = (event) => {
-  //   event.preventDefault();
-
-  //   // if (error.isError) {
-  //   //   toast.error("Form data is invalid.");
-  //   //   return;
-  //   // }
-
-  //   let token = "Bearer " + getToken();
-
-  //   console.log("Token : " + token);
-  //   if (
-  //     data.investment === "" ||
-  //     data.totalAmount === "" ||
-  //     data.nameOfTheInvestment === ""
-  //   ) {
-  //     console.log("Error log");
-  //     toast.error("Please Fill All required field Then Submit .", {
-  //       position: toast.POSITION.BOTTOM_CENTER,
-  //     });
-  //     return;
-  //   }
-
-  //   //create form data to send a file and remaining class data
-  //   const formData = new FormData();
-  //   for (let i = 0; i < selectedImage.length; i++) {
-  //     formData.append(`filename`, selectedImage[i]);
-  //     console.log("this is file indexs", selectedImage[i])
-  //   }
-  //   formData.append("data", JSON.stringify(data));
-
-  //   updateInvestment(formData, token, investmentID)
-  //     .then((resp) => {
-  //       console.log(resp);
-  //       toast.success("Updated Successfully !!", {
-  //         position: toast.POSITION.BOTTOM_CENTER,
-  //       });
-  //       navigate("/user/my-estate/investments");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // console.log("Error log");
-  //       // // handle error
-  //       // setError({
-  //       //   errors: error,
-  //       //   isError: true
-  //       // })
-  //     });
-  // };
-
-  const [investmentName, setInvestmentName] = React.useState("");
-
-  const investmenthandleChange = (event) => {
-    if (event.target === undefined) {
-      setInvestmentName(event);
-      data.investment = event;
-    } else {
-      setInvestmentName(event.target.value);
-      data.investment = event.target.value;
-    }
-  };
-
-  //Get data show
-  const [category, setCategory] = useState([]);
-  // const getData = () => {
-  //   let token = "Bearer " + getToken();
-  //   getSingleInvestment(token, id).then((res) => {
-  //     console.log("this is realEstate responce ", res);
-  //     setData({
-  //       ...data,
-  //       investment: res.investment,
-  //       documents: res.documents,
-  //       sharedDetails: res.sharedDetails,
-  //     });
-  //     setEstimatedTotalAmount(res.investment.totalAmount);
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
+  // const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -332,27 +225,11 @@ function EditInvestment() {
     getBenificiarydata();
   }, []);
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
   //
-  let [show1, setShow1] = useState(false);
   const [benevisible, setbeneVisible] = useState(false);
-  const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
-  const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
   const [distributedType, setDistributedType] = useState("");
 
   const [sharedDetails, setSharedDetails] = useState([
@@ -376,17 +253,15 @@ function EditInvestment() {
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
-    setShowAfterCloseBene(true);
-    // data.sharedDetails = [];
+
+    // setShowAfterCloseBene(true);
   };
 
   const handleReset = () => {
     setbeneVisible(false);
-    setDistributionType("");
     setSelectedBeneficiaries([]);
     setBeneficiaryDetails({});
-    setShowAfterCloseBene(false);
+    // setShowAfterCloseBene(false);
   };
 
   const handleDistributionTypeChange = (event) => {
@@ -468,16 +343,6 @@ function EditInvestment() {
         [selectedBeneficiary]: { percentage: "", dollar: "" },
       });
     }
-  };
-
-  const handleBeneficiaryClose = (beneficiary) => {
-    const updatedBeneficiaries = selectedBeneficiaries.filter(
-      (b) => b !== beneficiary
-    );
-    setSelectedBeneficiaries(updatedBeneficiaries);
-    const updatedDetails = { ...beneficiaryDetails };
-    delete updatedDetails[beneficiary];
-    setBeneficiaryDetails(updatedDetails);
   };
 
   const getBenificiaryName = (id) => {
@@ -646,10 +511,6 @@ function EditInvestment() {
     }));
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
-  const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
-    setBeneficiaryVisible(true);
-  };
 
   return (
     <>
@@ -672,9 +533,7 @@ function EditInvestment() {
                     <div
                       className="Close"
                       onClick={() => {
-                        {
-                          navigate("/user/my-estate/investments");
-                        }
+                        navigate("/user/my-estate/investments");
                       }}
                     >
                       <FontAwesomeIcon icon={faXmark} />

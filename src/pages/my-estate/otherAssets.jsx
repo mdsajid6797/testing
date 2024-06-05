@@ -6,52 +6,22 @@ import {
   CardHeader,
   Container,
   Form,
-  FormGroup,
-  Label,
-  Input,
 } from "reactstrap";
-
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-
 import {
-  TextField,
-  Tooltip,
-  TextareaAutosize,
-  CardContent,
-  Typography,
-} from "@mui/material";
+  faDownload,
+  faLocationDot,
+  faMinus,
+  faPlus,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TextField, TextareaAutosize, Tooltip } from "@mui/material";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
 import "../../css/myestare.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faXmark,
-  faPlus,
-  faMinus,
-  faDownload,
-  faLocationDot,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
-import UpdateButton from "./UpdateButton";
 import Deletebutton from "./Deletebutton";
+import UpdateButton from "./UpdateButton";
 
-import {
-  addOtherAssets,
-  downloadDocument1,
-  getOtherAssets,
-  getUser,
-  getToken,
-  removeOtherAssets,
-  getBeneficiary,
-  deleteSingleProperty,
-} from "../../services/user-service";
 import { toast } from "react-toastify";
 import "../../css/formPOPup.css";
 import {
@@ -59,6 +29,13 @@ import {
   getOtherAsset,
   otherAsset,
 } from "../../services/OtherAssetService";
+import {
+  deleteSingleProperty,
+  downloadDocument1,
+  getBeneficiary,
+  getToken,
+  getUser,
+} from "../../services/user-service";
 
 function OtherAssets() {
   // set Add data
@@ -167,14 +144,13 @@ function OtherAssets() {
     });
   };
 
-  let [cardNo, setCardNo] = useState(0);
   // Set the form
   const OtherAssestForm = (event) => {
     event.preventDefault();
     console.log(data);
     toggle();
     let token = "Bearer " + getToken();
-    setCardNo(token);
+
     if (data.otherAssets1 === "") {
       // console.log("Error log");
       toast.error("Please fill all required feilds.");
@@ -190,13 +166,9 @@ function OtherAssets() {
 
     otherAsset(formData, token)
       .then((resp) => {
-        // console.log(resp);
-        // console.log("Success log");
         toast.success("Data Added !!", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
-        // resetData();
-        getData();
         AddCard();
       })
       .catch((error) => {
@@ -204,31 +176,13 @@ function OtherAssets() {
       });
   };
 
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().id;
-    let token = "Bearer " + getToken(); // Added 'Bearer'
-    // console.log("user Id=" + userId);
-    getOtherAsset(token, userId)
-      .then((res) => {
-        // console.log(res);
-        setCategory(res);
-      })
-      .catch((error) => {
-        // Handle error, including error message
-        console.error("Error:", error);
-      });
-    // console.log(category[0]);
-  };
-
   const handleRemove = (id, idType) => {
-    if (idType == "otherAssetId") {
+    if (idType === "otherAssetId") {
       deleteOtherAsset(id)
         .then((res) => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
-          getData();
           AddCard();
           setShow1(false);
         })
@@ -253,7 +207,7 @@ function OtherAssets() {
 
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
+
     downloadDocument1(id)
       .then((response) => {
         console.log("files in downlaod", response);
@@ -266,97 +220,8 @@ function OtherAssets() {
       })
       .catch((error) => {});
   };
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const columns = [
-    {
-      id: "otherAssets1",
-      label: "Assets",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "otherAssets2",
-      // label: "other\u00a02",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "otherAssets3",
-      // label: "other\u00a03",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "otherAssets4",
-      // label: "other\u00a04",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "otherAssets5",
-      // label: "other\u00a05",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    setShow(true);
-  }, []);
+  const [show, setShow] = useState(true);
 
   const [otherAssets, setOtherAssets] = useState([{ name: "", notes: "" }]);
   const [visibleColumnIndex, setVisibleColumnIndex] = useState(0);
@@ -418,14 +283,6 @@ function OtherAssets() {
   //   }));
   // };
 
-  const [visibleDivs, setVisibleDivs] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-
   // show notes popup
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectedNote, setSelectedNote] = useState("");
@@ -463,7 +320,6 @@ function OtherAssets() {
     getOtherAsset(token, userId)
       .then((res) => {
         setCard(res);
-
       })
       .catch((error) => {
         setCard([]);
@@ -478,10 +334,6 @@ function OtherAssets() {
     setShow1(true);
   };
 
-  useEffect(() => {
-    AddCard();
-  }, []);
-
   // beneficiary addition in form
   const [beneficiary, setBenificiary] = useState([]);
 
@@ -494,20 +346,6 @@ function OtherAssets() {
         setBenificiary(res);
       })
       .catch((err) => {});
-  };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
-
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
   };
 
   // for add field pop
@@ -525,8 +363,6 @@ function OtherAssets() {
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
@@ -722,9 +558,13 @@ function OtherAssets() {
   };
 
   const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
     setBeneficiaryVisible(true);
   };
+
+  useEffect(() => {
+    AddCard();
+    getBenificiarydata();
+  }, []);
 
   return (
     <div className={`your-component ${show ? "fade-in-element" : ""}`}>
@@ -1837,85 +1677,79 @@ function OtherAssets() {
                         </div>
                       </div>
                       <div className="share_beneficiary_main_card">
-                        {selectedBeneficiaries.map(
-                          (beneficiary) => (
-                            console.log("this is  beneficiary ", beneficiary),
-                            (
-                              <div
-                                key={beneficiary}
-                                className="share_beneficiary_card"
-                              >
-                                <div>
-                                  <p className="share_beneficiary_card_para">
-                                    Beneficiary:{" "}
-                                    {getBenificiaryName({ beneficiary })}
-                                  </p>
-                                  {distributionType === "percentage" && (
-                                    <input
-                                      type="text"
-                                      className="share_ben_percentage"
-                                      placeholder="Percentage"
-                                      value={
-                                        beneficiaryDetails[beneficiary]
-                                          ?.percentage || ""
-                                      }
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          beneficiary,
-                                          "percentage",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  )}
-                                  {distributionType === "dollar" && (
-                                    <input
-                                      type="text"
-                                      className="share_ben_percentage"
-                                      placeholder="Dollar Value"
-                                      value={
-                                        beneficiaryDetails[beneficiary]
-                                          ?.value || ""
-                                      }
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          beneficiary,
-                                          "value",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  )}
-
-                                  {distributionType && (
-                                    <p className="share_beneficiary_card_para">
-                                      Distributed Value: $
-                                      {distributionType === "percentage"
-                                        ? calculateDistributedAmount(
-                                            "percentage",
-                                            estimatedTotalAmount,
-                                            beneficiaryDetails[beneficiary]
-                                          )
-                                        : calculateDistributedAmount(
-                                            "dollar",
-                                            estimatedTotalAmount,
-                                            beneficiaryDetails[beneficiary]
-                                          )}
-                                    </p>
-                                  )}
-                                </div>
-                                <div
-                                  className="share_beneficiary_card_close"
-                                  onClick={() =>
-                                    handleBeneficiaryClose(beneficiary)
+                        {selectedBeneficiaries.map((beneficiary) => (
+                          <div
+                            key={beneficiary}
+                            className="share_beneficiary_card"
+                          >
+                            <div>
+                              <p className="share_beneficiary_card_para">
+                                Beneficiary:{" "}
+                                {getBenificiaryName({ beneficiary })}
+                              </p>
+                              {distributionType === "percentage" && (
+                                <input
+                                  type="text"
+                                  className="share_ben_percentage"
+                                  placeholder="Percentage"
+                                  value={
+                                    beneficiaryDetails[beneficiary]
+                                      ?.percentage || ""
                                   }
-                                >
-                                  <FontAwesomeIcon icon={faXmark} />
-                                </div>
-                              </div>
-                            )
-                          )
-                        )}
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      beneficiary,
+                                      "percentage",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              )}
+                              {distributionType === "dollar" && (
+                                <input
+                                  type="text"
+                                  className="share_ben_percentage"
+                                  placeholder="Dollar Value"
+                                  value={
+                                    beneficiaryDetails[beneficiary]?.value || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      beneficiary,
+                                      "value",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              )}
+
+                              {distributionType && (
+                                <p className="share_beneficiary_card_para">
+                                  Distributed Value: $
+                                  {distributionType === "percentage"
+                                    ? calculateDistributedAmount(
+                                        "percentage",
+                                        estimatedTotalAmount,
+                                        beneficiaryDetails[beneficiary]
+                                      )
+                                    : calculateDistributedAmount(
+                                        "dollar",
+                                        estimatedTotalAmount,
+                                        beneficiaryDetails[beneficiary]
+                                      )}
+                                </p>
+                              )}
+                            </div>
+                            <div
+                              className="share_beneficiary_card_close"
+                              onClick={() =>
+                                handleBeneficiaryClose(beneficiary)
+                              }
+                            >
+                              <FontAwesomeIcon icon={faXmark} />
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

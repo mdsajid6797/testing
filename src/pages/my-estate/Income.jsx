@@ -4,15 +4,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TextField, Tooltip, TextareaAutosize } from "@mui/material";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+import { TextField, TextareaAutosize, Tooltip } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -22,17 +14,13 @@ import {
   CardHeader,
   Container,
   Form,
-  FormGroup,
-  Input,
 } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
 import "../../css/formPOPup.css";
 import "../../css/myestare.css";
+import { deleteIncome, getIncome, income } from "../../services/IncomeService";
 import {
-  activeincome,
-  activeincomeGet,
-  activeincomeRemove,
   deleteSingleProperty,
   downloadDocument1,
   getBeneficiary,
@@ -41,7 +29,6 @@ import {
 } from "../../services/user-service";
 import Deletebutton from "./Deletebutton";
 import UpdateButton from "./UpdateButton";
-import { deleteIncome, getIncome, income } from "../../services/IncomeService";
 
 function Income() {
   // set Add data
@@ -176,7 +163,7 @@ function Income() {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         // resetData();
-        getData();
+
         AddCard();
       })
       .catch((error) => {
@@ -184,33 +171,15 @@ function Income() {
       });
   };
 
-  //Get data show
-
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().id;
-    // console.log("user Id=" + userId);
-    let token = "Bearer " + getToken();
-    getIncome(token, userId)
-      .then((res) => {
-        // console.log(res);
-        setCategory(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    // console.log(category[0]);
-  };
-
   // Code by Purnendu
   const handleRemove = (Id, idType) => {
-    if (idType == "incomeId") {
+    if (idType === "incomeId") {
       deleteIncome(Id)
         .then((res) => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
-          getData();
+
           AddCard();
           setShow1(false);
         })
@@ -235,7 +204,6 @@ function Income() {
 
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
     downloadDocument1(id)
       .then((response) => {
         console.log("files in downlaod", response);
@@ -247,79 +215,6 @@ function Income() {
         URL.revokeObjectURL(downloadUrl);
       })
       .catch((error) => {});
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-  const columns = [
-    {
-      id: "payCheck",
-      label: "Income",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "businessSource",
-      label: "Source",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "customize",
-      label: "Customize(underWork)",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        // padding:0,
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
   };
 
   // show notes popup
@@ -397,17 +292,6 @@ function Income() {
     getBenificiarydata();
   }, []);
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
   // for add field pop
   let [showAdditionField, SetshowAdditionField] = useState(false);
   const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
@@ -420,8 +304,6 @@ function Income() {
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
@@ -616,25 +498,7 @@ function Income() {
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
 
-  const handleChanges1 = (e, field, { index }) => {
-    const { value } = e.target;
-
-    setData((prevData) => {
-      const updatedMortgages = [...prevData.mortgages];
-      if (!updatedMortgages[index]) {
-        updatedMortgages[index] = {};
-      }
-      updatedMortgages[index][field] = value;
-
-      return {
-        ...prevData,
-        mortgages: updatedMortgages,
-      };
-    });
-  };
-
   const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
     setBeneficiaryVisible(true);
   };
 
@@ -1490,85 +1354,79 @@ function Income() {
                         </div>
                       </div>
                       <div className="share_beneficiary_main_card">
-                        {selectedBeneficiaries.map(
-                          (beneficiary) => (
-                            console.log("this is  beneficiary ", beneficiary),
-                            (
-                              <div
-                                key={beneficiary}
-                                className="share_beneficiary_card"
-                              >
-                                <div>
-                                  <p className="share_beneficiary_card_para">
-                                    Beneficiary:{" "}
-                                    {getBenificiaryName({ beneficiary })}
-                                  </p>
-                                  {distributionType === "percentage" && (
-                                    <input
-                                      type="text"
-                                      className="share_ben_percentage"
-                                      placeholder="Percentage"
-                                      value={
-                                        beneficiaryDetails[beneficiary]
-                                          ?.percentage || ""
-                                      }
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          beneficiary,
-                                          "percentage",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  )}
-                                  {distributionType === "dollar" && (
-                                    <input
-                                      type="text"
-                                      className="share_ben_percentage"
-                                      placeholder="Dollar Value"
-                                      value={
-                                        beneficiaryDetails[beneficiary]
-                                          ?.value || ""
-                                      }
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          beneficiary,
-                                          "value",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  )}
-
-                                  {distributionType && (
-                                    <p className="share_beneficiary_card_para">
-                                      Distributed Value: $
-                                      {distributionType === "percentage"
-                                        ? calculateDistributedAmount(
-                                            "percentage",
-                                            estimatedTotalAmount,
-                                            beneficiaryDetails[beneficiary]
-                                          )
-                                        : calculateDistributedAmount(
-                                            "dollar",
-                                            estimatedTotalAmount,
-                                            beneficiaryDetails[beneficiary]
-                                          )}
-                                    </p>
-                                  )}
-                                </div>
-                                <div
-                                  className="share_beneficiary_card_close"
-                                  onClick={() =>
-                                    handleBeneficiaryClose(beneficiary)
+                        {selectedBeneficiaries.map((beneficiary) => (
+                          <div
+                            key={beneficiary}
+                            className="share_beneficiary_card"
+                          >
+                            <div>
+                              <p className="share_beneficiary_card_para">
+                                Beneficiary:{" "}
+                                {getBenificiaryName({ beneficiary })}
+                              </p>
+                              {distributionType === "percentage" && (
+                                <input
+                                  type="text"
+                                  className="share_ben_percentage"
+                                  placeholder="Percentage"
+                                  value={
+                                    beneficiaryDetails[beneficiary]
+                                      ?.percentage || ""
                                   }
-                                >
-                                  <FontAwesomeIcon icon={faXmark} />
-                                </div>
-                              </div>
-                            )
-                          )
-                        )}
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      beneficiary,
+                                      "percentage",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              )}
+                              {distributionType === "dollar" && (
+                                <input
+                                  type="text"
+                                  className="share_ben_percentage"
+                                  placeholder="Dollar Value"
+                                  value={
+                                    beneficiaryDetails[beneficiary]?.value || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      beneficiary,
+                                      "value",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              )}
+
+                              {distributionType && (
+                                <p className="share_beneficiary_card_para">
+                                  Distributed Value: $
+                                  {distributionType === "percentage"
+                                    ? calculateDistributedAmount(
+                                        "percentage",
+                                        estimatedTotalAmount,
+                                        beneficiaryDetails[beneficiary]
+                                      )
+                                    : calculateDistributedAmount(
+                                        "dollar",
+                                        estimatedTotalAmount,
+                                        beneficiaryDetails[beneficiary]
+                                      )}
+                                </p>
+                              )}
+                            </div>
+                            <div
+                              className="share_beneficiary_card_close"
+                              onClick={() =>
+                                handleBeneficiaryClose(beneficiary)
+                              }
+                            >
+                              <FontAwesomeIcon icon={faXmark} />
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

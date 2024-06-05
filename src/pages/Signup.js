@@ -1,3 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -14,14 +18,9 @@ import {
 } from "reactstrap";
 import validator from "validator";
 import { sendOtp, signup } from "../services/user-service";
-import { Emailtemplate, EmailTemplatePostfix } from "./Emailtemplate";
-import "./SignupPage.css";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useNavigate } from "react-router-dom";
+import { EmailTemplatePostfix, Emailtemplate } from "./Emailtemplate";
 import Otppage from "./Otppage";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./SignupPage.css";
 
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -63,23 +62,23 @@ const Signup = ({ onBack }) => {
   };
 
   // reseting the form
-  const resetData = () => {
-    setData({
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
-      currentAddress: "",
-      dob: "",
-      phoneNo: "",
-      role: "",
-    });
-  };
+  // const resetData = () => {
+  //   setData({
+  //     firstName: "",
+  //     lastName: "",
+  //     username: "",
+  //     email: "",
+  //     password: "",
+  //     currentAddress: "",
+  //     dob: "",
+  //     phoneNo: "",
+  //     role: "",
+  //   });
+  // };
 
   const [validmail, setValidmail] = useState(false);
   const [usermail, setUsermail] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // submit the form
   const submitForm = (event) => {

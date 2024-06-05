@@ -1,27 +1,20 @@
 import React from "react";
-import UserBase from "../../components/user/UserBase";
-import SideBar from "../../components/sidebar/Sidebar";
 import {
   Card,
-  CardBody,
   CardHeader,
   Col,
   Container,
-  Form,
-  Button,
-  FormGroup,
-  Input,
-  Label,
-  Row,
+  Row
 } from "reactstrap";
-import { useState } from "react";
+import SideBar from "../../components/sidebar/Sidebar";
+import UserBase from "../../components/user/UserBase";
 
 function Mortgage() {
-  const [image, setImage] = useState("");
-  function handleImage(e) {
+  // const [image, setImage] = useState("");
+  // function handleImage(e) {
 
-    setImage(e.target.files[0]);
-  }
+  //   setImage(e.target.files[0]);
+  // }
   return (
     <UserBase>
       <div className="mt-5">

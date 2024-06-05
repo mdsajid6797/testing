@@ -1,34 +1,29 @@
-import React, { useState } from "react";
-import { Container } from "reactstrap";
+import React from "react";
 import SideBar from "../../components/sidebar/Sidebar";
-import UserBase from "../../components/user/UserBase";
-import { getToken, getUser, jewelryGet } from "../../services/user-service";
 //import { useState } from 'react'
-import { useEffect } from "react";
-import "../../css/myestare.css";
-import TrusteeBase from "../../components/trustee/TrusteeBase";
-import Footer from "../../components/Footerfile/footer";
 import { Notification } from "../../components/alerting-visitors/notification";
+import TrusteeBase from "../../components/trustee/TrusteeBase";
+import "../../css/myestare.css";
 
 function TrusteeJewelry() {
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().userid;
-    console.log("user Id=" + userId);
-    let token = "Bearer " + getToken();
-    jewelryGet(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("Data not loaded");
-      });
-  };
+  // const [category, setCategory] = useState([]);
+  // const getData = () => {
+  //   let userId = getUser().userid;
+  //   console.log("user Id=" + userId);
+  //   let token = "Bearer " + getToken();
+  //   jewelryGet(token, userId)
+  //     .then((res) => {
+  //       setCategory(res);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       console.log("Data not loaded");
+  //     });
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <TrusteeBase>

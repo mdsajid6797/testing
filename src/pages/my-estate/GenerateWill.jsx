@@ -1,19 +1,18 @@
-import { faTimes, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Typography } from "@mui/material";
+import { jsPDF } from "jspdf";
 import React, { useEffect, useRef, useState } from "react";
+import SignatureCanvas from "react-signature-canvas";
+import { v4 as uuidv4 } from "uuid";
 import {
   getBeneficiary,
   getToken,
-  getUser,
-  getUser1,
+  getUser
 } from "../../services/user-service";
-import { jsPDF } from "jspdf";
-import "./../../css/welcomeIchest.css";
-import "./../../css/inventoryReport.css";
 import AttorneyDetail from "../AttorneyDetail";
-import { Checkbox, FormControlLabel, Typography } from "@mui/material";
-import SignatureCanvas from "react-signature-canvas";
-import { v4 as uuidv4 } from "uuid";
+import "./../../css/inventoryReport.css";
+import "./../../css/welcomeIchest.css";
 
 function GenerateWill({ combinedData, closePopup }) {
   const uuid = uuidv4();
@@ -21,7 +20,7 @@ function GenerateWill({ combinedData, closePopup }) {
   const [show, setShow] = useState(false);
 
   const [pdfDataUri, setPdfDataUri] = useState("");
-  const [pdfBlob, setPdfBlob] = useState(null);
+  // const [pdfBlob, setPdfBlob] = useState(null);
 
   const userDetails = getUser();
 
@@ -146,7 +145,7 @@ function GenerateWill({ combinedData, closePopup }) {
       pdf.html(content, {
         callback: (pdf) => {
           const dataUri = pdf.output("datauristring");
-          const blob = pdf.output("blob");
+          // const blob = pdf.output("blob");
           setPdfDataUri(dataUri);
           // setPdfBlob(blob);
         },
@@ -715,7 +714,7 @@ function GenerateWill({ combinedData, closePopup }) {
                               </div>
 
                               {item.sharedDetails &&
-                                item?.sharedDetails?.length != 0 && (
+                                item?.sharedDetails?.length !== 0 && (
                                   <div style={{ flex: "1" }}>
                                     <h3
                                       style={{

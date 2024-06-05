@@ -1,70 +1,43 @@
+import { faDownload, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  TextareaAutosize,
+  Tooltip,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
 } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
-import {
-  downloadDocument1,
-  getToken,
-  getUser,
-  jewelry,
-  jewelryGet,
-  jewelryRemove,
-  getBeneficiary,
-  deleteSingleProperty,
-  showImages,
-  getSecondaryUser,
-} from "../../services/user-service";
 import "../../css/formPOPup.css";
-import { toast } from "react-toastify";
 import "../../css/myestare.css";
-import Deletebutton from "./Deletebutton";
-import UpdateButton from "./UpdateButton";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import {
-  Tooltip,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  TextField,
-  TextareaAutosize,
-} from "@mui/material";
-import axios from "axios";
-import {
-  faXmark,
-  faPlus,
-  faDownload,
-  faLocationDot,
-  faEye,
-  faGem,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   deleteJewelry,
   getJewelries,
   jewelries,
 } from "../../services/JewelryService";
-import { DetailsOutlined } from "@mui/icons-material";
+import {
+  deleteSingleProperty,
+  downloadDocument1,
+  getBeneficiary,
+  getSecondaryUser,
+  getToken,
+  getUser,
+} from "../../services/user-service";
+import Deletebutton from "./Deletebutton";
+import UpdateButton from "./UpdateButton";
 
 // import Tooltip from '@mui/material/Tooltip';
 
@@ -123,14 +96,11 @@ function Jewelry() {
   // Get secondaryUser data
   const secondaryUserDetails = getSecondaryUser();
   let secondaryUserName = "";
-  let bothUserName = "";
 
   // Check if secondary user exists
   if (secondaryUserDetails !== undefined) {
     secondaryUserName =
       secondaryUserDetails.firstName + " " + secondaryUserDetails.lastName;
-    // Combine both user names into one variable
-    bothUserName = secondaryUserName + " & " + primaryUserName;
 
     // Push both user names into the array
     ownerNames.push(primaryUserName, secondaryUserName);
@@ -142,8 +112,6 @@ function Jewelry() {
   // use state to set the selected images
   const [selectedImage, setSelectedImage] = useState([]);
   const [selectedImage1, setSelectedImage1] = useState([]);
-  const [jewelryName, setJewelryName] = useState("");
-  const [keratUnit, setKeratUnit] = useState("");
 
   const handleChanges = (e, field) => {
     const newValue = e.target.value;
@@ -157,14 +125,6 @@ function Jewelry() {
     setEstimatedTotalAmount(data.jewelry.estimatedValue);
   };
 
-  const keratvalueHandleChanges = (event) => {
-    setKeratUnit(event.target.value);
-    data.keratValue = event.target.value;
-  };
-  const jewelryHandleChange = (event) => {
-    setJewelryName(event.target.value);
-    data.details = event.target.value;
-  };
   // Handle image
   const handleImageChange = (event) => {
     const selectedFiles = event.target.files;
@@ -306,7 +266,7 @@ function Jewelry() {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         // resetData();
-        getData();
+
         AddCard();
 
         // window.location.reload();
@@ -314,28 +274,14 @@ function Jewelry() {
       .catch((error) => {});
   };
 
-  // Get data show
-
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().commonId;
-
-    let token = "Bearer " + getToken();
-    getJewelries(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {});
-  };
   // Code by Purnendu
   const handleRemove = (id, idType) => {
-    if (idType == "jewelryId") {
+    if (idType === "jewelryId") {
       deleteJewelry(id)
         .then((res) => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
-          getData();
           AddCard();
           setShow1(false);
         })
@@ -356,7 +302,7 @@ function Jewelry() {
 
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
+
     downloadDocument1(id)
       .then((response) => {
         const downloadUrl = URL.createObjectURL(response.data);
@@ -370,160 +316,76 @@ function Jewelry() {
       .catch((error) => {});
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // const [metalPrice, setMetalPrice] = useState(0);
 
-  const columns = [
-    {
-      id: "details",
-      label: "Name",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "keratValue",
-      label: "Karats\u00a0Value",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "weight",
-      label: "Weight\u00a0(gm)",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "estimatedValue",
-      label: "Appraised\u00a0Value",
-      type: "realtimeValue",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        padding: 0,
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
+  // useEffect(() => {
+  //   // Fetch metal price from the API and store it in the state
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  //   const fetchMetalPrice = () => {
+  //     if (data.jewelry.jewelryName === "") {
+  //       setMetalPrice(0);
+  //       if (data.jewelry.caratValue === "") {
+  //         setMetalPrice(0);
+  //         return;
+  //       }
+  //       return;
+  //     }
+  //     // if (data.keratValue === "") {
+  //     //   setMetalPrice(0);
+  //     //   return;
+  //     // }
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const [metalPrice, setMetalPrice] = useState(0);
-
-  useEffect(() => {
-    // Fetch metal price from the API and store it in the state
-
-    const fetchMetalPrice = () => {
-      if (data.jewelry.jewelryName === "") {
-        setMetalPrice(0);
-        if (data.jewelry.caratValue === "") {
-          setMetalPrice(0);
-          return;
-        }
-        return;
-      }
-      // if (data.keratValue === "") {
-      //   setMetalPrice(0);
-      //   return;
-      // }
-
-      const headers = {
-        "x-access-token": "goldapi-sw18arlkmh58d1-io",
-        "Content-Type": "application/json",
-      };
-      const metalAPIEndpoint = `https://www.goldapi.io/api/${data.jewelry.jewelryName}/USD`;
-      axios
-        .get(metalAPIEndpoint, { headers: headers })
-        .then((res) => {
-          setMetalPrice(res.data[data.jewelry.caratValue]); // Assuming the API response contains the price for 24K gold per gram
-        })
-        .catch((error) => {});
-    };
-  }, []);
+  //     const headers = {
+  //       "x-access-token": "goldapi-sw18arlkmh58d1-io",
+  //       "Content-Type": "application/json",
+  //     };
+  //     const metalAPIEndpoint = `https://www.goldapi.io/api/${data.jewelry.jewelryName}/USD`;
+  //     axios
+  //       .get(metalAPIEndpoint, { headers: headers })
+  //       .then((res) => {
+  //         setMetalPrice(res.data[data.jewelry.caratValue]); // Assuming the API response contains the price for 24K gold per gram
+  //       })
+  //       .catch((error) => {});
+  //   };
+  // }, []);
 
   // ... (remaining existing functions)
 
-  useEffect(
-    () => {
-      const calculateEstimatedValue = () => {
-        if (data.jewelry.jewelryName && data.jewelry.weight && metalPrice) {
-          // Assuming the selected metal unit is 24K and using the metal price for 24K gold to calculate the estimated value
-          const estimatedValue = data.jewelry.weight * metalPrice;
+  // useEffect(
+  //   () => {
+  //     const calculateEstimatedValue = () => {
+  //       if (data.jewelry.jewelryName && data.jewelry.weight && metalPrice) {
+  //         // Assuming the selected metal unit is 24K and using the metal price for 24K gold to calculate the estimated value
+  //         const estimatedValue = data.jewelry.weight * metalPrice;
 
-          setData((prevData) => ({
-            ...prevData,
-            jewelry: {
-              ...prevData.jewelry,
-              estimatedValue: estimatedValue.toFixed(3),
-            },
-          }));
+  //         setData((prevData) => ({
+  //           ...prevData,
+  //           jewelry: {
+  //             ...prevData.jewelry,
+  //             estimatedValue: estimatedValue.toFixed(3),
+  //           },
+  //         }));
 
-          // setData((prevData) => ({
-          //   ...prevData,
-          //   estimatedValue: estimatedValue.toFixed(3),
-          // }));
-        } else {
-          setData((prevData) => ({
-            ...prevData,
-            jewelry: {
-              ...prevData.jewelry,
-              estimatedValue: "",
-            },
-          }));
-        }
-      };
+  //         // setData((prevData) => ({
+  //         //   ...prevData,
+  //         //   estimatedValue: estimatedValue.toFixed(3),
+  //         // }));
+  //       } else {
+  //         setData((prevData) => ({
+  //           ...prevData,
+  //           jewelry: {
+  //             ...prevData.jewelry,
+  //             estimatedValue: "",
+  //           },
+  //         }));
+  //       }
+  //     };
 
-      // calculateEstimatedValue();
-    },
-    // [data.jewelry.jewelryName, data.jewelry.weight, metalPrice]
-    []
-  );
+  //     // calculateEstimatedValue();
+  //   },
+  //   // [data.jewelry.jewelryName, data.jewelry.weight, metalPrice]
+  //   []
+  // );
 
   const getDisplayName = (metadataValue) => {
     switch (metadataValue) {
@@ -561,9 +423,6 @@ function Jewelry() {
         return keratValue;
     }
   };
-  useEffect(() => {
-    getData();
-  }, []);
 
   // show notes popup
   const [popupVisible, setPopupVisible] = useState(false);
@@ -650,23 +509,11 @@ function Jewelry() {
     getBenificiarydata();
   }, []);
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
   // for add field pop
   let [showAdditionField, SetshowAdditionField] = useState(false);
   const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
 
   //
-  // let [show1, setShow1] = useState(false);
   const [benevisible, setbeneVisible] = useState(false);
   const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
@@ -674,7 +521,6 @@ function Jewelry() {
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
   const [selectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
@@ -861,23 +707,6 @@ function Jewelry() {
       sharedDetails: updatedSharedDetails, // Update the sharedDetails in the state
     }));
     data.sharedDetails[i] = updatedSharedDetails[i];
-  };
-
-  const handleChanges1 = (e, field, { index }) => {
-    const { value } = e.target;
-
-    setData((prevData) => {
-      const updatedMortgages = [...prevData.mortgages];
-      if (!updatedMortgages[index]) {
-        updatedMortgages[index] = {};
-      }
-      updatedMortgages[index][field] = value;
-
-      return {
-        ...prevData,
-        mortgages: updatedMortgages,
-      };
-    });
   };
 
   const handleOpenBeneficiary = (showDetail) => {
@@ -1314,47 +1143,6 @@ function Jewelry() {
                           </Tooltip>
                         </div>
 
-                        {/* adding new field */}
-                        {/* <div style={{ marginTop: "7px", display: "flex", alignItems: "center" }}>
-                          <Button style={{
-                            height: "30px",
-                            width: "30px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            borderRadius: "50%",
-                            backgroundColor: "#4aafff",
-                            border: "none"
-                          }}
-                            onClick={handleAddField}>
-                            <FontAwesomeIcon icon={faPlus} />
-                          </Button>
-                          Add New Field
-                        </div>
-                        <div style={{ width: "99.5%" }}>
-                          {addField.map((index) => (
-                            <div className="mt-2" key={index} style={{ flexDirection: "row", display: index < visibleField ? "flex" : "none", }}>
-                              <div style={{ width: "97%" }}>
-                                <Tooltip title={`Add New Field ${index + 1}`}>
-                                  <TextField
-                                    fullWidth
-                                    type="text"
-                                    label={`New Field ${index + 1}`}
-                                    id={`addfield${index + 1}`}
-                                    size="normal"
-                                    onChange={(e) => handleChanges(e, `addfield${index + 1}`)}
-                                    value={data[`addfield${index + 1}`] || ''}
-
-                                    className="AddField"
-                                  />
-                                </Tooltip>
-                              </div>
-                              <span className="addFieldClose" onClick={() => setVisibleField(visibleField - 1)} style={{ width: "2%", paddingLeft: "5px" }}><FontAwesomeIcon icon={faXmark} /></span>
-                            </div>
-                          ))}
-
-                        </div> */}
-
                         <Container className="text-center">
                           <Button
                             onClick={resetForm}
@@ -1375,194 +1163,6 @@ function Jewelry() {
               </div>
             </div>
           )}
-
-          {/* {show1 && Object.keys(showDetail).length > 0 && (
-            <>
-              <div className="card__data">
-                <div className="card__data-container">
-                  <section className="section1">
-                    <div>
-                      <p className="row1-text">
-                        <FontAwesomeIcon
-                          icon={faGem}
-                          style={{ color: "#025596", fontSize: "18px" }}
-                        />
-                        <span>
-                          {getDisplayName(showDetail.jewelry.jewelryName)}
-                        </span>
-                      </p>
-                      <div className="row1-button">
-                        <div>
-                          <Tooltip title="">
-                            {showDetail.documents &&
-                              showDetail.documents.length > 0 && (
-                                <Tooltip title="click to see multiple downlaod files">
-                                  <p
-                                    style={{ cursor: "pointer" }}
-                                    onClick={() => {
-                                      handleShowDownlaod(showDetail);
-                                      setShow(false);
-                                    }}
-                                  >
-                                    <div className="myestate_download_button dwnbtn">
-                                      <FontAwesomeIcon
-                                        className="myestate_download_icon"
-                                        icon={faDownload}
-                                      />
-                                      <span></span>
-                                    </div>
-                                  </p>
-                                </Tooltip>
-                              )}
-                          </Tooltip>
-                        </div>
-
-                        <div>
-                          <Tooltip title="Click Here To Edit">
-                            <div>
-                              <UpdateButton
-                                URL={"../my-estate/jewelry/"}
-                                id={showDetail.jewelry.id}
-                              />
-                            </div>
-                          </Tooltip>
-                        </div>
-
-                        <div>
-                          <Deletebutton
-                            handleRemove={handleRemove}
-                            Id={showDetail.jewelry.id}
-                            idType="jewelryId"
-                          />
-                        </div>
-
-                        <div>
-                          <span
-                            className="card__data-close"
-                            onClick={() => {
-                              setShow1(!show1);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faXmark} />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-
-                  <section className="section2">
-                    <div>
-                      <div className="col1">
-                        <p>
-                          Details:{" "}
-                          <code>
-                            {getDisplayName(showDetail.jewelry.jewelryName)}
-                          </code>
-                        </p>
-                        <p>
-                          Appraised Value:{" "}
-                          <code style={{ color: "green", fontWeight: "bold" }}>
-                            ${showDetail.jewelry.estimatedValue}
-                          </code>
-                        </p>
-                        <p>
-                          Carat Value:{" "}
-                          <code>
-                            {getDisplayKeratValue(
-                              showDetail.jewelry.caratValue
-                            )}
-                          </code>
-                        </p>
-                        <p>
-                          Weight(gm): <code>{showDetail.jewelry.weight}</code>
-                        </p>
-                        {showDetail.benificiary && (
-                          <p>
-                            Beneficiary Name:{" "}
-                            <code>{showDetail.benificiary}</code>
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="col2">
-                        <p>
-                          Jewelry Caption:{" "}
-                          <code>{showDetail.jewelry.jewelryCaption}</code>
-                        </p>
-
-                        {showDetail.addfield1 && (
-                          <Tooltip title={`Click To See Details`}>
-                            <p
-                              onClick={() => {
-                                SetshowAdditionField(showDetail);
-                                setShow1(!show1);
-                              }}
-                            >
-                              Additional Fields:&nbsp;
-                              <code>
-                                {showDetail && showDetail.addfield1
-                                  ? showDetail.addfield1.slice(0, 5)
-                                  : ""}
-                                ...<span className="readmore">Read More</span>
-                              </code>
-                            </p>
-                          </Tooltip>
-                        )}
-
-                        {showDetail.sharedDetails[0] && (
-                          <p
-                            onClick={() => {
-                              handleOpenBeneficiary(showDetail);
-                              setShow1(false);
-                            }}
-                          >
-                            Beneficiary Details{" "}
-                            <code>
-                              <span className="readmore">Click Here</span>
-                            </code>
-                          </p>
-                        )}
-
-                        {showDetail.jewelry.notes && (
-                          <Tooltip title="Click To see Note">
-                            <p
-                              onClick={() => {
-                                handleOpenPopup(showDetail.jewelry.notes);
-                                setShow1(!show1);
-                              }}
-                            >
-                              Note:{" "}
-                              <code>
-                                {" "}
-                                {showDetail && showDetail.jewelry.notes
-                                  ? showDetail.jewelry.notes.slice(0, 5)
-                                  : ""}
-                                ...<span className="readmore">Read More</span>
-                              </code>
-                            </p>
-                          </Tooltip>
-                        )}
-
-                        {showDetail.jewelry.jewelryName === "XAG" && (
-                          <p
-                            onClick={() => {
-                              handleOpenJewelryDetail(showDetail);
-                              setShow1(false);
-                            }}
-                          >
-                            All Silver Jewelry Details{" "}
-                            <code>
-                              <span className="readmore">Click Here</span>
-                            </code>
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </>
-          )} */}
 
           {show1 && (
             <>
@@ -1820,115 +1420,6 @@ function Jewelry() {
             </>
           )}
 
-          {/* <div className="property_table" style={{ display: "none" }}>
-            <Container className="myestate-container">
-              <Paper sx={{ width: "100%", overflow: "hidden", border: "1px solid #cbcbcb", padding: "0px 10px" }}>
-                <TableContainer sx={{ maxHeight: "580px" }}>
-                  <Table stickyHeader>
-                    <TableHead>
-                      <TableRow>
-                        {columns.map((column) => (
-                          <TableCell
-                            className="myestate-table-header"
-                            key={column.id}
-                            align={column.align}
-                            style={column.style}
-                          >
-                            {column.label}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {category
-                        .slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                        .map((row) => {
-                          return (
-                            <TableRow
-                              hover
-                              role="checkbox"
-                              tabIndex={-1}
-                              key={row.code}
-                            >
-                              {columns.map((column) => {
-                                const value = row[column.id];
-                                return (
-                                  <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    {column.format === "button" ? (
-                                      <Button className="myestate_view_btn"
-                                        onClick={() => {
-                                          handleDownload(row.name);
-                                        }}
-                                      >
-                                        View
-                                      </Button>
-                                    ) : column.format === "action" ? (
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          justifyContent: "center",
-                                        }}
-                                      >
-                                        <UpdateButton
-                                          URL={"../my-estate/jewelry/"}
-                                          id={row.jewelry_Id}
-                                        />
-                                        <Deletebutton
-                                          handleRemove={handleRemove}
-                                          Id={row.jewelry_Id}
-                                        />
-                                      </div>
-                                    ) : column.format === "shortText" ? (
-                                      // Display limited text with popup
-                                      <Tooltip title="click here to read more ">
-                                        <div
-                                          style={{ cursor: "pointer", color: value ? "black" : "red" }}
-                                          onClick={() => {
-                                            if (value) {
-                                              handleOpenPopup(value);
-                                            }
-                                          }}
-                                        >
-                                          {value ? (value.slice(0, 10) + (value.length > 10 ? "..." : "")) : "Incomplete"}
-                                        </div>
-                                      </Tooltip>
-                                    ) : column.id === "details" ? (
-                                      getDisplayName(value)
-                                    ) : column.id === "keratValue" ? (
-                                      getDisplayKeratValue(value)
-                                    ) : column.id === "estimatedValue" ? (
-                                      value !== "" ? `$ ${value}` : <span style={{ color: "red" }}>Incomplete</span>
-                                    ) : (
-                                      value || <span style={{ color: "red" }}>Incomplete</span>
-                                    )}
-                                  </TableCell>
-                                );
-                              })}
-                            </TableRow>
-                          );
-                        })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={category.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-              </Paper>
-            </Container>
-          </div> */}
-
           {popupVisible && (
             // Popup div
             <div className="popup">
@@ -2003,7 +1494,7 @@ function Jewelry() {
                                 src={URL.createObjectURL(
                                   base64ToBlob(image.file)
                                 )}
-                                alt={`Image ${index + 1}`}
+                                alt={`jewelryImage ${index + 1}`}
                                 className="image-item"
                                 style={{ width: "100%", height: "auto" }} // Adjust width and height as needed
                               />
@@ -2039,140 +1530,6 @@ function Jewelry() {
                         <FontAwesomeIcon icon={faXmark} />
                       </button>
                     </div>
-                  </div>
-
-                  <div>
-                    <div style={{ marginBottom: "20px" }}>
-                      <Tooltip title={selectedDownlaod.name}>
-                        <div
-                          style={{
-                            cursor: "pointer",
-                            display: "flex",
-                            gap: "20px",
-                          }}
-                          onClick={() => {
-                            handleDownload(selectedDownlaod.name, 0);
-                          }}
-                        >
-                          Downlaod - 1
-                          <div className="myestate_download_button dwnbtn">
-                            <FontAwesomeIcon
-                              className="myestate_download_icon"
-                              icon={faDownload}
-                            />
-                            <span>{selectedDownlaod.name}</span>
-                          </div>
-                        </div>
-                      </Tooltip>
-                    </div>
-
-                    {selectedDownlaod.name1 && (
-                      <div style={{ marginBottom: "20px" }}>
-                        <Tooltip title={selectedDownlaod.name1}>
-                          <div
-                            //  value = {showDetail.user.id}
-                            style={{
-                              cursor: "pointer",
-                              display: "flex",
-                              gap: "20px",
-                            }}
-                            onClick={() => {
-                              handleDownload(selectedDownlaod.name1, 1);
-                            }}
-                          >
-                            Downlaod - 2
-                            <div className="myestate_download_button dwnbtn">
-                              <FontAwesomeIcon
-                                className="myestate_download_icon"
-                                icon={faDownload}
-                              />
-                              <span>{selectedDownlaod.name1}</span>
-                            </div>
-                          </div>
-                        </Tooltip>
-                      </div>
-                    )}
-
-                    {selectedDownlaod.name2 && (
-                      <div style={{ marginBottom: "20px" }}>
-                        <Tooltip title={selectedDownlaod.name2}>
-                          <div
-                            //  value = {showDetail.user.id}
-                            style={{
-                              cursor: "pointer",
-                              display: "flex",
-                              gap: "20px",
-                            }}
-                            onClick={() => {
-                              handleDownload(selectedDownlaod.name2, 2);
-                            }}
-                          >
-                            Download - 3
-                            <div className="myestate_download_button dwnbtn">
-                              <FontAwesomeIcon
-                                className="myestate_download_icon"
-                                icon={faDownload}
-                              />
-                              <span>{selectedDownlaod.name2}</span>
-                            </div>
-                          </div>
-                        </Tooltip>
-                      </div>
-                    )}
-
-                    {selectedDownlaod.name3 && (
-                      <div style={{ marginBottom: "20px" }}>
-                        <Tooltip title={selectedDownlaod.name3}>
-                          <div
-                            //  value = {showDetail.user.id}
-                            style={{
-                              cursor: "pointer",
-                              display: "flex",
-                              gap: "20px",
-                            }}
-                            onClick={() => {
-                              handleDownload(selectedDownlaod.name3, 3);
-                            }}
-                          >
-                            Download - 4
-                            <div className="myestate_download_button dwnbtn">
-                              <FontAwesomeIcon
-                                className="myestate_download_icon"
-                                icon={faDownload}
-                              />
-                              <span>{selectedDownlaod.name3}</span>
-                            </div>
-                          </div>
-                        </Tooltip>
-                      </div>
-                    )}
-
-                    {selectedDownlaod.name4 && (
-                      <div style={{ marginBottom: "20px" }}>
-                        <Tooltip title={selectedDownlaod.name4}>
-                          <div
-                            //  value = {showDetail.user.id}
-                            style={{
-                              cursor: "pointer",
-                              display: "flex",
-                              gap: "20px",
-                            }}
-                            onClick={() => {
-                              handleDownload(selectedDownlaod.name4, 4);
-                            }}
-                          >
-                            Downlaod - 5
-                            <div className="myestate_download_button dwnbtn">
-                              <FontAwesomeIcon
-                                className="myestate_download_icon"
-                                icon={faDownload}
-                              />
-                              <span>{selectedDownlaod.name4}</span>
-                            </div>
-                          </div>
-                        </Tooltip>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

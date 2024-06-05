@@ -1,3 +1,5 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   TextField,
   Tooltip
@@ -11,23 +13,16 @@ import {
   CardBody,
   CardHeader,
   Container,
-  Form,
-  Input,
-  Label,
-  FormGroup,
+  Form
 } from "reactstrap";
 import SideBar from "../../../components/sidebar/Sidebar";
 import UserBase from "../../../components/user/UserBase";
-import {
-  getLifeInsurance,
-  getToken,
-  updateLifeInsurance,
-  getUser,
-  getBeneficiary
-} from "../../../services/user-service";
-import { faXmark, faPlus, faDownload, faLocationDot, faEye } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../css/formPOPup.css";
+import {
+  getBeneficiary,
+  getToken,
+  getUser
+} from "../../../services/user-service";
 
 
 import "../../../css/myestate_edit.css";
@@ -88,10 +83,6 @@ function EditLifeInsurance() {
     }
   };
 
-  const [error, setError] = useState({
-    errors: {},
-    isError: false,
-  });
 
   // const handleChanges = (event, property) => {
   //   setData({ ...data, [property]: event.target.value });
@@ -149,50 +140,19 @@ function EditLifeInsurance() {
       });
   };
 
-  // Set the form
-  // const lifeForm = (event) => {
-  //   event.preventDefault();
-
-  //   if (
-  //     data.details === "" ||
-  //     data.detailsOfpoint === ""
-  //   ) {
-  //     console.log("Error log");
-  //     toast.error("Please fill all required fields.");
-  //     return;
-  //   }
-
-  //   let token = "Bearer " + getToken();
-
-  //   console.log("Token : " + token);
-
-  //   //create form data to send a file and remaining class data
-  //   const formData = new FormData();
-  //   for (let i = 0; i < selectedImage.length; i++) {
-  //     formData.append(`filename`, selectedImage[i]);
-  //     console.log("this is file indexs", selectedImage[i])
-  //   }
-  //   formData.append("data", JSON.stringify(data));
-
-  //   updateLifeInsurance(formData, token, lifeInsurance_Id)
-  //     .then((resp) => {
-  //       console.log(resp);
-  //       console.log("Success log");
-  //       toast.success("Updated Successfully !!", {
-  //         position: toast.POSITION.BOTTOM_CENTER,
-  //       });
-  //       navigate("/user/my-estate/insurances");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       console.log("Error log");
-  //       // handle error
-  //       setError({
-  //         errors: error,
-  //         isError: true,
-  //       });
-  //     });
-  // };
+  
+  // beneficiary addition in form 
+  const [beneficiary, setBenificiary] = useState([]);
+  const getBenificiarydata = () => {
+    let userId = getUser().id;
+    console.log("user Id=" + userId);
+    let token = "Bearer " + getToken();
+    getBeneficiary(token, userId)
+      .then((res) => {
+        setBenificiary(res);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const getData = () => {
     let token = "Bearer " + getToken();
@@ -207,46 +167,10 @@ function EditLifeInsurance() {
       // setEstimatedTotalAmount(res.realEstate.estPropertyVal);
     });
   };
-  //get data from the insurance table for editing purpose
-  // const getData = () => {
-  //   let token = "Bearer " + getToken();
-  //   getLifeInsurance(token, lifeInsurance_Id)
-  //     .then((res) => {
-  //       setData({
-  //         ...data,
-  //         details: res.details,
-  //         detailsOfpoint: res.detailsOfpoint,
-  //         notes: res.notes,
-  //         // supportingDcument: res.supportingDcument,
-  //         benificiary: res.benificiary,
-  //         insuranceCaption: res.insuranceCaption
-  //       });
-  //       console.log(res);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       console.log("Data not loaded");
-  //     });
-  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  // beneficiary addition in form 
-  const [beneficiary, setBenificiary] = useState([]);
-  const getBenificiarydata = () => {
-    let userId = getUser().id;
-    console.log("user Id=" + userId);
-    let token = "Bearer " + getToken();
-    getBeneficiary(token, userId)
-      .then((res) => {
-        setBenificiary(res);
-      })
-      .catch((err) => console.log(err));
-  };
   useEffect(() => {
     getBenificiarydata();
+    getData();
   }, []);
   return (
     <UserBase>
@@ -261,7 +185,7 @@ function EditLifeInsurance() {
               <Card color="" outline>
                 <CardHeader>
                   <h3 className="form1-heading">Edit Life Insurance</h3>
-                  <div className="Close" onClick={() => { { navigate("/user/my-estate/insurances") } }}>
+                  <div className="Close" onClick={() => {  navigate("/user/my-estate/insurances")  }}>
                     <FontAwesomeIcon icon={faXmark} />
                   </div>
                 </CardHeader>

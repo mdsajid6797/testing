@@ -1,21 +1,15 @@
+import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import { faDownload, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
-  Tooltip,
   TextareaAutosize,
+  Tooltip,
 } from "@mui/material";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -25,42 +19,26 @@ import {
   CardHeader,
   Container,
   Form,
-  FormGroup,
-  Label,
-  Input,
 } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
-import "../../css/myestare.css";
-import {
-  cryptoassets,
-  cryptoassetsGet,
-  cryptoassetsRemove,
-  downloadDocument1,
-  getToken,
-  getUser,
-  getBeneficiary,
-  deleteSingleProperty,
-  getSecondaryUser,
-} from "../../services/user-service";
-import Deletebutton from "./Deletebutton";
-import UpdateButton from "./UpdateButton";
-import {
-  faXmark,
-  faPlus,
-  faDownload,
-  faLocationDot,
-  faEye,
-  faTriangleExclamation,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../css/formPOPup.css";
-import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import "../../css/myestare.css";
 import {
   cryptoAssests,
   deleteCryptoAssest,
   getCryptoAssests,
 } from "../../services/CryptoService";
+import {
+  deleteSingleProperty,
+  downloadDocument1,
+  getBeneficiary,
+  getSecondaryUser,
+  getToken,
+  getUser,
+} from "../../services/user-service";
+import Deletebutton from "./Deletebutton";
+import UpdateButton from "./UpdateButton";
 
 function Crypto() {
   const [data, setData] = useState({
@@ -117,14 +95,11 @@ function Crypto() {
   // Get secondaryUser data
   const secondaryUserDetails = getSecondaryUser();
   let secondaryUserName = "";
-  let bothUserName = "";
 
   // Check if secondary user exists
   if (secondaryUserDetails !== undefined) {
     secondaryUserName =
       secondaryUserDetails.firstName + " " + secondaryUserDetails.lastName;
-    // Combine both user names into one variable
-    bothUserName = secondaryUserName + " & " + primaryUserName;
 
     // Push both user names into the array
     ownerNames.push(primaryUserName, secondaryUserName);
@@ -220,22 +195,6 @@ function Crypto() {
     });
   };
 
-  const [coinName, setCoinName] = React.useState("");
-
-  const coinHandleChange = (event) => {
-    setCoinName(event.target.value);
-    data.coin = event.target.value;
-  };
-  const [exchangeName, setExchangeName] = React.useState("");
-  const exchangeHandleChange = (event) => {
-    setExchangeName(event.target.value);
-    data.exchange = event.target.value;
-  };
-  const [walletName, setWalletName] = React.useState("");
-  const walletHandleChange = (event) => {
-    setWalletName(event.target.value);
-    data.wallet = event.target.value;
-  };
   // Set the form
   const cryptoForm = (event) => {
     event.preventDefault();
@@ -270,34 +229,19 @@ function Crypto() {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         // resetData();
-        getData();
         AddCard();
-      })
-      .catch((error) => {});
-  };
-
-  //data show
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().commonId;
-
-    let token = "Bearer " + getToken();
-    getCryptoAssests(token, userId)
-      .then((res) => {
-        setCategory(res);
       })
       .catch((error) => {});
   };
 
   // Code by Purnendu
   const handleRemove = (Id, idType) => {
-    if (idType == "cryptoId") {
+    if (idType === "cryptoId") {
       deleteCryptoAssest(Id)
         .then((res) => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
-          getData();
           AddCard();
           setShow1(false);
         })
@@ -318,7 +262,6 @@ function Crypto() {
 
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
     downloadDocument1(id)
       .then((response) => {
         const downloadUrl = URL.createObjectURL(response.data);
@@ -330,149 +273,44 @@ function Crypto() {
       })
       .catch((error) => {});
   };
-  const columns = [
-    {
-      id: "coin",
-      label: "Name",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "quntity",
-      label: "Quantity",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "estimatedValue",
-      label: "Estimated\u00a0Value",
-      type: "realtimeValue",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "exchange",
-      label: "Exchange",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "wallet",
-      label: "Wallet",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        padding: 0,
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  // const [estimatedValue, setEstimatedValue] = useState(0);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // useEffect(() => {
+  //   const calculateEstimatedValue = () => {
+  //     // Check if both selectCrypto and quntity fields have values
+  //     if (data.cryptoAssest.coin && data.cryptoAssest.quantity) {
+  //       // Perform the calculation for the estimated value
+  //       const selectedCrypto = coins.find(
+  //         (coin) => coin.name === data.cryptoAssest.coin
+  //       );
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  //       if (selectedCrypto) {
+  //         const estimatedValue1 =
+  //           data.cryptoAssest.quantity * selectedCrypto.current_price;
 
-  const [coins, setCoins] = useState([]);
-  const [search, setSearch] = useState([]);
+  //         setEstimatedValue(estimatedValue1.toString());
+  //         setData((prevData) => ({
+  //           ...prevData,
+  //           cryptoAssest: {
+  //             ...prevData.cryptoAssest,
+  //             estValue: estimatedValue1.toString(),
+  //           },
+  //         }));
+  //       }
+  //     } else {
+  //       const estimatedValue = "";
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-
-  useEffect(() => {
-    getData();
-    // getCoins();
-  }, []);
-
-  const [estimatedValue, setEstimatedValue] = useState(0);
-
-  useEffect(() => {
-    const calculateEstimatedValue = () => {
-      // Check if both selectCrypto and quntity fields have values
-      if (data.cryptoAssest.coin && data.cryptoAssest.quantity) {
-        // Perform the calculation for the estimated value
-        const selectedCrypto = coins.find(
-          (coin) => coin.name === data.cryptoAssest.coin
-        );
-
-        if (selectedCrypto) {
-          const estimatedValue1 =
-            data.cryptoAssest.quantity * selectedCrypto.current_price;
-
-          setEstimatedValue(estimatedValue1.toString());
-          setData((prevData) => ({
-            ...prevData,
-            cryptoAssest: {
-              ...prevData.cryptoAssest,
-              estValue: estimatedValue1.toString(),
-            },
-          }));
-        }
-      } else {
-        const estimatedValue = "";
-
-        setData((prevData) => ({
-          ...prevData,
-          cryptoAssest: {
-            ...prevData.cryptoAssest,
-            estValue: estimatedValue,
-          },
-        }));
-      }
-    };
-  }, []);
-
-  const calculateEstimatedValue1 = (coin1, quntity) => {
-    const filteredCoins = coins.filter((coin) => coin.name === coin1);
-
-    if (filteredCoins.length > 0) {
-      return parseInt(quntity) * filteredCoins[0].current_price;
-    }
-  };
+  //       setData((prevData) => ({
+  //         ...prevData,
+  //         cryptoAssest: {
+  //           ...prevData.cryptoAssest,
+  //           estValue: estimatedValue,
+  //         },
+  //       }));
+  //     }
+  //   };
+  // }, []);
 
   // show note popup
   const [popupVisible, setPopupVisible] = useState(false);
@@ -550,32 +388,18 @@ function Crypto() {
     getBenificiarydata();
   }, []);
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
   // for add field pop
   let [showAdditionField, SetshowAdditionField] = useState(false);
 
   const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
 
   //
-  // let [show1, setShow1] = useState(false);
   const [benevisible, setbeneVisible] = useState(false);
   const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
@@ -766,7 +590,6 @@ function Crypto() {
   };
 
   const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
     setBeneficiaryVisible(true);
   };
 

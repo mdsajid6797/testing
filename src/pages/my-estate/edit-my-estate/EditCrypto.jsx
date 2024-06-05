@@ -1,4 +1,8 @@
 import {
+  faXmark
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
   FormControl,
   InputLabel,
   MenuItem,
@@ -6,42 +10,28 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  faXmark,
-  faPlus,
-  faDownload,
-  faLocationDot,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
   Container,
-  Form,
-  FormGroup,
-  Label,
-  Input,
+  Form
 } from "reactstrap";
 import SideBar from "../../../components/sidebar/Sidebar";
 import UserBase from "../../../components/user/UserBase";
-import "../../../css/myestare.css";
-import {
-  getCryptoasset,
-  getToken,
-  updateCryptoAssets,
-  getUser,
-  getBeneficiary,
-} from "../../../services/user-service";
-import "../../../css/myestate_edit.css";
 import "../../../css/formPOPup.css";
+import "../../../css/myestare.css";
+import "../../../css/myestate_edit.css";
 import { getSingleCryptoAssest, updateCryptoAssests } from "../../../services/CryptoService";
+import {
+  getBeneficiary,
+  getToken,
+  getUser
+} from "../../../services/user-service";
 
 function EditCrypto() {
   const { id } = useParams();
@@ -68,7 +58,6 @@ function EditCrypto() {
 
   // use state to set the selected images
   const [selectedImage, setSelectedImage] = useState([]);
-  const [coins, setCoins] = useState([]);
 
   const handleChanges = (e, field) => {
     const newValue = e.target.value;
@@ -150,42 +139,7 @@ function EditCrypto() {
   //   setExchangeName("");
   //   setWalletName("");
   // };
-  const [coinName, setCoinName] = React.useState("");
 
-  const coinHandleChange = (event) => {
-    if (event.target === undefined) {
-      setCoinName(event);
-      data.coin = event;
-    } else {
-      setCoinName(event.target.value);
-      data.coin = event.target.value;
-    }
-  };
-  const [exchangeName, setExchangeName] = React.useState("");
-  const exchangeHandleChange = (event) => {
-    if (event.target === undefined) {
-      console.log("event : ", event);
-      setExchangeName(event);
-      data.exchange = event;
-    } else {
-      console.log("event target : ", event.target);
-      setExchangeName(event.target.value);
-      data.exchange = event.target.value;
-    }
-  };
-  const [walletName, setWalletName] = React.useState("");
-
-  const walletHandleChange = (event) => {
-    if (event.target === undefined) {
-      console.log("event wallet : ", event);
-      setWalletName(event);
-      data.wallet = event;
-    } else {
-      console.log("event target wallet : ", event.target);
-      setWalletName(event.target.value);
-      data.wallet = event.target.value;
-    }
-  };
 
   const cryptoForm = (event) => {
     event.preventDefault();
@@ -227,65 +181,7 @@ function EditCrypto() {
       });
   };
 
-  // Set the form
-  // const cryptoForm = (event) => {
-  //   event.preventDefault();
-
-  //   let token = "Bearer " + getToken();
-  //   console.log("Token : " + token);
-  //   if (
-  //     data.coin === "" ||
-  //     data.exchange === "" ||
-  //     data.wallet === "" ||
-  //     data.quntity === ""
-  //   ) {
-  //     console.log("Error log");
-  //     toast.error("Please Fill All required field Then Submit .", {
-  //       position: toast.POSITION.BOTTOM_CENTER,
-  //     });
-  //     return;
-  //   }
-
-  //   //create form data to send a file and remaining class data
-  //   const formData = new FormData();
-  //   const { estimatedValue, ...formDataValues } = data;
-  //   for (let i = 0; i < selectedImage.length; i++) {
-  //     formData.append(`filename`, selectedImage[i]);
-  //     console.log("this is file indexs", selectedImage[i])
-  //   }
-  //   formData.append("data", JSON.stringify(formDataValues));
-
-  //   console.log("data 2 : ", JSON.stringify(formDataValues));
-
-  //   updateCryptoAssets(formData, token, crypto_assest_id)
-  //     .then((resp) => {
-  //       // console.log(resp);
-  //       // console.log("Success log");
-  //       toast.success("Updated Successfully !!", {
-  //         position: toast.POSITION.BOTTOM_CENTER,
-  //       });
-  //       navigate("/user/my-estate/crypto");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  // const getData = () => {
-  //   let token = "Bearer " + getToken();
-  //   getSingleCryptoAssest(token, id).then((res) => {
-  //     console.log("this is realEstate responce ", res);
-  //     setData({
-  //       ...data,
-  //       cryptoAssest: res.cryptoAssest,
-  //       documents: res.documents,
-  //       sharedDetails: res.sharedDetails,
-  //     });
-  //     setEstimatedTotalAmount(data.cryptoAssest.estValue);
-  //   });
-  // };
-
-  const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
+  // const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -338,9 +234,9 @@ function EditCrypto() {
     };
 
     fetchData();
+    getBenificiarydata();
   }, []);
 
-  const [search, setSearch] = useState([]);
   // const getCoins = (value) => {
   //   console.log("Value-=----------- :  ", value);
   //   axios
@@ -401,14 +297,6 @@ function EditCrypto() {
   // // [data.cryptoAssest.coin, data.cryptoAssest.quantity]
   // []);
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-
-  useEffect(() => {
-    // getCoins("hello");
-    // getData();
-  }, []);
 
   // beneficiary addition in form
   const [beneficiary, setBenificiary] = useState([]);
@@ -422,31 +310,13 @@ function EditCrypto() {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
-
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
 
   //
-  let [show1, setShow1] = useState(false);
   const [benevisible, setbeneVisible] = useState(false);
-  const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
-  const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
+
   const [distributedType, setDistributedType] = useState("");
 
   const [sharedDetails, setSharedDetails] = useState([
@@ -470,17 +340,15 @@ function EditCrypto() {
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
-    setShowAfterCloseBene(true);
-    // data.sharedDetails = [];
+    // setShowAfterCloseBene(true);
+
   };
 
   const handleReset = () => {
     setbeneVisible(false);
-    setDistributionType("");
     setSelectedBeneficiaries([]);
     setBeneficiaryDetails({});
-    setShowAfterCloseBene(false);
+    // setShowAfterCloseBene(false);
   };
 
   const handleDistributionTypeChange = (event) => {
@@ -562,16 +430,6 @@ function EditCrypto() {
         [selectedBeneficiary]: { percentage: "", dollar: "" },
       });
     }
-  };
-
-  const handleBeneficiaryClose = (beneficiary) => {
-    const updatedBeneficiaries = selectedBeneficiaries.filter(
-      (b) => b !== beneficiary
-    );
-    setSelectedBeneficiaries(updatedBeneficiaries);
-    const updatedDetails = { ...beneficiaryDetails };
-    delete updatedDetails[beneficiary];
-    setBeneficiaryDetails(updatedDetails);
   };
 
   const getBenificiaryName = (id) => {
@@ -741,11 +599,6 @@ function EditCrypto() {
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
 
-  const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
-    setBeneficiaryVisible(true);
-  };
-
   return (
     <UserBase>
       <div className="mt-5"></div>
@@ -764,9 +617,9 @@ function EditCrypto() {
                   <div
                     className="Close"
                     onClick={() => {
-                      {
+                      
                         navigate("/user/my-estate/crypto");
-                      }
+                      
                     }}
                   >
                     <FontAwesomeIcon icon={faXmark} />

@@ -1,4 +1,3 @@
-import emailjs from "emailjs-com";
 import React, { useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import {
@@ -6,28 +5,17 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   FormFeedback,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
 } from "reactstrap";
 import {
-  getRealEstateContent,
-  getToken,
-  updateRealEstateContent,
-  getUser,
   getBeneficiary,
+  getToken,
+  getUser,
 } from "../../../services/user-service";
 //import { Accordion, data , AccordionContext } from "reactstrap";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import SideBar from "../../../components/sidebar/Sidebar";
-import UserBase from "../../../components/user/UserBase";
-import { useNavigate, useParams } from "react-router-dom";
+import { faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FormControl,
   InputLabel,
@@ -37,17 +25,13 @@ import {
   Tooltip,
 } from "@mui/material";
 import axios from "axios";
-import "../../../css/myestate_edit.css";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import SideBar from "../../../components/sidebar/Sidebar";
+import UserBase from "../../../components/user/UserBase";
 import "../../../css/formPOPup.css";
-import {
-  faXmark,
-  faPlus,
-  faMinus,
-  faDownload,
-  faLocationDot,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../../css/myestate_edit.css";
 import {
   getSingleRealEstate,
   updateRealEstates,
@@ -93,14 +77,10 @@ function EditRealestate() {
   // use state to set the selected images
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const [error, setError] = useState({
+  const [error] = useState({
     errors: {},
     isError: false,
   });
-
-  const handleChanges = (event, property) => {
-    setData({ ...data, [property]: event.target.value });
-  };
 
   const handleChangesRealEstate = (e, field) => {
     const newValue = e.target.value;
@@ -191,27 +171,6 @@ function EditRealestate() {
     }
   };
 
-  const [selectedImage1, setSelectedImage1] = useState(null);
-  const handleImageChange1 = (event) => {
-    const selectedFile = event.target.files[0];
-    const allowedExtensions = ["pdf"];
-
-    if (selectedFile) {
-      const fileNameParts = selectedFile.name.split(".");
-      const fileExtension =
-        fileNameParts[fileNameParts.length - 1].toLowerCase();
-
-      if (allowedExtensions.includes(fileExtension)) {
-        setSelectedImage1(selectedFile);
-      } else {
-        toast.error("Please Select pdf Format Document Only", {
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
-        event.target.value = "";
-      }
-    }
-  };
-
   // const resetData = () => {
   //   setData({
   //     esatate_Id: esatate_Id,
@@ -244,17 +203,6 @@ function EditRealestate() {
   //     otherPropertyType: ""
   //   });
   // };
-  const [countryName, setCountryName] = React.useState("");
-
-  const CountryHandleChange = (event) => {
-    if (event.target === undefined) {
-      setCountryName(event);
-      data.country = event;
-    } else {
-      setCountryName(event.target.value);
-      data.country = event.target.value;
-    }
-  };
 
   // post the form
   const AddForm = (event) => {
@@ -285,120 +233,57 @@ function EditRealestate() {
       });
   };
 
-  // Set the form
-  // const AddForm = (event) => {
-  //   event.preventDefault();
-
-  //   // for email purpose only
-  //   // emailjs.sendForm(
-  //   //   'service_x5bdd6k',
-  //   //   'template_xcnktzx',
-  //   //   event.target,
-  //   //   "eRMp8lQoIb4XY73jp"
-  //   // ).then(res => {
-  //   //   console.log("email sent", res)
-  //   // }).catch(err => console.log(err))
-
-  //   let token = "Bearer " + getToken();
-
-  //   console.log("Token : " + token);
-
-  //   if (
-  //     data.streetAddress === "" ||
-  //     // data.mortgage1 === "" ||
-  //     data.zipCode === "" ||
-  //     data.city === "" ||
-  //     data.state === "" ||
-  //     data.country === ""
-  //     // data.rentalIncome === ""
-  //   ) {
-  //     // toast.error("Form data is invalid !! " , { position: toast.POSITION.BOTTOM_CENTER });
-  //     toast.error("Please fill all required fields.");
-  //     return;
-  //   }
-  //   const formData = new FormData();
-  //   if (null != selectedImage) {
-  //     for (let i = 0; i < selectedImage.length; i++) {
-  //       formData.append(`filename`, selectedImage[i]);
-  //       console.log("this is file indexs", selectedImage[i])
-  //     }
-  //   }
-  //   // formData.append("filename", selectedImage);
-  //   formData.append("newFile", selectedImage1);
-  //   formData.append("data", JSON.stringify(data));
-
-  //   updateRealEstateContent(formData, token, esatate_Id)
-  //     .then((resp) => {
-  //       console.log(resp);
-  //       console.log("Success log");
-  //       toast.success("Updated Successfully !!", {
-  //         position: toast.POSITION.BOTTOM_CENTER,
+  // const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let token = "Bearer " + getToken();
+  //       const res = await getSingleRealEstate(token, id);
+  //       console.log("this is realEstate responce ", res);
+  //       setData({
+  //         ...data,
+  //         sharedDetails: res.sharedDetails,
   //       });
-  //       navigate("/user/my-estate/real-estate");
-  //       //setInputrr ([...inputrr,{streetAddress,mortgage,aptNumber,exampleFile,zipCode,estPropertyVal,country,rentalIncome}])
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
+  //       const copiedSharedDetails = [...res.sharedDetails];
+  //       console.log("copiedSharedDetails response : ", copiedSharedDetails);
+  //       // setEstimatedTotalAmount(res.realEstate.estPropertyVal);
 
-  //       // // handle error
-  //       // setError({
-  //       //   errors: error,
-  //       //   isError: true
-  //       // })
-  //     });
-  // };
+  //       console.log("check ", sharedDetails[0].distributedType);
 
-  const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let token = "Bearer " + getToken();
-        const res = await getSingleRealEstate(token, id);
-        console.log("this is realEstate responce ", res);
-        setData({
-          ...data,
-          sharedDetails: res.sharedDetails,
-        });
-        const copiedSharedDetails = [...res.sharedDetails];
-        console.log("copiedSharedDetails response : ", copiedSharedDetails);
-        // setEstimatedTotalAmount(res.realEstate.estPropertyVal);
+  //       console.log("sharedDetails response : ", res.sharedDetails);
+  //       console.log("sharedDetails response : ", sharedDetails);
+  //       if (copiedSharedDetails.length > 0) {
+  //         console.log(res.sharedDetails.length);
+  //         setSharedDetails(res.sharedDetails);
+  //         console.log("check ", sharedDetails[0].distributedType);
+  //         ben(copiedSharedDetails[0].distributedType);
+  //         for (var i = 0; i < copiedSharedDetails.length; i++) {
+  //           handleBeneficiarySelection1(copiedSharedDetails[i].beneficiaryId);
+  //           handleFieldChange1(
+  //             copiedSharedDetails[i].beneficiaryId,
+  //             copiedSharedDetails[i].distributedType,
+  //             copiedSharedDetails[i].distributedValue
+  //           );
+  //           // console.log("sajid " + sharedDetails[0])
+  //         }
 
-        console.log("check ", sharedDetails[0].distributedType);
+  //         console.log(
+  //           "sharedDetails beneficiaryDetails : ",
+  //           beneficiaryDetails
+  //         );
+  //         console.log(
+  //           "sharedDetails selectedBeneficiaries : ",
+  //           selectedBeneficiaries
+  //         );
+  //         console.log("sharedDetails distributedType : ", distributedType);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-        console.log("sharedDetails response : ", res.sharedDetails);
-        console.log("sharedDetails response : ", sharedDetails);
-        if (copiedSharedDetails.length > 0) {
-          console.log(res.sharedDetails.length);
-          setSharedDetails(res.sharedDetails);
-          console.log("check ", sharedDetails[0].distributedType);
-          ben(copiedSharedDetails[0].distributedType);
-          for (var i = 0; i < copiedSharedDetails.length; i++) {
-            handleBeneficiarySelection1(copiedSharedDetails[i].beneficiaryId);
-            handleFieldChange1(
-              copiedSharedDetails[i].beneficiaryId,
-              copiedSharedDetails[i].distributedType,
-              copiedSharedDetails[i].distributedValue
-            );
-            // console.log("sajid " + sharedDetails[0])
-          }
-
-          console.log(
-            "sharedDetails beneficiaryDetails : ",
-            beneficiaryDetails
-          );
-          console.log(
-            "sharedDetails selectedBeneficiaries : ",
-            selectedBeneficiaries
-          );
-          console.log("sharedDetails distributedType : ", distributedType);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   let findMortgagesLength = null;
   let [findMortLength, setFindMortLength] = useState(0);
@@ -458,89 +343,12 @@ function EditRealestate() {
     };
 
     fetchData();
+    getBenificiarydata();
   }, []);
-
-  const [zipCode, setZipCode] = useState("");
-  const [addressData, setAddressData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [cities, setCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
-
-  var c = [];
-
-  // const handleChangesZipCode = (event, property) => {
-  //   setData({ ...data, [property]: event.target.value });
-  //   setZipCode(event.target.value);
-  //   console.log("zipCode : ", zipCode);
-  //   // fetchDataFromAPI();
-  const handleChangesZipCode = (e, field) => {
-    const inputValue = e.target.value;
-    if (/^\d{0,5}$/.test(inputValue)) {
-      // Validation to allow only up to 5 digits (or empty string)
-      setData({ ...data, [field]: inputValue });
-    }
-  };
 
   const validateZipCode = (value) => {
     return /^\d{5}$/.test(value); // Validates a 5-digit numeric input
   };
-
-  const [cityName, setCityName] = React.useState("");
-
-  const cityHandleChange = (event) => {
-    if (event.target === undefined) {
-      setCityName(event);
-      data.city = event;
-    } else {
-      setCityName(event.target.value);
-      data.city = event.target.value;
-    }
-  };
-
-  // useEffect(() => {
-  //   const fetchDataFromAPI = () => {
-  //     const apiUrl = `http://api.zippopotam.us/us/${zipCode}`;
-
-  //     console.log("URL : ", apiUrl);
-
-  //     setLoading(true);
-
-  //     axios
-  //       .get(apiUrl)
-  //       .then((res) => {
-  //         setLoading(false);
-  //         // console.log("Address res :  ", res.data.places);
-  //         if (res.data && res.data.places && res.data.places.length > 0) {
-  //           const placeName = res.data.places[0]["place name"];
-  //           // data.city =placeName;
-  //           setData((prevData) => ({
-  //             ...prevData,
-  //             city: placeName,
-  //             country: res.data.country,
-  //             state: res.data.places[0]["state"],
-  //           }));
-  //           data.state = res.data.places[0]["state"];
-  //           console.log("Place Name: ", placeName);
-  //         } else {
-  //           console.log("No places found in the response.");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         setLoading(false);
-  //         console.log("Error fetching data from API:", error);
-  //         // toast.error("Failed to fetch address data from API.");
-  //       });
-  //   };
-
-  //   if (data.zipCode) {
-  //     // setZipCode(data.zipCode);
-  //     fetchDataFromAPI();
-  //   }
-  // }, [data.zipCode]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
 
   useEffect(() => {
     const fetchDataFromAPI = () => {
@@ -549,7 +357,7 @@ function EditRealestate() {
         axios
           .get(apiUrl)
           .then((res) => {
-            setLoading(false);
+            // setLoading(false);
             if (res.data && res.data.places && res.data.places.length > 0) {
               const placeName = res.data.places[0]["place name"];
               // setData((prevData) => ({
@@ -573,7 +381,7 @@ function EditRealestate() {
             }
           })
           .catch((error) => {
-            setLoading(false);
+            // setLoading(false);
             console.log("Error fetching data from API:", error);
             // toast.error("Failed to fetch address data from API.");
           });
@@ -596,7 +404,7 @@ function EditRealestate() {
             state: "",
           },
         }));
-      } else if (zipCode.length <= 4) {
+      } else if (data.realEstate.zipCode.length <= 4) {
         // Reset all fields if zipCode is null
         // setData((prevData) => ({
         //   ...prevData.realEstate,
@@ -614,88 +422,12 @@ function EditRealestate() {
           },
         }));
       }
-      setLoading(true);
+      // setLoading(true);
     };
 
     fetchDataFromAPI();
   }, [data.realEstate.zipCode]);
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // const [mortgage, setMortgage] = useState([{ name: "", notes: "" }]);
-  // const [visibleColumnIndex, setVisibleColumnIndex] = useState(0);
-  // const mortgages = [0, 1, 2, 3, 4];
-  // showing mortgage after
-  // const handleAddColumn = () => {
-
-  //   let mort = [data.mortgage1,
-  //   data.mortgage2,
-  //   data.mortgage3,
-  //   data.mortgage4,
-  //   data.mortgage5];
-  //   setVisibleColumnIndex(mort.map((value, index) => {
-  //     if (value === "") {
-  //       return index;
-  //     }
-  //   }))
-
-  //   if (visibleColumnIndex < 4) {
-
-  //     setMortgage([
-  //       ...mortgage,
-  //       { label: visibleColumnIndex + 1 },
-  //     ]);
-  //     console.log("add button inside clicked", visibleColumnIndex);
-
-  //   }
-  //   setVisibleColumnIndex(visibleColumnIndex + 1);
-  //   console.log("add button outside clicked", visibleColumnIndex);
-  // };
-
-  // const [mordgage, setMordgage] = useState([]);
-  // // const [visibleColumnIndex, setVisibleColumnIndex] = useState(0);
-  // const mordgages = [0, 1, 2, 3, 4];
-  // const handleAddColumn = () => {
-  //   if (visibleColumnIndex < 4) {
-  //     setMordgage([...mordgage, { label: visibleColumnIndex + 1 }]);
-  //     setVisibleColumnIndex(visibleColumnIndex + 1);
-  //   }
-  // };
-
-  // const handleRemoveColumn = (indexToRemove) => {
-  //   setMordgage(mordgage.filter((_, index) => index !== indexToRemove));
-  //   setVisibleColumnIndex(visibleColumnIndex - 1);
-
-  //   setData((prevData) => {
-  //     const updatedMortgages = prevData.mortgages.map((mortgage, index) => {
-  //       if (index === indexToRemove) {
-  //         return { mortgage: "" }; // Reset the mortgage value to an empty string
-  //       }
-  //       return mortgage; // Return the original mortgage object for other indices
-  //     });
-
-  //     // Filter out mortgages with empty strings
-  //     const filteredMortgages = updatedMortgages.filter(mortgage => mortgage.mortgage !== '');
-
-  //     // Return the new state with empty mortgages removed
-  //     return {
-  //       ...prevData,
-  //       mortgages: filteredMortgages,
-  //     };
-  //   });
-  // };
-
-  const [visibleDivs, setVisibleDivs] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-
-  let emaill = getUser().email;
   let to_name = getUser().firstName + " " + getUser().lastName;
   console.log("type of nam  is ::::::", typeof to_name);
   console.log(to_name);
@@ -713,9 +445,6 @@ function EditRealestate() {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
 
   const handleChanges1 = (e, field, { index }) => {
     const { value } = e.target;
@@ -734,37 +463,16 @@ function EditRealestate() {
     });
   };
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
-  let [otherPropertyTypes, setOtherPropertyTypes] = useState(false);
-
   //$ on click
-  const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
-  const [isTextFieldClicked2, setIsTextFieldClicked2] = useState(false);
+
   const [isTextFieldClicked3, setIsTextFieldClicked3] = useState(false);
 
-  // for add field pop
-  let [showAdditionField, SetshowAdditionField] = useState(false);
-
-  //
-  let [show1, setShow1] = useState(false);
   const [benevisible, setbeneVisible] = useState(false);
-  const [distributionType, setDistributionType] = useState("");
+
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
-  const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
+
   const [distributedType, setDistributedType] = useState("");
 
   const [sharedDetails, setSharedDetails] = useState([
@@ -788,18 +496,17 @@ function EditRealestate() {
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
-    setShowAfterCloseBene(true);
+
+    // setShowAfterCloseBene(true);
     setEstimatedTotalAmount(data.realEstate.estPropertyVal);
-    // data.sharedDetails = [];
   };
 
   const handleReset = () => {
     setbeneVisible(false);
-    setDistributionType("");
+    // setDistributionType("");
     setSelectedBeneficiaries([]);
     setBeneficiaryDetails({});
-    setShowAfterCloseBene(false);
+    // setShowAfterCloseBene(false);
   };
 
   const handleDistributionTypeChange = (event) => {
@@ -881,16 +588,6 @@ function EditRealestate() {
         [selectedBeneficiary]: { percentage: "", dollar: "" },
       });
     }
-  };
-
-  const handleBeneficiaryClose = (beneficiary) => {
-    const updatedBeneficiaries = selectedBeneficiaries.filter(
-      (b) => b !== beneficiary
-    );
-    setSelectedBeneficiaries(updatedBeneficiaries);
-    const updatedDetails = { ...beneficiaryDetails };
-    delete updatedDetails[beneficiary];
-    setBeneficiaryDetails(updatedDetails);
   };
 
   const getBenificiaryName = (id) => {
@@ -1060,11 +757,6 @@ function EditRealestate() {
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
 
-  const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
-    setBeneficiaryVisible(true);
-  };
-
   return (
     <UserBase>
       <div className="mt-5">
@@ -1081,9 +773,7 @@ function EditRealestate() {
                     <div
                       className="Close"
                       onClick={() => {
-                        {
-                          navigate("/user/my-estate/real-estate");
-                        }
+                        navigate("/user/my-estate/real-estate");
                       }}
                     >
                       <FontAwesomeIcon icon={faXmark} />
@@ -1542,139 +1232,144 @@ function EditRealestate() {
 
                       {/* mortgages  */}
                       <div className="mt-2">
-                      {mordgages.map((index) => (
-                        <div
-                          key={index}
-                          style={{
-                            marginBottom: "10px",
-                            display:
-                              index <= visibleColumnIndex ? "block" : "none",
-                          }}
-                        >
-                          <div style={{ width: "100%" }}>
-                            <Tooltip
-                              title={`Add your mortgage institution ${
-                                index + 1
-                              }`}
-                            >
-                              <TextField
-                                fullWidth
-                                type="text"
-                                label={`Mortgage Institution ${index + 1}`}
-                                id={`mortgageInstitution${index + 1}`}
-                                size="normal"
-                                onChange={(e) =>
-                                  handleChanges1(e, "mortgageInstitution", {
-                                    index,
-                                  })
-                                }
-                                value={
-                                  data.mortgages[index]
-                                    ? data.mortgages[index].mortgageInstitution
-                                    : ""
-                                }
-                              />
-                            </Tooltip>
-                          </div>
+                        {mordgages.map((index) => (
                           <div
+                            key={index}
                             style={{
-                              width: "100%",
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              marginTop: "8px",
+                              marginBottom: "10px",
+                              display:
+                                index <= visibleColumnIndex ? "block" : "none",
                             }}
                           >
-                            <div style={{ width: "49.5%" }}>
+                            <div style={{ width: "100%" }}>
                               <Tooltip
-                                title={`Add your mortgage number ${index + 1}`}
+                                title={`Add your mortgage institution ${
+                                  index + 1
+                                }`}
                               >
                                 <TextField
                                   fullWidth
                                   type="text"
-                                  label={`Mortgage Number ${index + 1}`}
-                                  id={`mortgageNumber${index + 1}`}
+                                  label={`Mortgage Institution ${index + 1}`}
+                                  id={`mortgageInstitution${index + 1}`}
                                   size="normal"
                                   onChange={(e) =>
-                                    handleChanges1(e, "mortgageNumber", {
+                                    handleChanges1(e, "mortgageInstitution", {
                                       index,
                                     })
                                   }
                                   value={
                                     data.mortgages[index]
-                                      ? data.mortgages[index].mortgageNumber
+                                      ? data.mortgages[index]
+                                          .mortgageInstitution
                                       : ""
                                   }
                                 />
                               </Tooltip>
                             </div>
-                            <div style={{ width: "49.5%" }}>
-                              <Tooltip title={`Add your mortgage ${index + 1}`}>
-                                <TextField
-                                  fullWidth
-                                  type="number"
-                                  label={`Mortgage ${index + 1}`}
-                                  id={`mortgage${index + 1}`}
-                                  size="normal"
-                                  onChange={(e) =>
-                                    handleChanges1(e, "mortgage", { index })
-                                  }
-                                  value={
-                                    data.mortgages[index]
-                                      ? data.mortgages[index].mortgage
-                                      : ""
-                                  }
-                                  onClick={() => setIsTextFieldClicked3(true)}
-                                  InputProps={{
-                                    startAdornment: isTextFieldClicked3 ? (
-                                      <div>$</div>
-                                    ) : null,
+                            <div
+                              style={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                marginTop: "8px",
+                              }}
+                            >
+                              <div style={{ width: "49.5%" }}>
+                                <Tooltip
+                                  title={`Add your mortgage number ${
+                                    index + 1
+                                  }`}
+                                >
+                                  <TextField
+                                    fullWidth
+                                    type="text"
+                                    label={`Mortgage Number ${index + 1}`}
+                                    id={`mortgageNumber${index + 1}`}
+                                    size="normal"
+                                    onChange={(e) =>
+                                      handleChanges1(e, "mortgageNumber", {
+                                        index,
+                                      })
+                                    }
+                                    value={
+                                      data.mortgages[index]
+                                        ? data.mortgages[index].mortgageNumber
+                                        : ""
+                                    }
+                                  />
+                                </Tooltip>
+                              </div>
+                              <div style={{ width: "49.5%" }}>
+                                <Tooltip
+                                  title={`Add your mortgage ${index + 1}`}
+                                >
+                                  <TextField
+                                    fullWidth
+                                    type="number"
+                                    label={`Mortgage ${index + 1}`}
+                                    id={`mortgage${index + 1}`}
+                                    size="normal"
+                                    onChange={(e) =>
+                                      handleChanges1(e, "mortgage", { index })
+                                    }
+                                    value={
+                                      data.mortgages[index]
+                                        ? data.mortgages[index].mortgage
+                                        : ""
+                                    }
+                                    onClick={() => setIsTextFieldClicked3(true)}
+                                    InputProps={{
+                                      startAdornment: isTextFieldClicked3 ? (
+                                        <div>$</div>
+                                      ) : null,
+                                    }}
+                                  />
+                                </Tooltip>
+                              </div>
+                            </div>
+                            {index >= findMortLength && (
+                              <div style={{ width: "100%", marginTop: "4px" }}>
+                                <Button
+                                  style={{
+                                    height: "30px",
+                                    width: "30px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    borderRadius: "50%",
+                                    backgroundColor: "rgb(255, 74, 74)",
+                                    border: "none",
                                   }}
-                                />
-                              </Tooltip>
-                            </div>
+                                  onClick={() => handleRemoveColumn(index)}
+                                >
+                                  <FontAwesomeIcon icon={faMinus} />
+                                </Button>
+                              </div>
+                            )}
                           </div>
-                          {index >= findMortLength && (
-                            <div style={{ width: "100%", marginTop: "4px" }}>
-                              <Button
-                                style={{
-                                  height: "30px",
-                                  width: "30px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  borderRadius: "50%",
-                                  backgroundColor: "rgb(255, 74, 74)",
-                                  border: "none",
-                                }}
-                                onClick={() => handleRemoveColumn(index)}
-                              >
-                                <FontAwesomeIcon icon={faMinus} />
-                              </Button>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                      {visibleColumnIndex < 4 && (
-                        <div style={{ width: "100%", marginTop: "2px" }}>
-                          <Button
-                            style={{
-                              height: "30px",
-                              width: "30px",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              borderRadius: "50%",
-                              backgroundColor: "#4aafff",
-                              border: "none",
-                            }}
-                            onClick={handleAddColumn}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </Button>
-                        </div>
-                      )}
-                    </div>
+                        ))}
+                        {visibleColumnIndex < 4 && (
+                          <div style={{ width: "100%", marginTop: "2px" }}>
+                            <Button
+                              style={{
+                                height: "30px",
+                                width: "30px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                borderRadius: "50%",
+                                backgroundColor: "#4aafff",
+                                border: "none",
+                              }}
+                              onClick={handleAddColumn}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </Button>
+                          </div>
+                        )}
+                      </div>
 
                       {/* <div className="form1-double" style={{ display: "flex", gap: "5px" }}> */}
                       {/* <div className="mt-3" style={{ width: "49.5%" }}>

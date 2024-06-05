@@ -1,54 +1,26 @@
-import React from "react";
-import { Card, Label, NavLink } from "reactstrap";
-import Base from "../../components/Base";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Button, Card, CardBody, Table } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import TrusteeBase from "../../components/trustee/TrusteeBase";
-import "./TrusteeDashboard.css";
-import { NavLink as ReactLink } from "react-router-dom";
 import {
-  aproveByTrustee,
   getAllSharedPropety,
   getBeneficiary,
-  getFormdata,
   getToken,
   getUser,
   getUserModelById,
-  getproperty,
   initiateProperty,
   pdfGenerate,
-  viewDetailsfalse,
 } from "../../services/user-service";
-import {
-  Button,
-  CardBody,
-  CardHeader,
-  Col,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  Row,
-  Table,
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-// import ReactPDF from 'react-pdf';
-// import { saveAs } from 'file-saver';
-// import PDFFile from "./PDFFile";
-import axios from "axios";
-// import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Benificiarydetailsbytrustee from "../Benificiarydetailsbytrustee";
-import Propertydetails from "../Propertydetails";
-import Footer from "../../components/Footerfile/footer";
+import "./TrusteeDashboard.css";
 import { TableBody, TableHead, TableRow } from "@mui/material";
+import Benificiarydetailsbytrustee from "../Benificiarydetailsbytrustee";
 
 export default function Userdashboard() {
   const [properties, setProperties] = useState([]);
-  const [benProperties, setBenProperties] = useState([]);
+
   let user = getUser();
-  console.log("hello",user);
+  console.log("hello", user);
   // const [modal, setModal] = useState(false);
   // const toggle = () => setModal(!modal);
   // const [data,setData]=useState({});
@@ -97,7 +69,6 @@ export default function Userdashboard() {
   //     URL.revokeObjectURL(downloadUrl);
   // }
   const handleGenerate = (property) => {
-    const token = getToken(); // Replace with your actual token 
     console.log("property details : " + property);
     pdfGenerate(property)
       .then((response) => {
@@ -106,7 +77,9 @@ export default function Userdashboard() {
         console.log(downloadUrl);
         const link = document.createElement("a");
         link.href = downloadUrl;
-        link.download = `${getBenificiaryName(property.beneficiaryId)}_${property.assetName}_${property.id}.pdf`; // Set the desired file name and extension
+        link.download = `${getBenificiaryName(property.beneficiaryId)}_${
+          property.assetName
+        }_${property.id}.pdf`; // Set the desired file name and extension
         link.click();
         URL.revokeObjectURL(downloadUrl);
       })
@@ -115,17 +88,7 @@ export default function Userdashboard() {
         console.log("error : " + error);
       });
   };
-  const getData = () => {
-    getproperty(user)
-      .then((res) => {
-        console.log(res);
-        const result = res.data;
-        setBenProperties(result);
-      })
-      .catch((err) => {
-        console.log("Error..." + err);
-      });
-  };
+
   // const handleViewdetails=(property)=>{
   //   toggle();
   //   viewDetailsfalse(property).then((res)=>{
@@ -165,17 +128,17 @@ export default function Userdashboard() {
   //     });
   // }, []);
 
-  // 
+  //
   const [user1, setUser1] = useState([]);
   const getUserDetail = () => {
     getUserModelById(user.userid)
-    .then((res) => {
-      setUser1(res);
-      // console.log("user detail ",res.data.user);
-      // console.log("user detail 1 ",user1);
-    })
-    .catch((err) => console.log(err)); 
-  }
+      .then((res) => {
+        setUser1(res);
+        // console.log("user detail ",res.data.user);
+        // console.log("user detail 1 ",user1);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const [beneficiary, setBenificiary] = useState([]);
   const getBenificiarydata = () => {
@@ -225,7 +188,6 @@ export default function Userdashboard() {
     getBenificiarydata();
     getPropertyData();
     getUserDetail();
-    getData();
   }, []);
 
   return (
@@ -233,7 +195,10 @@ export default function Userdashboard() {
       <div className="mt-5"></div>
       <SideBar>
         <container>
-          <div className="homepage" style={{ display: "flex", width: "80vw",height:"auto" }}>
+          <div
+            className="homepage"
+            style={{ display: "flex", width: "80vw", height: "auto" }}
+          >
             {/* <Card className="profile" style={{ flex: "2" }}>
               <img
                 className="profilepic"
@@ -251,27 +216,35 @@ export default function Userdashboard() {
               <userid className="profilealign">User ID:{user.id}</userid>
               <role className="profilealign">Role : {user.role} </role>
             </Card> */}
-            <Card style={{overflow:"auto",height:"fitContent",minHeight:"50px",maxHeight:"100vh"}}>
+            <Card
+              style={{
+                overflow: "auto",
+                height: "fitContent",
+                minHeight: "50px",
+                maxHeight: "100vh",
+              }}
+            >
               <CardBody>
-                <Table >
-                  <TableHead >
-                    <TableRow >
-                        <th className="tabe_rowsl">S.N</th>
-                        <th className="tabe_row">Beneficiary Name</th>
-                        {/* <th>View Details</th> */}
-                        <th className="tabe_row">Property Name</th>
-                        <th className="tabe_row">Property Details</th>
-                        <th className="tabe_row">Property From</th>
-                        <th className="tabe_row">View Details</th>
-                        <th className="tabe_row">Actions</th>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <th className="tabe_rowsl">S.N</th>
+                      <th className="tabe_row">Beneficiary Name</th>
+                      {/* <th>View Details</th> */}
+                      <th className="tabe_row">Property Name</th>
+                      <th className="tabe_row">Property Details</th>
+                      <th className="tabe_row">Property From</th>
+                      <th className="tabe_row">View Details</th>
+                      <th className="tabe_row">Actions</th>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {properties.map((property, index) => (
-                      <TableRow key={index} style={{textAlign: 'center'}}>
-                        <td style={{textAlign: 'start'}} scope="row">{index + 1}</td>
+                      <TableRow key={index} style={{ textAlign: "center" }}>
+                        <td style={{ textAlign: "start" }} >
+                          {index + 1}
+                        </td>
                         <td>{getBenificiaryName(property.beneficiaryId)}</td>
-                        
 
                         <td>
                           {property.assetName === "internationalAsset"
@@ -282,7 +255,6 @@ export default function Userdashboard() {
                         <td>
                           {/* {property.propertyid} */}
                           {/* <Propertydetails property={property.propertyname} Id={property.propertyid} /> */}
-                          
                         </td>
                         <td>
                           {user1?.data?.user?.firstName +
@@ -290,13 +262,19 @@ export default function Userdashboard() {
                             user1?.data?.user?.lastName}
                         </td>
                         <td>
-                          {property.viewTrustee ?
-                            <Benificiarydetailsbytrustee property={property} role={'trustee'} />
-                            : <Button color="info" disabled>View</Button>
-                          }
+                          {property.viewTrustee ? (
+                            <Benificiarydetailsbytrustee
+                              property={property}
+                              role={"trustee"}
+                            />
+                          ) : (
+                            <Button color="info" disabled>
+                              View
+                            </Button>
+                          )}
                         </td>
-                        <td style={{display: 'flex'}}>
-                          {property.userApprove ?
+                        <td style={{ display: "flex" }}>
+                          {property.userApprove ? (
                             <Button
                               color="success"
                               onClick={() => {
@@ -304,11 +282,25 @@ export default function Userdashboard() {
                               }}
                             >
                               Generate
-                            </Button> : <Button color="success" disabled>Generate</Button>
-                          }
+                            </Button>
+                          ) : (
+                            <Button color="success" disabled>
+                              Generate
+                            </Button>
+                          )}
 
                           {property.initiateBoolean ? (
-                            <Button color="warning" style={{ marginLeft: "10px", width: "94px", marginbuttom: "auto" }} disabled>Initiated</Button>
+                            <Button
+                              color="warning"
+                              style={{
+                                marginLeft: "10px",
+                                width: "94px",
+                                marginbuttom: "auto",
+                              }}
+                              disabled
+                            >
+                              Initiated
+                            </Button>
                           ) : (
                             <Button
                               color="warning"
@@ -323,7 +315,6 @@ export default function Userdashboard() {
                         </td>
                       </TableRow>
                     ))}
-                    
                   </TableBody>
                 </Table>
               </CardBody>

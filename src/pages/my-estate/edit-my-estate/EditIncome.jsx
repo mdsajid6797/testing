@@ -1,48 +1,35 @@
+import {
+  faXmark
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  TextField,
+  Tooltip
+} from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
-  Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
+  Form
 } from "reactstrap";
 import SideBar from "../../../components/sidebar/Sidebar";
 import UserBase from "../../../components/user/UserBase";
-import {
-  getActiveIncome,
-  getToken,
-  updateActiveIncome,
-  getUser,
-  getBeneficiary,
-} from "../../../services/user-service";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Tooltip,
-} from "@mui/material";
-import {
-  faXmark,
-  faPlus,
-  faDownload,
-  faLocationDot,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../../css/myestate_edit.css";
 import "../../../css/formPOPup.css";
-import { getSingleIncome, updateIncome, updateIncomeMy } from "../../../services/IncomeService";
+import "../../../css/myestate_edit.css";
+import {
+  getSingleIncome,
+  updateIncome
+} from "../../../services/IncomeService";
+import {
+  getBeneficiary,
+  getToken,
+  getUser
+} from "../../../services/user-service";
 
 function EditIncome() {
   const { id } = useParams();
@@ -208,7 +195,7 @@ function EditIncome() {
   //     });
   // };
 
-  const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
+  // const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -260,12 +247,9 @@ function EditIncome() {
     };
 
     fetchData();
+    getBenificiarydata();
   }, []);
 
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
 
   // beneficiary addition in form
   const [beneficiary, setBenificiary] = useState([]);
@@ -279,31 +263,14 @@ function EditIncome() {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
-
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
 
   //
-  let [show1, setShow1] = useState(false);
+
   const [benevisible, setbeneVisible] = useState(false);
-  const [distributionType, setDistributionType] = useState("");
+
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
-  const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
   const [distributedType, setDistributedType] = useState("");
 
   const [sharedDetails, setSharedDetails] = useState([
@@ -327,17 +294,15 @@ function EditIncome() {
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
-    setShowAfterCloseBene(true);
-    // data.sharedDetails = [];
+
+    // setShowAfterCloseBene(true);
   };
 
   const handleReset = () => {
     setbeneVisible(false);
-    setDistributionType("");
     setSelectedBeneficiaries([]);
     setBeneficiaryDetails({});
-    setShowAfterCloseBene(false);
+    // setShowAfterCloseBene(false);
   };
 
   const handleDistributionTypeChange = (event) => {
@@ -419,16 +384,6 @@ function EditIncome() {
         [selectedBeneficiary]: { percentage: "", dollar: "" },
       });
     }
-  };
-
-  const handleBeneficiaryClose = (beneficiary) => {
-    const updatedBeneficiaries = selectedBeneficiaries.filter(
-      (b) => b !== beneficiary
-    );
-    setSelectedBeneficiaries(updatedBeneficiaries);
-    const updatedDetails = { ...beneficiaryDetails };
-    delete updatedDetails[beneficiary];
-    setBeneficiaryDetails(updatedDetails);
   };
 
   const getBenificiaryName = (id) => {
@@ -598,11 +553,6 @@ function EditIncome() {
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
 
-  const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
-    setBeneficiaryVisible(true);
-  };
-
   return (
     <UserBase>
       <div className="mt-5"></div>
@@ -623,9 +573,7 @@ function EditIncome() {
                   <div
                     className="Close"
                     onClick={() => {
-                      {
-                        navigate("/user/my-estate/income");
-                      }
+                      navigate("/user/my-estate/income");
                     }}
                   >
                     <FontAwesomeIcon icon={faXmark} />
@@ -830,40 +778,40 @@ function EditIncome() {
             </Container>
           </div>
         </div>
-        
+
         {benevisible && (
-            <div className="popup">
-              <div
-                className="popup-content"
-                style={{
-                  minWidth: "350px",
-                  width: "100%",
-                  maxWidth: "700px",
-                }}
-              >
-                <div className="note_popup">
-                  <div className="note_popup_heading">
-                    <div className="share_property_heading">
-                      <h2>Share Property </h2>
-                    </div>
-                    <div>
-                      <button
-                        className="note_popup_heading_close_btn"
-                        onClick={handleReset}
-                      >
-                        <FontAwesomeIcon icon={faXmark} />
-                      </button>
-                    </div>
+          <div className="popup">
+            <div
+              className="popup-content"
+              style={{
+                minWidth: "350px",
+                width: "100%",
+                maxWidth: "700px",
+              }}
+            >
+              <div className="note_popup">
+                <div className="note_popup_heading">
+                  <div className="share_property_heading">
+                    <h2>Share Property </h2>
                   </div>
-                  <div className="share_property_est_value">
-                    <p>
-                      Estimated Value:{" "}
-                      <code style={{ color: "green", fontWeight: "bold" }}>
-                        ${estimatedTotalAmount}
-                      </code>
-                    </p>
-                    {/* {JSON.stringify(sharedDetails)}  */}
-                    {/* <p>----------------------------------------------------</p>
+                  <div>
+                    <button
+                      className="note_popup_heading_close_btn"
+                      onClick={handleReset}
+                    >
+                      <FontAwesomeIcon icon={faXmark} />
+                    </button>
+                  </div>
+                </div>
+                <div className="share_property_est_value">
+                  <p>
+                    Estimated Value:{" "}
+                    <code style={{ color: "green", fontWeight: "bold" }}>
+                      ${estimatedTotalAmount}
+                    </code>
+                  </p>
+                  {/* {JSON.stringify(sharedDetails)}  */}
+                  {/* <p>----------------------------------------------------</p>
                     {JSON.stringify(data.documents)}
                     <p>----------------------------------------------------</p>
                     {JSON.stringify(data.accounts)}
@@ -871,60 +819,60 @@ function EditIncome() {
                     {JSON.stringify(data.bank)}
                     <p>----------------------------------------------------</p>
                     {JSON.stringify(data)} */}
-                  </div>
-                  <div className="BeneficiarySelect">
-                    <div className="BeneficiarySelectContainer">
-                      <div className="BeneficiarySelectRow">
-                        <div className="share_property_Type">
-                          <p className="share_property_Type_paragraph">
-                            Choose Distribution Type:{" "}
-                          </p>
-                          <p className="ms-2 text-black fw-normal">
-                            {/* {sharedDetails[0].distributedType} */}
-                          </p>
-                          <select
-                            value={sharedDetails[0].distributedType}
-                            onChange={(e) => handleDistributionTypeChange(e)}
-                            class="share_property_Type_select"
-                            disabled={
-                              sharedDetails[0].distributedType !== ""
-                                ? true
-                                : false
-                            }
-                          >
-                            <option value="">Select Type</option>
-                            <option value="percentage">Percentage</option>
-                            <option value="dollar">Dollar</option>
-                          </select>
-                        </div>
-                        <div className="SelectContainer">
-                          <select
-                            className="Property-inputfiled"
-                            onChange={handleBeneficiarySelection}
-                            value=""
-                            disabled={!distributedType}
-                          >
-                            <option value="" disabled hidden>
-                              {distributedType
-                                ? "Select Your Beneficiary Username"
-                                : "Select Type First"}
-                            </option>
-                            {beneficiary.map((benif) => (
-                              <option
-                                key={benif.id}
-                                value={benif.id}
-                                disabled={selectedBeneficiaries.includes(
-                                  benif.id
-                                )}
-                              >
-                                {/* {benif.username} */}
-                                {`${benif.firstName} ${benif.lastName}`}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
+                </div>
+                <div className="BeneficiarySelect">
+                  <div className="BeneficiarySelectContainer">
+                    <div className="BeneficiarySelectRow">
+                      <div className="share_property_Type">
+                        <p className="share_property_Type_paragraph">
+                          Choose Distribution Type:{" "}
+                        </p>
+                        <p className="ms-2 text-black fw-normal">
+                          {/* {sharedDetails[0].distributedType} */}
+                        </p>
+                        <select
+                          value={sharedDetails[0].distributedType}
+                          onChange={(e) => handleDistributionTypeChange(e)}
+                          class="share_property_Type_select"
+                          disabled={
+                            sharedDetails[0].distributedType !== ""
+                              ? true
+                              : false
+                          }
+                        >
+                          <option value="">Select Type</option>
+                          <option value="percentage">Percentage</option>
+                          <option value="dollar">Dollar</option>
+                        </select>
                       </div>
-                      {/* <div className="share_beneficiary_main_card">
+                      <div className="SelectContainer">
+                        <select
+                          className="Property-inputfiled"
+                          onChange={handleBeneficiarySelection}
+                          value=""
+                          disabled={!distributedType}
+                        >
+                          <option value="" disabled hidden>
+                            {distributedType
+                              ? "Select Your Beneficiary Username"
+                              : "Select Type First"}
+                          </option>
+                          {beneficiary.map((benif) => (
+                            <option
+                              key={benif.id}
+                              value={benif.id}
+                              disabled={selectedBeneficiaries.includes(
+                                benif.id
+                              )}
+                            >
+                              {/* {benif.username} */}
+                              {`${benif.firstName} ${benif.lastName}`}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    {/* <div className="share_beneficiary_main_card">
                         {sharedDetails[0].distributedType !== null && (
                           <>
                             {sharedDetails[0].distributedType === 'dollar' ? (
@@ -946,87 +894,85 @@ function EditIncome() {
                           </>
                         )}
                       </div> */}
-                      <div className="share_beneficiary_main_card">
-                        {selectedBeneficiaries.map((beneficiary) => (
-                          <div key={beneficiary} class="share_beneficiary_card">
-                            <div>
-                              <p className="share_beneficiary_card_para">
-                                Beneficiary:{" "}
-                                {getBenificiaryName({ beneficiary })}
-                              </p>
-                              {distributedType === "percentage" && (
-                                <input
-                                  type="text"
-                                  className="share_ben_percentage"
-                                  placeholder="Percentage"
-                                  value={
-                                    beneficiaryDetails[beneficiary]
-                                      ?.percentage || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFieldChange(
-                                      beneficiary,
-                                      "percentage",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                              )}
-                              {distributedType === "dollar" && (
-                                <input
-                                  type="text"
-                                  className="share_ben_percentage"
-                                  placeholder="Dollar Value"
-                                  value={
-                                    beneficiaryDetails[beneficiary]?.dollar ||
-                                    ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFieldChange(
-                                      beneficiary,
-                                      "dollar",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                              )}
+                    <div className="share_beneficiary_main_card">
+                      {selectedBeneficiaries.map((beneficiary) => (
+                        <div key={beneficiary} class="share_beneficiary_card">
+                          <div>
+                            <p className="share_beneficiary_card_para">
+                              Beneficiary: {getBenificiaryName({ beneficiary })}
+                            </p>
+                            {distributedType === "percentage" && (
+                              <input
+                                type="text"
+                                className="share_ben_percentage"
+                                placeholder="Percentage"
+                                value={
+                                  beneficiaryDetails[beneficiary]?.percentage ||
+                                  ""
+                                }
+                                onChange={(e) =>
+                                  handleFieldChange(
+                                    beneficiary,
+                                    "percentage",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            )}
+                            {distributedType === "dollar" && (
+                              <input
+                                type="text"
+                                className="share_ben_percentage"
+                                placeholder="Dollar Value"
+                                value={
+                                  beneficiaryDetails[beneficiary]?.dollar || ""
+                                }
+                                onChange={(e) =>
+                                  handleFieldChange(
+                                    beneficiary,
+                                    "dollar",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            )}
 
-                              {distributedType && (
-                                <p className="share_beneficiary_card_para">
-                                  {/* <p></p> */}
-                                  Distributed Value: $
-                                  {distributedType === "percentage"
-                                    ? calculateDistributedAmount(
-                                        "percentage",
-                                        estimatedTotalAmount,
-                                        beneficiaryDetails[beneficiary]
-                                      )
-                                    : calculateDistributedAmount(
-                                        "dollar",
-                                        estimatedTotalAmount,
-                                        beneficiaryDetails[beneficiary]
-                                      )}
-                                </p>
-                              )}
-                            </div>
-                            {/* <div
+                            {distributedType && (
+                              <p className="share_beneficiary_card_para">
+                                {/* <p></p> */}
+                                Distributed Value: $
+                                {distributedType === "percentage"
+                                  ? calculateDistributedAmount(
+                                      "percentage",
+                                      estimatedTotalAmount,
+                                      beneficiaryDetails[beneficiary]
+                                    )
+                                  : calculateDistributedAmount(
+                                      "dollar",
+                                      estimatedTotalAmount,
+                                      beneficiaryDetails[beneficiary]
+                                    )}
+                              </p>
+                            )}
+                          </div>
+                          {/* <div
                             className="share_beneficiary_card_close"
                             onClick={() => handleBeneficiaryClose(beneficiary)}
                           >
                             <FontAwesomeIcon icon={faXmark} />
                           </div> */}
-                          </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-                {selectedBeneficiaries.length > 0 && (
-                  <button onClick={handleSave}>Save</button>
-                )}
               </div>
+              {selectedBeneficiaries.length > 0 && (
+                <button onClick={handleSave}>Save</button>
+              )}
             </div>
-          )}
+          </div>
+        )}
       </SideBar>
       {/* <div>
         <Footer />

@@ -1,37 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Container } from "reactstrap";
+import React from "react";
+import { Notification } from "../../components/alerting-visitors/notification";
 import SideBar from "../../components/sidebar/Sidebar";
 import TrusteeBase from "../../components/trustee/TrusteeBase";
 import "../../css/myestare.css";
-import { bankGet, getToken, getUser } from "../../services/user-service";
-import { Notification } from "../../components/alerting-visitors/notification";
 
 function TrusteeBanks() {
   //hiding the bank account number other then last 4 digit
-  const formatAccountNumber = (number) => {
-    return number.replace(/\d(?=\d{4})/g, "*");
-  };
+  // const formatAccountNumber = (number) => {
+  //   return number.replace(/\d(?=\d{4})/g, "*");
+  // };
 
   //show data in frontend
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().userid;
-    console.log("user Id=" + userId);
-    let token = "Bearer " + getToken();
-    bankGet(token, userId)
-      .then((resp) => {
-        console.log("Data -- : " + category[0]);
-        setCategory(resp);
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("Data not loaded");
-      });
-  };
+  // const [category, setCategory] = useState([]);
+  // const getData = () => {
+  //   let userId = getUser().userid;
+  //   console.log("user Id=" + userId);
+  //   let token = "Bearer " + getToken();
+  //   bankGet(token, userId)
+  //     .then((resp) => {
+  //       console.log("Data -- : " + category[0]);
+  //       setCategory(resp);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       console.log("Data not loaded");
+  //     });
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <TrusteeBase>
@@ -109,7 +107,6 @@ function TrusteeBanks() {
           </div>
         </div> */}
       </SideBar>
-
     </TrusteeBase>
   );
 }

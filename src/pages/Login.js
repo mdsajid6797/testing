@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Alert,
@@ -6,32 +6,25 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
   FormGroup,
   Input,
   Label,
-  Row,
 } from "reactstrap";
 import {
   currentUser,
   generateToken,
-  getToken,
-  googleAuth,
   loginUser,
   setUser,
 } from "../services/user-service";
 
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 import "./LoginPage.css";
 import Otppage from "./Otppage";
-import { toast } from "react-toastify";
-import axios from "axios";
-import { myAxios } from "../services/helper";
-import { useAuth } from "../auth/AuthContext";
-import { Link } from "react-router-dom";
 
 const Login = ({ onBack }) => {
   const navigate = useNavigate();
@@ -46,39 +39,39 @@ const Login = ({ onBack }) => {
     setLoginDetail({ ...loginDetail, [property]: event.target.value });
   };
 
-  const handleReset = () => {
-    setLoginDetail({
-      username: "",
-      password: "",
-    });
-  };
+  // const handleReset = () => {
+  //   setLoginDetail({
+  //     username: "",
+  //     password: "",
+  //   });
+  // };
 
   const [visible, setVisible] = useState(false);
   // const [checkedUserLoggedIn, setCheckedUserLoggedIn] = useState(false);
 
-  const [showOtp, setShowOtp] = React.useState(false);
-  const [usermail, setUsermail] = React.useState(null);
+  const [showOtp] = React.useState(false);
+  const [usermail] = React.useState(null);
   // const [OTP, setOTP] = React.useState(false);
-  const toggleOtp = () => {
-    setShowOtp(!showOtp);
-    // setShowLogin(false);
-  };
+  // const toggleOtp = () => {
+  //   setShowOtp(!showOtp);
+  //   // setShowLogin(false);
+  // };
 
-  const [email, setemail] = useState({
-    to: "",
-    subject: "",
-    message: "",
-  });
+  // const [email, setemail] = useState({
+  //   to: "",
+  //   subject: "",
+  //   message: "",
+  // });
 
-  const [checkUser, setCheckUser] = useState(null);
-  function isUserLoggedIn() {
+  // const [checkUser, setCheckUser] = useState(null);
+  // function isUserLoggedIn() {
 
-    if (checkUser.username === loginDetail.username) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  //   if (checkUser.username === loginDetail.username) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -89,7 +82,7 @@ const Login = ({ onBack }) => {
   //         console.log("currentUser: ", user);
   //       })
   //       .catch((error) => {
-          
+
   //       });
   //   }
   // }, []);
@@ -113,11 +106,10 @@ const Login = ({ onBack }) => {
       // handleReset();
       return;
     }
-  
+
     // call server api for sending data
     generateToken(loginDetail)
       .then((jwtTokenData) => {
-
         loginUser(jwtTokenData.token);
         const token = "Bearer " + jwtTokenData.token;
         currentUser(token).then((user) => {
@@ -129,9 +121,9 @@ const Login = ({ onBack }) => {
           //   message: Emailtemplate,
           //   postfixMessage: EmailTemplatePostfix
           // }).then((res)=>{
-    
+
           //   setUsermail(user.email);
-     
+
           //   // setOTP(res);
           //   setShowOtp(true);
           // }).catch((err)=>{
@@ -141,19 +133,16 @@ const Login = ({ onBack }) => {
           // });
 
           if (user.role === "USER") {
-
             navigate("/user/dashboard");
           } else if (
             user.role === "TRUSTEE" &&
             user.firstlevelapproval === "true"
           ) {
-        
             navigate("/trustee/dashboard");
           } else if (
             user.role === "BENEFICIARY" &&
             user.firstlevelapproval === "true"
           ) {
-    
             navigate("/beneficiary/dashboard");
           }
           // else {
@@ -163,26 +152,13 @@ const Login = ({ onBack }) => {
       })
       .catch((error) => {
         setVisible(true);
-
       });
     // signup(data).then((resp) => {
-   
-   
+
     //   resetData();
     // }).catch((error) => {
-   
-  
+
     // })
-  };
-
-  const handleGoogleSignIn = () => {
-    try {
-      const response = myAxios.get("/oauth2/google");
-
-      window.location.href = response.data;
-    } catch (error) {
-      console.error("Google login error:", error);
-    }
   };
 
   const [showPassword, setShowPassword] = useState(false); // Step 1
@@ -257,7 +233,7 @@ const Login = ({ onBack }) => {
                       </button>
                     </div>
                   </FormGroup>
-                  <div style={{marginBottom: "20px"}} className="forgot-btn">
+                  <div style={{ marginBottom: "20px" }} className="forgot-btn">
                     <Link className="forgot-button" to="/forgot">
                       Forgot Password?
                     </Link>

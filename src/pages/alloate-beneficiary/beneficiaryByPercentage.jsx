@@ -1,39 +1,19 @@
 import {
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Container,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-} from "reactstrap";
-import {
     TextField,
-    TextareaAutosize,
-    Tooltip,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select
+    Tooltip
 } from "@mui/material";
+import {
+    FormGroup,
+    Input,
+    Label
+} from "reactstrap";
 
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import { toast } from "react-toastify";
-import React, { useEffect, useState } from "react";
-import "../../css/myestare.css";
-import { addInternationalAssest, downloadDocument, getInternationalAssest, getToken, getUser, removeInternationalAssest, getBeneficiary  } from "../../services/user-service";
-import "../../css/formPOPup.css";
-import { faXmark, faPlus, faDownload, faLocationDot, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+import "../../css/formPOPup.css";
+import "../../css/myestare.css";
+import { getBeneficiary, getToken, getUser } from "../../services/user-service";
 import "./beneficiaryDevision.css";
 
 const BeneficiaryByPercentage = ({ showBeneficiary,closeBeneficiary,total1 }) => {

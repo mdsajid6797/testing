@@ -1,25 +1,17 @@
-import emailjs from "emailjs-com";
+import { faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FormControl,
+  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
+  Switch,
   TextField,
   Tooltip,
-  Switch,
-  FormControlLabel,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { json, useNavigate, useParams } from "react-router-dom";
-import {
-  faXmark,
-  faPlus,
-  faMinus,
-  faDownload,
-  faLocationDot,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Button,
@@ -28,22 +20,17 @@ import {
   CardHeader,
   Container,
   Form,
-  FormGroup,
-  Label,
-  Input,
 } from "reactstrap";
 import SideBar from "../../../components/sidebar/Sidebar";
 import UserBase from "../../../components/user/UserBase";
-import {
-  getBankRow,
-  getToken,
-  updatebank,
-  getUser,
-  getBeneficiary,
-  getSecondaryUser,
-} from "../../../services/user-service";
 import "../../../css/myestate_edit.css";
 import { getSingleBank, updateBank } from "../../../services/bank-service";
+import {
+  getBeneficiary,
+  getSecondaryUser,
+  getToken,
+  getUser,
+} from "../../../services/user-service";
 
 function Editbanks() {
   // get id from the url
@@ -115,14 +102,11 @@ function Editbanks() {
   // Get secondaryUser data
   const secondaryUserDetails = getSecondaryUser();
   let secondaryUserName = "";
-  let bothUserName = "";
 
   // Check if secondary user exists
   if (secondaryUserDetails !== undefined) {
     secondaryUserName =
       secondaryUserDetails.firstName + " " + secondaryUserDetails.lastName;
-    // Combine both user names into one variable
-    bothUserName = secondaryUserName + " & " + primaryUserName;
 
     // Push both user names into the array
     ownerNames.push(primaryUserName, secondaryUserName);
@@ -132,9 +116,7 @@ function Editbanks() {
   }
 
   const [selectedImage, setSelectedImage] = useState([]);
-  const handleChanges = (event, property) => {
-    setData({ ...data, [property]: event.target.value });
-  };
+
   const handleChangesBank = (e, field) => {
     const newValue = e.target.value;
     setData((prevData) => ({
@@ -236,13 +218,12 @@ function Editbanks() {
   const [selectedBankTypes, setSelectedBankTypes] = useState(
     Array(multipleAccount.length).fill("")
   );
-  const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
+  // const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
   const handleReset = () => {
     setbeneVisible(false);
     setDistributedType("");
     setSelectedBeneficiaries([]);
     setBeneficiaryDetails({});
-    setShowAfterCloseBene(false);
   };
 
   // Handle image
@@ -333,53 +314,6 @@ function Editbanks() {
       beneficiaryId: "",
     },
   ]);
-  const [typeaccount, setTypeccount] = useState([]);
-  const getData = () => {
-    let token = "Bearer " + getToken();
-    getSingleBank(token, id).then((res) => {
-      console.log("this is  bank responce ", res);
-      setTypeccount(res);
-      setData({
-        ...data,
-        bank: res.bank,
-        accounts: res.accounts,
-        documents: res.documents,
-        sharedDetails: res.sharedDetails,
-      });
-      setChecked(res.bank.safetyBox);
-      console.log("this is bank type : ", res.bank.safetyBox);
-      setBankName(res.banks);
-      setEstimatedTotalAmount(res.bank.totalAmount);
-
-      console.log("sharedDetails response : ", res.sharedDetails);
-      console.log("sharedDetails response : ", sharedDetails);
-      if (res.sharedDetails.length > 0) {
-        setSharedDetails(res.sharedDetails);
-        ben(res.sharedDetails[0].distributedType);
-        for (var i = 0; i < res.sharedDetails.length; i++) {
-          handleBeneficiarySelection1(res.sharedDetails[i].beneficiaryId);
-          // const handleFieldChange = (beneficiary, field, value) => {}
-          handleFieldChange1(
-            res.sharedDetails[i].beneficiaryId,
-            res.sharedDetails[i].distributedType,
-            res.sharedDetails[i].distributedValue
-          );
-
-          // handleFieldChange1(res.sharedDetails[i].beneficiaryId, res.sharedDetails[i].distributedType, res.sharedDetails[i].distributedValue);
-        }
-
-        console.log("sharedDetails beneficiaryDetails : ", beneficiaryDetails);
-        console.log(
-          "sharedDetails selectedBeneficiaries : ",
-          selectedBeneficiaries
-        );
-        console.log("sharedDetails distributedType : ", distributedType);
-      }
-    });
-  };
-  // useEffect(() => {
-  //   getData();
-  // }, []);
 
   let findAccountLength = null;
   let [findAccLength, setFindAccLength] = useState(0);
@@ -389,7 +323,7 @@ function Editbanks() {
         let token = "Bearer " + getToken();
         const res = await getSingleBank(token, id);
         console.log("this is  bank response ", res);
-        setTypeccount(res);
+
         setData({
           ...data,
           bank: res.bank,
@@ -464,16 +398,8 @@ function Editbanks() {
     };
 
     fetchData();
+    getBenificiarydata();
   }, []);
-
-  const [category, setCategory] = useState([]);
-  const getBankName = (bankName) => {
-    if (category !== null) {
-      return category.some((item) => item.bank.bankName === bankName);
-    } else {
-      return false;
-    }
-  };
 
   const [beneficiary, setBenificiary] = useState([]);
   const getBenificiarydata = () => {
@@ -486,27 +412,13 @@ function Editbanks() {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
-  const [visibleField, setVisibleField] = useState(0);
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-  const accountType = [
-    "Checking Account",
-    "Savings Account",
-    "Investment Account",
-    "C.D Account",
-  ];
+
   const [benevisible, setbeneVisible] = useState(false);
-  let [show1, setShow1] = useState(false);
+
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
-    setShowAfterCloseBene(true);
+
+    // setShowAfterCloseBene(true);
     // data.sharedDetails = [];
   };
   let [otherPropertyTypes, setOtherPropertyTypes] = useState(false);
@@ -523,8 +435,7 @@ function Editbanks() {
       data.bank.safetyBox = "true";
     }
   };
-  // useEffect(() => {
-  // }, [data.saftyBox]);
+
   const handleChanges1 = (e, field, { index }) => {
     const { value } = e.target;
 
@@ -554,36 +465,6 @@ function Editbanks() {
     });
   };
 
-  // useEffect(() => {
-  //   const balances = data.accounts.map(account => account.balance || 0);
-  //   console.log("current balance :", balances);
-  //   const newTotalBalance = balances.reduce((acc, curr) => acc + parseFloat(curr), 0);
-  //   setEstimatedTotalAmount(newTotalBalance);
-  //   console.log("this is my balance :", newTotalBalance);
-  // }, [data]);
-  let [visible, setVisible] = useState(0);
-  const [hasEffectRun, setHasEffectRun] = useState(false);
-  const bankarray1 = [
-    typeaccount.accountNo1,
-    typeaccount.accountNo2,
-    typeaccount.accountNo3,
-    typeaccount.accountNo4,
-    typeaccount.accountNo5,
-  ];
-  const [bankarray, setBankArray] = useState([]);
-
-  let [updatedVisible, setupdatedVisible] = useState([]);
-  useEffect(() => {
-    // setData();
-    // if (!hasEffectRun) {
-    //   setBankArray(
-    //     bankarray1
-    //       .filter((v, index) => data[`accountNo${index + 1}`] !== '')
-    //       .map((v, index) => index + 1)
-    //   );
-    //   setVisible(bankarray.length);
-    // }
-  }, [hasEffectRun, bankarray, data]);
   const ben = (newType) => {
     // const newType = sharedDetails[0].distributedType;
     const resetDetails = {};
@@ -671,16 +552,7 @@ function Editbanks() {
       });
     }
   };
-  const handleAddColumn = () => {
-    console.log("this is visible under click", visible);
-    if (visible <= 3) {
-      setHasEffectRun(true);
-      const updatedVisible = visible + 1;
-      setBankArray((prevArray) => [...prevArray, updatedVisible]);
-      setVisible(updatedVisible);
-      console.log("Updated bankarray:", bankarray);
-    }
-  };
+
   const handleFieldChange = (beneficiary, field, value) => {
     if (!estimatedTotalAmount || parseFloat(estimatedTotalAmount) === 0) {
       toast.error(
@@ -768,16 +640,6 @@ function Editbanks() {
     return "0.00";
   };
 
-  const getAccountType = (bankName) => {};
-  const handleBeneficiaryClose = (beneficiary) => {
-    const updatedBeneficiaries = selectedBeneficiaries.filter(
-      (b) => b !== beneficiary
-    );
-    setSelectedBeneficiaries(updatedBeneficiaries);
-    const updatedDetails = { ...beneficiaryDetails };
-    delete updatedDetails[beneficiary];
-    setBeneficiaryDetails(updatedDetails);
-  };
   const handleSave = () => {
     toast.success("Saved successfully!");
     setbeneVisible(false);
@@ -869,6 +731,7 @@ function Editbanks() {
     }
   };
 
+
   return (
     <UserBase>
       <div className="mt-5"></div>
@@ -886,9 +749,7 @@ function Editbanks() {
                   <div
                     className="Close"
                     onClick={() => {
-                      {
-                        navigate("/user/my-estate/banks");
-                      }
+                      navigate("/user/my-estate/banks");
                     }}
                   >
                     <FontAwesomeIcon icon={faXmark} />

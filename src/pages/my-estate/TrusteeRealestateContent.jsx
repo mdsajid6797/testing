@@ -1,35 +1,28 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container } from "reactstrap";
-import {
-  getToken,
-  getUser,
-  realEstateContentGet,
-} from "../../services/user-service";
-//import { Accordion, data , AccordionContext } from "reactstrap";
-import { useState } from "react";
-import "../../css/myestare.css";
 import { Notification } from "../../components/alerting-visitors/notification";
+import "../../css/myestare.css";
 
 function TrusteeRealEstateContent() {
   //show data in frontend
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().userid;
-    console.log("user Id=" + userId);
-    let token = "Bearer " + getToken();
-    realEstateContentGet(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("Data not loaded");
-      });
-  };
+  // const [category, setCategory] = useState([]);
+  // const getData = () => {
+  //   let userId = getUser().userid;
+  //   console.log("user Id=" + userId);
+  //   let token = "Bearer " + getToken();
+  //   realEstateContentGet(token, userId)
+  //     .then((res) => {
+  //       setCategory(res);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       console.log("Data not loaded");
+  //     });
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <div style={{ width: "1000px" }}>

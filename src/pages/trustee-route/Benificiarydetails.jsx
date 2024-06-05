@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from "reactstrap";
-import {
-    Button,
-    CardBody,
-    CardHeader,
-    Col,
-    Container,
-    Form,
-    FormGroup,
-    Input,
-    Row,
-    Table,
-  } from "reactstrap";
-import SideBar from "../../components/sidebar/Sidebar";
-import TrusteeBase from "../../components/trustee/TrusteeBase";
 import { useLocation } from "react-router-dom";
-import { aproveByTrustee, getFormdata, viewDetailsfalse } from '../../services/user-service';
 import { toast } from "react-toastify";
+import { Button, Card, CardBody, Table } from "reactstrap";
+import TrusteeBase from "../../components/trustee/TrusteeBase";
+import { aproveByTrustee, getFormdata, viewDetailsfalse } from '../../services/user-service';
 
 export default function Benificiarydetails() {
   const location=useLocation();
@@ -60,7 +47,6 @@ export default function Benificiarydetails() {
 
 useEffect(() => {
    getData();
-
 }, []);
   return (
     <TrusteeBase>

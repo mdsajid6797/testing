@@ -1,54 +1,30 @@
+import { faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TextField, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
 } from "reactstrap";
 import SideBar from "../../../components/sidebar/Sidebar";
 import UserBase from "../../../components/user/UserBase";
-import {
-  editOtherAssets,
-  getOtherAssets,
-  getSingleOtherAssets,
-  getUser,
-  getToken,
-  getBeneficiary,
-} from "../../../services/user-service";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Tooltip,
-} from "@mui/material";
-import "../../../css/myestate_edit.css";
 import "../../../css/formPOPup.css";
-import {
-  faXmark,
-  faPlus,
-  faMinus,
-  faDownload,
-  faLocationDot,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../../css/myestate_edit.css";
 import {
   getSingleOtherAsset,
-  getSingleOtherAssetMy,
   updateOtherAsset,
 } from "../../../services/OtherAssetService";
+import {
+  getBeneficiary,
+  getToken,
+  getUser,
+} from "../../../services/user-service";
 function EditOtherAssets() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -136,21 +112,6 @@ function EditOtherAssets() {
     }
   };
 
-  // auto matic clear the data
-  const resetData = () => {
-    setData({
-      // otherAssets_Id: otherAssets_Id,
-      otherAssets1: "",
-      otherAssets2: "",
-      otherAssets3: "",
-      otherAssets4: "",
-      otherAssets5: "",
-      exampleFile: "",
-      notes: "",
-      benificiary: "",
-      assetCaption: "",
-    });
-  };
   // Set the form
   const OtherAssestForm = (event) => {
     event.preventDefault();
@@ -182,25 +143,8 @@ function EditOtherAssets() {
         console.log(error);
       });
   };
-  // const [category, setCategory] = useState([]);
-  const getData = () => {
-    let token = "Bearer " + getToken();
-    getSingleOtherAsset(token, id).then((res) => {
-      console.log("this is realEstate responce ", res);
-      setData({
-        ...data,
-        otherAsset: res.otherAsset,
-        documents: res.documents,
-        sharedDetails: res.sharedDetails,
-      });
-      //   setEstimatedTotalAmount(res.realEstate.estPropertyVal);
-    });
-  };
-  useEffect(() => {
-    // getData();
-  }, []);
 
-  const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
+  // const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -254,7 +198,7 @@ function EditOtherAssets() {
 
   let [findOthAssetLength, setFindOthAssetLength] = useState(0);
   let dublicateOtherAsset = {};
-          
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -273,12 +217,12 @@ function EditOtherAssets() {
         for (let i = 1; i <= 5; i++) {
           const propertyName = `otherAssets${i}`;
           const hasData = dublicateOtherAsset[propertyName].trim() !== "";
-          if(hasData == true) {
-            findOtherAssetLength = findOtherAssetLength+1;
+          if (hasData === true) {
+            findOtherAssetLength = findOtherAssetLength + 1;
           }
         }
-        setVisibleColumnIndex(findOtherAssetLength-1)
-        setFindOthAssetLength(findOtherAssetLength)
+        setVisibleColumnIndex(findOtherAssetLength - 1);
+        setFindOthAssetLength(findOtherAssetLength);
 
         const copiedSharedDetails = [...res.sharedDetails];
         console.log("copiedSharedDetails response : ", copiedSharedDetails);
@@ -319,8 +263,7 @@ function EditOtherAssets() {
     };
 
     fetchData();
-  }, []); 
-  
+  }, []);
 
   const [otherAssets, setOtherAssets] = useState([{ name: "", notes: "" }]);
   const [visibleColumnIndex, setVisibleColumnIndex] = useState(0);
@@ -366,13 +309,7 @@ function EditOtherAssets() {
       };
     });
   };
-  const [visibleDivs, setVisibleDivs] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+
   // beneficiary addition in form
   const [beneficiary, setBenificiary] = useState([]);
   const getBenificiarydata = () => {
@@ -385,31 +322,13 @@ function EditOtherAssets() {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
-
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
 
   //
-  let [show1, setShow1] = useState(false);
+
   const [benevisible, setbeneVisible] = useState(false);
-  const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
-  const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
   const [distributedType, setDistributedType] = useState("");
 
   const [sharedDetails, setSharedDetails] = useState([
@@ -433,17 +352,15 @@ function EditOtherAssets() {
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
-    setShowAfterCloseBene(true);
-    // data.sharedDetails = [];
+
+    // setShowAfterCloseBene(true);
   };
 
   const handleReset = () => {
     setbeneVisible(false);
-    setDistributionType("");
     setSelectedBeneficiaries([]);
     setBeneficiaryDetails({});
-    setShowAfterCloseBene(false);
+    // setShowAfterCloseBene(false);
   };
 
   const handleDistributionTypeChange = (event) => {
@@ -525,16 +442,6 @@ function EditOtherAssets() {
         [selectedBeneficiary]: { percentage: "", dollar: "" },
       });
     }
-  };
-
-  const handleBeneficiaryClose = (beneficiary) => {
-    const updatedBeneficiaries = selectedBeneficiaries.filter(
-      (b) => b !== beneficiary
-    );
-    setSelectedBeneficiaries(updatedBeneficiaries);
-    const updatedDetails = { ...beneficiaryDetails };
-    delete updatedDetails[beneficiary];
-    setBeneficiaryDetails(updatedDetails);
   };
 
   const getBenificiaryName = (id) => {
@@ -704,10 +611,9 @@ function EditOtherAssets() {
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
 
-  const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
-    setBeneficiaryVisible(true);
-  };
+  useEffect(() => {
+    getBenificiarydata();
+  }, []);
 
   return (
     <UserBase>
@@ -729,9 +635,7 @@ function EditOtherAssets() {
                   <div
                     className="Close"
                     onClick={() => {
-                      {
-                        navigate("/user/my-estate/other-assests");
-                      }
+                      navigate("/user/my-estate/other-assests");
                     }}
                   >
                     <FontAwesomeIcon icon={faXmark} />

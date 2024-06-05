@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../css/why-I-chest.css"
-import UserBase from "../../components/user/UserBase";
+import "../../css/why-I-chest.css";
 
 function WhyIchest() {
     const [show, setShow] = useState(false);

@@ -1,36 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Container } from "reactstrap";
-import SideBar from "../../components/sidebar/Sidebar";
-import UserBase from "../../components/user/UserBase";
-import {
-  activeincomeGet,
-  getToken,
-  getUser,
-} from "../../services/user-service";
-import "../../css/myestare.css";
-import TrusteeBase from "../../components/trustee/TrusteeBase";
-import Footer from "../../components/Footerfile/footer";
+import React from "react";
 import { Notification } from "../../components/alerting-visitors/notification";
+import SideBar from "../../components/sidebar/Sidebar";
+import TrusteeBase from "../../components/trustee/TrusteeBase";
+import "../../css/myestare.css";
 
 function TrusteeIncome() {
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().userid;
-    console.log("user Id=" + userId);
-    let token = "Bearer " + getToken();
-    activeincomeGet(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("Data not loaded");
-      });
-  };
+  // const [category, setCategory] = useState([]);
+  // const getData = () => {
+  //   let userId = getUser().userid;
+  //   console.log("user Id=" + userId);
+  //   let token = "Bearer " + getToken();
+  //   activeincomeGet(token, userId)
+  //     .then((res) => {
+  //       setCategory(res);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       console.log("Data not loaded");
+  //     });
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <TrusteeBase>

@@ -1,11 +1,11 @@
-import { Tooltip, colors } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import React, { useState } from 'react';
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import "./../../css/deletebtn.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash,faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //Code By Purnendu
 //new ly modified Smruti ranjan
 // This is Delete Button for remove any property

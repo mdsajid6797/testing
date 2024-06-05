@@ -1,3 +1,22 @@
+import {
+  faCarSide,
+  faDownload,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  TextareaAutosize,
+  Tooltip,
+} from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -5,68 +24,28 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
 } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
-import "../../css/myestare.css";
-import {
-  downloadDocument1,
-  getToken,
-  getUser,
-  vehicleRemove,
-  vehicles,
-  vehiclesGet,
-  getBeneficiary,
-  deleteSingleProperty,
-  getSecondaryUser,
-} from "../../services/user-service";
-import Deletebutton from "./Deletebutton";
-import UpdateButton from "./UpdateButton";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import {
-  Tooltip,
-  MenuItem,
-  FormControl,
-  Select,
-  TextField,
-  InputLabel,
-  TextareaAutosize,
-} from "@mui/material";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
-import {
-  faXmark,
-  faPlus,
-  faDownload,
-  faLocationDot,
-  faEye,
-  faCarSide,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../css/formPOPup.css";
+import "../../css/myestare.css";
 import {
   deleteVehicle,
   getVehicle,
   vehicle,
 } from "../../services/VehicleService";
+import {
+  deleteSingleProperty,
+  downloadDocument1,
+  getBeneficiary,
+  getSecondaryUser,
+  getToken,
+  getUser,
+} from "../../services/user-service";
+import Deletebutton from "./Deletebutton";
+import UpdateButton from "./UpdateButton";
 
 function Vehicles() {
   const [data, setData] = useState({
@@ -125,14 +104,11 @@ function Vehicles() {
   // Get secondaryUser data
   const secondaryUserDetails = getSecondaryUser();
   let secondaryUserName = "";
-  let bothUserName = "";
 
   // Check if secondary user exists
   if (secondaryUserDetails !== undefined) {
     secondaryUserName =
       secondaryUserDetails.firstName + " " + secondaryUserDetails.lastName;
-    // Combine both user names into one variable
-    bothUserName = secondaryUserName + " & " + primaryUserName;
 
     // Push both user names into the array
     ownerNames.push(primaryUserName, secondaryUserName);
@@ -224,22 +200,6 @@ function Vehicles() {
     });
   };
 
-  const [vehicleName, setVehicleName] = React.useState("");
-  const [makeName, setMakeName] = React.useState("");
-  const [modelName, setModelName] = React.useState("");
-
-  const VehicleHandleChange = (event) => {
-    setVehicleName(event.target.value);
-    data.vehicleType = event.target.value;
-  };
-  const MakeHandleChange = (event) => {
-    setMakeName(event.target.value);
-    data.make = event.target.value;
-  };
-  const ModelHandleChange = (event) => {
-    setModelName(event.target.value);
-    data.model = event.target.value;
-  };
   // Set the form
   const vehiclesForm = (event) => {
     event.preventDefault();
@@ -278,7 +238,6 @@ function Vehicles() {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         // resetData();
-        getData();
         AddCard();
 
         // window.location.reload();
@@ -287,26 +246,15 @@ function Vehicles() {
   };
   //get form
 
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().id;
-
-    let token = "Bearer " + getToken();
-    getVehicle(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {});
-  };
   // Code by Purnendu
   const handleRemove = (Id, idType) => {
-    if (idType == "vehicleId") {
+    if (idType === "vehicleId") {
       deleteVehicle(Id)
         .then((res) => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
-          getData();
+
           AddCard();
           setShow1(false);
         })
@@ -327,7 +275,6 @@ function Vehicles() {
 
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
     downloadDocument1(id)
       .then((response) => {
         const downloadUrl = URL.createObjectURL(response.data);
@@ -340,115 +287,6 @@ function Vehicles() {
       .catch((error) => {});
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-  const columns = [
-    {
-      id: "vehicleType",
-      label: "Vehicle\u00a0Type",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "year",
-      label: "Year\u00a0Of\u00a0Manufacture",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "make",
-      label: "Maker",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "model",
-      label: "Model",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "miels",
-      label: "Miels",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "loan",
-      label: "Loan",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "evalue",
-      label: "Estimated\u00a0Value",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      align: "center",
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        padding: 0,
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
   const handleDateChanges = (date, property) => {
     const adjustedDate = dayjs(date).format("YYYY-MM-DD");
 
@@ -539,32 +377,18 @@ function Vehicles() {
     getBenificiarydata();
   }, []);
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
   // for add field pop
   let [showAdditionField, SetshowAdditionField] = useState(false);
 
   const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
 
   //
-  // let [show1, setShow1] = useState(false);
   const [benevisible, setbeneVisible] = useState(false);
   const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
@@ -754,7 +578,6 @@ function Vehicles() {
   };
 
   const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
     setBeneficiaryVisible(true);
   };
 

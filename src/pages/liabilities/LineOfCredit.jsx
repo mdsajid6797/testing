@@ -1,27 +1,14 @@
 import React from "react";
-import UserBase from "../../components/user/UserBase";
+import { Card, CardHeader, Col, Container, Row } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
-import {
-  Card,
-  CardHeader,
-  Col,
-  Container,
-  Form,
-  Row,
-  Input,
-  FormGroup,
-  Label,
-  CardBody,
-  Button,
-} from "reactstrap";
-import { useState } from "react";
+import UserBase from "../../components/user/UserBase";
 
 function LineOfCredit() {
-  const [image, setImage] = useState("");
-  function handleImage(e) {
+  // const [image, setImage] = useState("");
+  // function handleImage(e) {
 
-    setImage(e.target.files[0]);
-  }
+  //   setImage(e.target.files[0]);
+  // }
   return (
     <UserBase>
       <div className="mt-5">
@@ -32,7 +19,15 @@ function LineOfCredit() {
                 <Row>
                   <Col>
                     <Card>
-                    <CardHeader style={{position: "fixed",top: "50%",  left: "50%",  transform: "translate(-50%, -50%)",borderRadius:"10px"}}>
+                      <CardHeader
+                        style={{
+                          position: "fixed",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          borderRadius: "10px",
+                        }}
+                      >
                         <h2>Comming Soon</h2>
                       </CardHeader>
                       {/* <CardBody>

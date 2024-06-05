@@ -1,18 +1,12 @@
-import UserBase from "../components/user/UserBase";
 import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Table,
+  Table
 } from "reactstrap";
-import Deletebutton from "./my-estate/Deletebutton";
+import UserBase from "../components/user/UserBase";
 import {
   getAllSharedPropety,
   getBeneficiary,
@@ -20,6 +14,7 @@ import {
   getUser,
 } from "../services/user-service";
 import Benificiarydetailsbytrustee from "./Benificiarydetailsbytrustee";
+import Deletebutton from "./my-estate/Deletebutton";
 
 export function SharedProperty() {
   const [properties, setProperties] = useState([]);

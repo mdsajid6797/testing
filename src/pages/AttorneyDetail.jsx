@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 // import {
 //   Button,
@@ -14,22 +13,16 @@ import { toast } from "react-toastify";
 //   Label,
 // } from "reactstrap";
 import "../css/BeneficiarySignup.css";
-import { sendEmailWithAttachment, signup } from "../services/user-service";
+import { sendEmailWithAttachment } from "../services/user-service";
 // import {getUser} from "../../services/user-service";
-import validator from "validator";
-import { getToken, getUser, sendemail } from "../services/user-service";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { getToken, getUser } from "../services/user-service";
 
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { CardHeader, TextField } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CardHeader, TextField } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 import "./../css/inventoryReport.css";
 
@@ -42,28 +35,28 @@ const AttorneyDetail = ({ handleBack, pdfDataUri }) => {
     email: "",
   });
 
-  const [emailDetail, setEmailDetail] = useState({
+  const [emailDetail] = useState({
     to: "",
     subject: "",
     message: "",
   });
 
-  const [error, setError] = useState({
-    errors: {},
-    isError: false,
-  });
+  // const [error, setError] = useState({
+  //   errors: {},
+  //   isError: false,
+  // });
 
   const handleChanges = (event, property) => {
     setData({ ...data, [property]: event.target.value });
   };
 
   // reseting the form
-  const resetData = () => {
-    setData({
-      name: "",
-      email: "",
-    });
-  };
+  // const resetData = () => {
+  //   setData({
+  //     name: "",
+  //     email: "",
+  //   });
+  // };
 
   // submit the form
   const submitForm = (event) => {
@@ -105,23 +98,18 @@ I-Chest
     // Send email data to the server
     sendEmailWithAttachment(token, formData)
       .then((resp) => {
-
         handleBack();
         toast.success(`Email has sent to ${data.name}`, {
           position: toast.POSITION.BOTTOM_CENTER,
         });
       })
       .catch((error) => {
-
         toast.error("Email has not sent", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
       });
   };
-  const navigate = useNavigate();
-  const goBack = () => {
-    navigate("/");
-  };
+
   return (
     <div>
       <div>

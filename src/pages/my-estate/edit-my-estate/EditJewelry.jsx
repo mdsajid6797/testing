@@ -6,22 +6,17 @@ import {
   CardHeader,
   Container,
   Form,
-  FormGroup,
-  Input,
-  Label,
 } from "reactstrap";
 import SideBar from "../../../components/sidebar/Sidebar";
 import UserBase from "../../../components/user/UserBase";
 import {
-  getToken,
-  getjewelery,
-  updateJewelry,
   getBeneficiary,
+  getToken,
   getUser,
 } from "../../../services/user-service";
 //import { useState } from 'react'
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FormControl,
   InputLabel,
@@ -30,11 +25,10 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import axios from "axios";
-import "../../../css/myestate_edit.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../../../css/formPOPup.css";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../../css/myestate_edit.css";
 import {
   getSinglejewelry,
   updateJewelries,
@@ -151,12 +145,12 @@ function EditJewelry() {
 
   useEffect(() => {
     if (data.jewelry.jewelryName !== "Other") {
-      setData(prevData => ({
+      setData((prevData) => ({
         ...prevData,
         jewelry: {
           ...prevData.jewelry,
-          otherJewelryName: "" 
-        }
+          otherJewelryName: "",
+        },
       }));
     }
   }, [data.jewelry.jewelryName]);
@@ -203,7 +197,7 @@ function EditJewelry() {
       formData.append(`imageFiles`, selectedImage1[i]);
       console.log("this is imageFiles indexs", selectedImage1[i]);
     }
-    
+
     formData.append("data", JSON.stringify(data));
     console.log("formData : ", JSON.stringify(data));
 
@@ -264,7 +258,7 @@ function EditJewelry() {
   // };
 
   const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
-  const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
+  // const [showAfterCloseBene, setShowAfterCloseBene] = useState(true);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -327,7 +321,7 @@ function EditJewelry() {
         jewelry: res.jewelry,
         documents: res.documents,
         sharedDetails: res.sharedDetails,
-        supportingImages: res.supportingImages
+        supportingImages: res.supportingImages,
       });
       const copiedSharedDetails = [...res.sharedDetails];
       console.log("copiedSharedDetails response : ", copiedSharedDetails);
@@ -385,7 +379,7 @@ function EditJewelry() {
 
   //     });
   // };
-  const [metalPrice, setMetalPrice] = useState(0);
+  // const [metalPrice, setMetalPrice] = useState(0);
 
   // useEffect(() => {
   //   // Fetch metal price from the API and store it in the state
@@ -457,44 +451,45 @@ function EditJewelry() {
   //   calculateEstimatedValue();
   // }, [data.jewelry.jewelryName, data.jewelry.weight, metalPrice]);
 
-  const getDisplayName = (metadataValue) => {
-    switch (metadataValue) {
-      case "XAU":
-        return "Gold";
-      case "XAG":
-        return "Silver";
-      case "XPT":
-        return "Platinum";
-      case "XPD":
-        return "Palladium";
-      default:
-        return metadataValue;
-    }
-  };
-  const getDisplayKeratValue = (keratValue) => {
-    switch (keratValue) {
-      case "":
-        return "24k";
-      case "price_gram_22k":
-        return "22k";
-      case "price_gram_21k":
-        return "21k";
-      case "price_gram_20k":
-        return "20k";
-      case "price_gram_18k":
-        return "18k";
-      case "price_gram_16k":
-        return "16k";
-      case "price_gram_14k":
-        return "14k";
-      case "price_gram_10k":
-        return "10k";
-      default:
-        return keratValue;
-    }
-  };
+  // const getDisplayName = (metadataValue) => {
+  //   switch (metadataValue) {
+  //     case "XAU":
+  //       return "Gold";
+  //     case "XAG":
+  //       return "Silver";
+  //     case "XPT":
+  //       return "Platinum";
+  //     case "XPD":
+  //       return "Palladium";
+  //     default:
+  //       return metadataValue;
+  //   }
+  // };
+  // const getDisplayKeratValue = (keratValue) => {
+  //   switch (keratValue) {
+  //     case "":
+  //       return "24k";
+  //     case "price_gram_22k":
+  //       return "22k";
+  //     case "price_gram_21k":
+  //       return "21k";
+  //     case "price_gram_20k":
+  //       return "20k";
+  //     case "price_gram_18k":
+  //       return "18k";
+  //     case "price_gram_16k":
+  //       return "16k";
+  //     case "price_gram_14k":
+  //       return "14k";
+  //     case "price_gram_10k":
+  //       return "10k";
+  //     default:
+  //       return keratValue;
+  //   }
+  // };
   useEffect(() => {
     getData();
+    getBenificiarydata();
   }, []);
 
   // beneficiary addition in form
@@ -509,20 +504,12 @@ function EditJewelry() {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
 
   //
-  let [show1, setShow1] = useState(false);
   const [benevisible, setbeneVisible] = useState(false);
-  const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
-  const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
   const [distributedType, setDistributedType] = useState("");
 
   const [sharedDetails, setSharedDetails] = useState([
@@ -546,17 +533,16 @@ function EditJewelry() {
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
-    setShowAfterCloseBene(true);
+    // setShowAfterCloseBene(true);
     // data.sharedDetails = [];
   };
 
   const handleReset = () => {
     setbeneVisible(false);
-    setDistributionType("");
+
     setSelectedBeneficiaries([]);
     setBeneficiaryDetails({});
-    setShowAfterCloseBene(false);
+    // setShowAfterCloseBene(false);
   };
 
   const handleDistributionTypeChange = (event) => {
@@ -638,16 +624,6 @@ function EditJewelry() {
         [selectedBeneficiary]: { percentage: "", dollar: "" },
       });
     }
-  };
-
-  const handleBeneficiaryClose = (beneficiary) => {
-    const updatedBeneficiaries = selectedBeneficiaries.filter(
-      (b) => b !== beneficiary
-    );
-    setSelectedBeneficiaries(updatedBeneficiaries);
-    const updatedDetails = { ...beneficiaryDetails };
-    delete updatedDetails[beneficiary];
-    setBeneficiaryDetails(updatedDetails);
   };
 
   const getBenificiaryName = (id) => {
@@ -817,11 +793,6 @@ function EditJewelry() {
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
 
-  const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
-    setBeneficiaryVisible(true);
-  };
-
   return (
     <UserBase>
       <div className="mt-5"></div>
@@ -838,9 +809,7 @@ function EditJewelry() {
                   <div
                     className="Close"
                     onClick={() => {
-                      {
-                        navigate("/user/my-estate/jewelry");
-                      }
+                      navigate("/user/my-estate/jewelry");
                     }}
                   >
                     <FontAwesomeIcon icon={faXmark} />
@@ -981,33 +950,6 @@ function EditJewelry() {
                         </Tooltip>
                       </div>
                     </div>
-
-                    {/* beneficiary  */}
-                    {/* <Tooltip title="Select Your Beneficiary Username">
-                      <FormGroup className="Property-textfield">
-                        <Label className="Property-headingname" for="property">
-                          Select Your Beneficiary Username
-                        </Label>
-
-                        <Input
-                          className="Property-inputfiled"
-                          type="select"
-                          name="select"
-                          id="property"
-                          onChange={(e) => handleChanges(e, "benificiary")}
-                          value={data.benificiary}
-                        >
-                          <option defaultValue aria-readonly>
-                            <p>Select Your Username</p>
-                          </option>
-                          {beneficiary.map((benif) => (
-                            <option key={benif.username} value={benif.username}>
-                              {benif.username}
-                            </option>
-                          ))}
-                        </Input>
-                      </FormGroup>
-                    </Tooltip> */}
 
                     <div className="mt-3">
                       <Tooltip title="Add your jewelry related file">
@@ -1186,28 +1128,7 @@ function EditJewelry() {
                         </select>
                       </div>
                     </div>
-                    {/* <div className="share_beneficiary_main_card">
-                        {sharedDetails[0].distributedType !== null && (
-                          <>
-                            {sharedDetails[0].distributedType === 'dollar' ? (
-                              <div>
-                                <div className="share_beneficiary_card_close" onClick={() => handleBeneficiaryClose(beneficiary)}>
-                                  <FontAwesomeIcon icon={faXmark} />
-                                </div> 
-                                <p>Beneficiary: </p>
-                                <TextField type="number" label="Dollar" />
-                              </div>
-                            ) : null}
 
-                            {sharedDetails[0].distributedType === 'percentage' ? (
-                              <div>
-                                <p>Beneficiary: </p>
-                                <TextField type="number" label="Percentage" />
-                              </div>
-                            ) : null}
-                          </>
-                        )}
-                      </div> */}
                     <div className="share_beneficiary_main_card">
                       {selectedBeneficiaries.map((beneficiary) => (
                         <div key={beneficiary} class="share_beneficiary_card">

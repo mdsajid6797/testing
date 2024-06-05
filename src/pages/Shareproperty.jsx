@@ -14,34 +14,26 @@ import {
 } from "reactstrap";
 import UserBase from "../components/user/UserBase";
 import "../css/ShareProperty.css";
+import { getCryptoAssests } from "../services/CryptoService";
+import { getIncome } from "../services/IncomeService";
+import { getJewelries } from "../services/JewelryService";
+import { getRealEstates } from "../services/RealEstate-service";
+import { getVehicle } from "../services/VehicleService";
+import { getBank } from "../services/bank-service";
+import { getInvestments } from "../services/investment-service";
 import {
-  activeincomeGet,
-  bankGet,
   credentialsGet,
-  cryptoassetsGet,
   deleteProperty,
   getBeneficiary,
   getToken,
   getUser,
   getUserModel,
   getproperty,
-  investmentsGet,
-  jewelryGet,
-  // lifeinsuranceGet,
-  realEstateContentGet,
   sendProperty,
-  vehiclesGet,
 } from "../services/user-service";
 import Benificiarydetailsbyuserm from "./Benificiarydetailsbyuserm";
 import Propertydetails from "./Propertydetails";
 import Deletebutton from "./my-estate/Deletebutton";
-import { getRealEstates } from "../services/RealEstate-service";
-import { getBank } from "../services/bank-service";
-import { getInvestments } from "../services/investment-service";
-import { getCryptoAssests } from "../services/CryptoService";
-import { getJewelries } from "../services/JewelryService";
-import { getVehicle } from "../services/VehicleService";
-import { getIncome } from "../services/IncomeService";
 
 export default function Shareproperty() {
   const [selectproperty, setSelectproperty] = useState("");
@@ -162,7 +154,7 @@ export default function Shareproperty() {
   const handleSendProperty = (e) => {
     e.preventDefault();
 
-    if (username == "" || selectproperty == "" || id == null) {
+    if (username === "" || selectproperty === "" || id === null) {
       toast.warning("Please fill all the details!!", {
         position: toast.POSITION.BOTTOM_CENTER,
       });
@@ -283,7 +275,7 @@ export default function Shareproperty() {
                         <option hidden>
                           -- Select Your {selectproperty} Property Details --
                         </option>
-                        {selectproperty == "realEstate"
+                        {selectproperty === "realEstate"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.realEstate.id}>
@@ -292,7 +284,7 @@ export default function Shareproperty() {
                               );
                             })
                           : null}
-                        {selectproperty == "banks"
+                        {selectproperty === "banks"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.bank.id}>
@@ -301,7 +293,7 @@ export default function Shareproperty() {
                               );
                             })
                           : null}
-                        {selectproperty == "investment"
+                        {selectproperty === "investment"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.investment.id}>
@@ -310,7 +302,7 @@ export default function Shareproperty() {
                               );
                             })
                           : null}
-                        {selectproperty == "crypto"
+                        {selectproperty === "crypto"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.cryptoAssest.id}>
@@ -319,7 +311,7 @@ export default function Shareproperty() {
                               );
                             })
                           : null}
-                        {selectproperty == "jewelry"
+                        {selectproperty === "jewelry"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.jewelry.id}>
@@ -328,7 +320,7 @@ export default function Shareproperty() {
                               );
                             })
                           : null}
-                        {/* {selectproperty == "insurance"
+                        {/* {selectproperty === "insurance"
                           ? catagory.map((cat) => {
                             return (
                               <option value={cat.lifeInsurance_Id}>
@@ -337,7 +329,7 @@ export default function Shareproperty() {
                             );
                           })
                           : null} */}
-                        {selectproperty == "vehicle"
+                        {selectproperty === "vehicle"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.vehicle.id}>
@@ -346,7 +338,7 @@ export default function Shareproperty() {
                               );
                             })
                           : null}
-                        {selectproperty == "credentials"
+                        {selectproperty === "credentials"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.credentials_Id}>
@@ -355,7 +347,7 @@ export default function Shareproperty() {
                               );
                             })
                           : null}
-                        {selectproperty == "income"
+                        {selectproperty === "income"
                           ? catagory.map((cat) => {
                               return (
                                 <option value={cat.income.id}>
@@ -380,9 +372,9 @@ export default function Shareproperty() {
                           setUsername(e.target.value);
                         }}
                       >
-                        <option defaultValue aria-readonly>
+                        {/* <option defaultValue aria-readonly>
                           Select Your Username
-                        </option>
+                        </option> */}
                         {beneficiary.map((benif) => {
                           return (
                             <option key={benif.username} value={benif.username}>

@@ -1,3 +1,18 @@
+import {
+  faDownload,
+  faShieldHalved,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  TextareaAutosize,
+  Tooltip,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -5,61 +20,26 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
 } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
-import "../../css/myestare.css";
-import {
-  downloadDocument1,
-  getToken,
-  getUser,
-  lifeinsurance,
-  lifeinsuranceGet,
-  lifeinsuranceRemove,
-  getBeneficiary,
-} from "../../services/user-service";
-import Deletebutton from "./Deletebutton";
-import UpdateButton from "./UpdateButton";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import {
-  Tooltip,
-  MenuItem,
-  FormControl,
-  Select,
-  TextField,
-  InputLabel,
-  TextareaAutosize,
-} from "@mui/material";
-import {
-  faXmark,
-  faPlus,
-  faDownload,
-  faLocationDot,
-  faEye,
-  faShieldHalved,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../css/formPOPup.css";
+import "../../css/myestare.css";
 import {
   deleteInsurance,
   getInsurance,
   insurance,
 } from "../../services/InsuranceService";
+import {
+  downloadDocument1,
+  getBeneficiary,
+  getToken,
+  getUser,
+} from "../../services/user-service";
+import Deletebutton from "./Deletebutton";
+import UpdateButton from "./UpdateButton";
 
 function LifeInsurance() {
   // set Add data
@@ -83,10 +63,10 @@ function LifeInsurance() {
   // use state to set the selected images
   const [selectedImage, setSelectedImage] = useState([]);
 
-  const [error, setError] = useState({
-    errors: {},
-    isError: false,
-  });
+  // const [error, setError] = useState({
+  //   errors: {},
+  //   isError: false,
+  // });
 
   const handleChanges = (e, field) => {
     const newValue = e.target.value;
@@ -192,28 +172,14 @@ function LifeInsurance() {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         // resetData();
-        getData();
         AddCard();
       })
       .catch((error) => {
-        setError({
-          errors: error,
-          isError: true,
-        });
+        // setError({
+        //   errors: error,
+        //   isError: true,
+        // });
       });
-  };
-
-  //data show
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().id;
-
-    let token = "Bearer " + getToken();
-    getInsurance(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {});
   };
 
   // Code by Purnendu
@@ -224,8 +190,6 @@ function LifeInsurance() {
         toast.success("Deleted successfully...", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
-
-        getData();
         AddCard();
         setShow1(false);
       })
@@ -234,7 +198,6 @@ function LifeInsurance() {
 
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
     downloadDocument1(id)
       .then((response) => {
         const downloadUrl = URL.createObjectURL(response.data);
@@ -246,80 +209,64 @@ function LifeInsurance() {
       })
       .catch((error) => {});
   };
+  // const columns = [
+  //   {
+  //     id: "details",
+  //     label: "Insurance\u00a0Name",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "supportingDcument",
+  //     label: "Supporting\u00a0Document",
 
-  useEffect(() => {
-    getData();
-  }, []);
-  const columns = [
-    {
-      id: "details",
-      label: "Insurance\u00a0Name",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "supportingDcument",
-      label: "Supporting\u00a0Document",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "detailsOfpoint",
+  //     label: "Point\u00a0Of\u00a0Contact\u00a0Name",
 
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "detailsOfpoint",
-      label: "Point\u00a0Of\u00a0Contact\u00a0Name",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      align: "center",
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        padding: 0,
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "notes",
+  //     label: "Note",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //     format: "shortText",
+  //   },
+  //   {
+  //     id: "document",
+  //     label: "Document",
+  //     format: "button",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //     align: "center",
+  //   },
+  //   {
+  //     id: "action",
+  //     label: "Action",
+  //     align: "center",
+  //     format: "action",
+  //     style: {
+  //       padding: 0,
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  // ];
 
   // show notes popup
   const [popupVisible, setPopupVisible] = useState(false);
@@ -399,20 +346,8 @@ function LifeInsurance() {
     getBenificiarydata();
   }, []);
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
   // for add field pop
   let [showAdditionField, SetshowAdditionField] = useState(false);
-  const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
 
   //
   // let [show1, setShow1] = useState(false);
@@ -420,17 +355,9 @@ function LifeInsurance() {
   const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
-  const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
+  const [estimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
-  let [showAdditionField1, setshowAdditionField1] = useState(false);
-
-  const handleShowBeneficiary = () => {
-    setbeneVisible(true);
-    setShow1(false);
-
-    data.sharedDetails = [];
-  };
+  // const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
 
   const handleReset = () => {
     setbeneVisible(false);
@@ -612,25 +539,7 @@ function LifeInsurance() {
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
 
-  const handleChanges1 = (e, field, { index }) => {
-    const { value } = e.target;
-
-    setData((prevData) => {
-      const updatedMortgages = [...prevData.mortgages];
-      if (!updatedMortgages[index]) {
-        updatedMortgages[index] = {};
-      }
-      updatedMortgages[index][field] = value;
-
-      return {
-        ...prevData,
-        mortgages: updatedMortgages,
-      };
-    });
-  };
-
   const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
     setBeneficiaryVisible(true);
   };
 

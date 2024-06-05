@@ -1,26 +1,22 @@
 // Code By purnendu
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
   FormGroup,
   Input,
   Label,
-  Row,
 } from "reactstrap";
-import Base from "../components/Base";
-import { useState } from "react";
-import { getEmailByUsername, sendOtp } from "../services/user-service";
-import { toast } from "react-toastify";
-import Otppage from "./Otppage";
-import { Emailtemplate, EmailTemplatePostfix } from "./Emailtemplate";
-import { useNavigate } from "react-router-dom";
 import TrusteeApproval from "../pages/TrusteeApproval";
+import { getEmailByUsername, sendOtp } from "../services/user-service";
+import { EmailTemplatePostfix, Emailtemplate } from "./Emailtemplate";
+import Otppage from "./Otppage";
 
 export default function ForgotPassword() {
   const [username, setUsername] = useState("");
@@ -36,13 +32,11 @@ export default function ForgotPassword() {
     setUsername(e.target.value);
   };
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     getEmailByUsername(username)
       .then((res) => {
-
         setUserDetails(res);
         if (!res) {
           toast.error("Username is not correct please correct your username");
@@ -56,17 +50,15 @@ export default function ForgotPassword() {
           postfixMessage: EmailTemplatePostfix,
         })
           .then((res) => {
-            
             setValidmail(true);
           })
           .catch((err) => {
-            
             return;
           });
       })
       .catch((err) => {
         toast.error("Server Error" + err);
-        
+
         return;
       });
   };

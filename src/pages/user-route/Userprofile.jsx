@@ -82,9 +82,6 @@ function Userprofile() {
       setImageSrc(`data:image/jpeg;base64,${trimmedBase64}`);
     }
   };
-  useEffect(() => {
-    base64ToImage();
-  }, []);
 
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
@@ -173,11 +170,6 @@ function Userprofile() {
       .catch((err) => {});
   };
 
-  useEffect(() => {
-    getBenificiarydata();
-    getTrusteedata();
-  }, []);
-
   let trusteeBeneficiarySection = null;
   if (role === "user") {
     trusteeBeneficiarySection = (
@@ -213,6 +205,13 @@ function Userprofile() {
       </div>
     );
   }
+
+  useEffect(() => {
+    getBenificiarydata();
+    getTrusteedata();
+    base64ToImage();
+  }, []);
+
   return (
     <>
       <div className="userprofile_mainpage">
@@ -506,30 +505,30 @@ function Userprofile() {
 
           <div className="userprofile_social_media">
             <div className="usaerprofile_social_media_contect">
-              <a href="#" style={{ color: "red" }}>
+              <Link to="#" style={{ color: "red" }}>
                 <FontAwesomeIcon
                   className="userprofile_social_icon"
                   icon={faYoutube}
                 />
-              </a>
-              <a href="#" style={{ color: "red" }}>
+              </Link>
+              <Link to="#" style={{ color: "red" }}>
                 <FontAwesomeIcon
                   className="userprofile_social_icon"
                   icon={faInstagram}
                 />
-              </a>
-              <a href="#" style={{ color: "#0082ff" }}>
+              </Link>
+              <Link to="#" style={{ color: "#0082ff" }}>
                 <FontAwesomeIcon
                   className="userprofile_social_icon"
                   icon={faFacebookF}
                 />
-              </a>
-              <a href="#" style={{ color: "blue" }}>
+              </Link>
+              <Link to="#" style={{ color: "blue" }}>
                 <FontAwesomeIcon
                   className="userprofile_social_icon"
                   icon={faTwitter}
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

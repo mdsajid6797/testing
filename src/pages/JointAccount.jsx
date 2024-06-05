@@ -12,7 +12,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import validator from "validator";
 import "../../src/css/AttorneyForm.css";
-import { getToken, signup } from "../services/user-service";
+import { signup } from "../services/user-service";
 
 export default function JointAccount({ userId, onBack }) {
   const [data, setData] = useState({
@@ -99,8 +99,6 @@ export default function JointAccount({ userId, onBack }) {
       toast.error("Form data is invalid, correct all detais then submit.");
       return;
     }
-
-    const token = "Bearer " + getToken();
 
     signup(data)
       .then((res) => {

@@ -1,19 +1,13 @@
 import React from "react";
-import UserBase from "../../components/user/UserBase";
-import SideBar from "../../components/sidebar/Sidebar";
 import {
   Card,
   CardHeader,
   Col,
   Container,
-  Form,
-  Row,
-  Input,
-  FormGroup,
-  Label,
-  CardBody,
-  Button,
+  Row
 } from "reactstrap";
+import SideBar from "../../components/sidebar/Sidebar";
+import UserBase from "../../components/user/UserBase";
 function CreditCards() {
   return (
     <UserBase>

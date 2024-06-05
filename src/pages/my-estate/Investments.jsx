@@ -1,3 +1,18 @@
+import {
+  faDownload,
+  faHandHoldingDollar,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  TextareaAutosize,
+  Tooltip,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -5,70 +20,31 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
 } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
+import "../../css/formPOPup.css";
 import "../../css/myestare.css";
 import {
-  downloadDocument,
+  deleteSingleProperty,
+  getBeneficiary,
+  getSecondaryUser,
   getToken,
   getUser,
-  investments,
-  investmentsGet,
-  investmentsRemove,
-  getBeneficiary,
-  deleteSingleProperty,
-  getSecondaryUser,
 } from "../../services/user-service";
 import Deletebutton from "./Deletebutton";
 import UpdateButton from "./UpdateButton";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import {
-  Tooltip,
-  MenuItem,
-  FormControl,
-  Select,
-  TextField,
-  InputLabel,
-  TextareaAutosize,
-} from "@mui/material";
-import {
-  faCalculator,
-  faDownload,
-  faPlus,
-  faXmark,
-  faLocationDot,
-  faEye,
-  faHandHoldingDollar,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../css/formPOPup.css";
 
 import {
-  investment,
-  getInvestments,
-  downloadDocument1,
   deleteInvestment,
+  downloadDocument1,
+  getInvestments,
+  investment,
 } from "../../services/investment-service";
 
 function Investments() {
-  let userId = getUser().id;
-
   const [data, setData] = useState({
     investment: {
       owner: "",
@@ -121,14 +97,11 @@ function Investments() {
   // Get secondaryUser data
   const secondaryUserDetails = getSecondaryUser();
   let secondaryUserName = "";
-  let bothUserName = "";
 
   // Check if secondary user exists
   if (secondaryUserDetails !== undefined) {
     secondaryUserName =
       secondaryUserDetails.firstName + " " + secondaryUserDetails.lastName;
-    // Combine both user names into one variable
-    bothUserName = secondaryUserName + " & " + primaryUserName;
 
     // Push both user names into the array
     ownerNames.push(primaryUserName, secondaryUserName);
@@ -139,11 +112,6 @@ function Investments() {
 
   // use state to set the selected images
   const [selectedImage, setSelectedImage] = useState([]);
-
-  const [error, setError] = useState({
-    errors: {},
-    isError: false,
-  });
 
   const handleChanges = (e, field) => {
     const newValue = e.target.value;
@@ -260,36 +228,22 @@ function Investments() {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         // resetData();
-        getData();
+
         AddCard();
         // window.location.reload();
       })
       .catch((error) => {});
   };
 
-  //Get data show
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().commonId;
-
-    let token = "Bearer " + getToken();
-    getInvestments(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {
-        // Handle error, including error message
-      });
-  };
   // Code by Purnendu
   const handleRemove = (id, idType) => {
-    if (idType == "investmentId") {
+    if (idType === "investmentId") {
       deleteInvestment(id)
         .then((res) => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
-          getData();
+
           AddCard();
           setShow1(false);
         })
@@ -310,7 +264,7 @@ function Investments() {
 
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    const token = getToken();
+
     downloadDocument1(id)
       .then((response) => {
         const downloadUrl = URL.createObjectURL(response.data);
@@ -324,82 +278,7 @@ function Investments() {
   };
 
   const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
     setBeneficiaryVisible(true);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-  const columns = [
-    {
-      id: "investment",
-      label: "Investments",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "nameOfTheInvestment",
-      label: "Name\u00a0Of\u00a0Exchange",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "totalAmount",
-      label: "Estimated\u00a0Amount",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      align: "center",
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        padding: 0,
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
   };
 
   // const [investmentName, setInvestmentName] = React.useState("");
@@ -429,9 +308,6 @@ function Investments() {
 
   // page opening  animation
   const [show, setShow] = useState(false);
-  useEffect(() => {
-    setShow(true);
-  }, []);
 
   // new update
   //  form show button
@@ -468,10 +344,6 @@ function Investments() {
     setShow1(true);
   };
 
-  useEffect(() => {
-    AddCard();
-  }, []);
-
   // beneficiary addition in form
   const [beneficiary, setBenificiary] = useState([]);
   const getBenificiarydata = () => {
@@ -483,20 +355,6 @@ function Investments() {
         setBenificiary(res);
       })
       .catch((err) => {});
-  };
-  useEffect(() => {
-    getBenificiarydata();
-  }, []);
-
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
   };
 
   // for add field pop
@@ -511,7 +369,6 @@ function Investments() {
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
@@ -700,6 +557,12 @@ function Investments() {
     }));
     data.sharedDetails[i] = updatedSharedDetails[i];
   };
+
+  useEffect(() => {
+    AddCard();
+    getBenificiarydata();
+    setShow(true);
+  }, []);
 
   return (
     <div className={`your-component ${show ? "fade-in-element" : ""}`}>

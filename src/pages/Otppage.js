@@ -11,32 +11,36 @@ import {
 } from "reactstrap";
 // Code By Purnendu
 import { useNavigate } from "react-router-dom";
-import "../css/otppage.css";
-import { getUser, sendOtp, verifyOtp } from "../services/user-service";
-import { EmailTemplatePostfix, Emailtemplate } from "./Emailtemplate";
 import { toast } from "react-toastify";
-export default function Otppage({ userDetails, usermail, onFlagReceived, otpType }) {
+import "../css/otppage.css";
+import { sendOtp, verifyOtp } from "../services/user-service";
+import { EmailTemplatePostfix, Emailtemplate } from "./Emailtemplate";
+export default function Otppage({
+  userDetails,
+  usermail,
+  onFlagReceived,
+  otpType,
+}) {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [visible, setVisible] = useState(false);
   const [alertMeg, setAlertMeg] = useState();
 
-  const [email, setemail] = useState({
-    to: "",
-    subject: "",
-    message: "",
-  });
+  // const [email, setemail] = useState({
+  //   to: "",
+  //   subject: "",
+  //   message: "",
+  // });
 
   const handleVerify = (e) => {
     e.preventDefault();
 
     verifyOtp({ usermail, otp })
       .then((res) => {
-    
         // navigate("/reset-password")
-        if (res === true && otpType == "register") {
+        if (res === true && otpType === "register") {
           // const user = getUser();
-   
+
           // if (user.role === "USER") {
 
           //   navigate("/user/dashboard");
@@ -52,11 +56,11 @@ export default function Otppage({ userDetails, usermail, onFlagReceived, otpType
           // }
           toast.success("User register successfully");
           onFlagReceived(false);
-          navigate("/")
-        } else if(res === true && otpType == "forgetPassword") {
+          navigate("/");
+        } else if (res === true && otpType === "forgetPassword") {
           // toast.success("User register successfully");
           onFlagReceived(true);
-  
+
           // navigate("/")
         } else {
           setVisible(true);
@@ -67,27 +71,22 @@ export default function Otppage({ userDetails, usermail, onFlagReceived, otpType
       .catch((err) => {
         setVisible(true);
         setAlertMeg("Please Enter the correct OTP");
-
       });
   };
 
   const resendOtp = () => {
-
     sendOtp({
       to: userDetails.email,
       subject: "Login OTP",
       message: Emailtemplate,
-      postfixMessage: EmailTemplatePostfix
+      postfixMessage: EmailTemplatePostfix,
     })
       .then((res) => {
-
         setOtp("");
         setVisible(true);
         setAlertMeg("OTP Sent");
-
       })
       .catch((err) => {
-
         return;
       });
   };
@@ -127,7 +126,9 @@ export default function Otppage({ userDetails, usermail, onFlagReceived, otpType
                   />
                 </div>
                 <div className="otppage-button">
-                  <Button className="otppage-resend-otp" onClick={resendOtp}>Resend Otp</Button>
+                  <Button className="otppage-resend-otp" onClick={resendOtp}>
+                    Resend Otp
+                  </Button>
                   <Button className="otppage-varify" type="submit">
                     Verify
                   </Button>

@@ -1,7 +1,7 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
 import { getCombinedData, getUser } from "../../services/user-service";
@@ -14,6 +14,8 @@ export default function Userdashboard() {
   const navigate = useNavigate();
   let userId = getUser().commonId;
   let userAccountType = getUser().accountType;
+
+  const [show] = useState(true);
 
   // get combined data in single list 
   const [combinedData, setCombinedData] = useState(null);
@@ -47,41 +49,6 @@ export default function Userdashboard() {
     setAddJointPopup(false);
   };
   AOS.init();
-  // page opening  animation
-  const [show, setShow] = useState(false);
-  
-
-  // let [width , setwidth] = useState('100%');
-
-  const changeWidth = () => {
-    const resizable = document.getElementById("resizable");
-    const otherElement = document.getElementById("otherElement");
-    let isResizing = false;
-
-    resizable.addEventListener("mousedown", (e) => {
-      isResizing = true;
-      const initialX = e.clientX;
-      const initialWidth = parseInt(
-        window.getComputedStyle(resizable).width,
-        10
-      );
-
-      resizable.addEventListener("mousemove", (e) => {
-        if (!isResizing) return;
-        const width = initialWidth + (e.clientX - initialX);
-        resizable.style.width = width + "px";
-        otherElement.style.flex = `1 0 ${width}px`;
-      });
-
-      resizable.addEventListener("mouseup", () => {
-        isResizing = false;
-      });
-    });
-  };
-
-  const generateWill = () => {
-    alert("will");
-  };
 
   // popup component
   const [showPopup, setShowPopup] = useState(false);
@@ -95,9 +62,8 @@ export default function Userdashboard() {
   };
 
   useEffect(() => {
-    setShow(true);
     getCombinedDataFromServer();
-  }, []);
+  },[]);
 
   return (
     <>
@@ -121,40 +87,40 @@ export default function Userdashboard() {
                     marginTop: "10px",
                   }}
                 >
-                  <a
+                  <button
                     style={{ cursor: "pointer" }}
                     onClick={toggleBeneficiary}
                     className="dashboard_top_button"
                   >
                     Add Beneficiary
-                  </a>
-                  <a href="add-trustee" className="dashboard_top_button">
+                  </button>
+                  <Link to="#" className="dashboard_top_button">
                     Add Trustee
-                  </a>
-                  <a href="shareproperty" className="dashboard_top_button">
+                  </Link>
+                  <Link to="#" className="dashboard_top_button">
                     Draft
-                  </a>
+                  </Link>
                   {userAccountType !== "secondary" && (
-                    <a
+                    <button
                       style={{ cursor: "pointer" }}
                       className="dashboard_top_button"
                       onClick={openPopup}
                     >
                       Inventory Report
-                    </a>
+                    </button>
                   )}
 
                   {!(
                     userAccountType === "secondary" ||
                     userAccountType === "primary"
                   ) && (
-                    <a
+                    <button
                       style={{ cursor: "pointer" }}
                       className="dashboard_top_button"
                       onClick={toggleJointAccount}
                     >
                       Add Secondary Acc
-                    </a>
+                    </button>
                   )}
                 </div>
                 {addBeneficiary && (

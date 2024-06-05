@@ -1,32 +1,18 @@
 import React, { useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Container,
-  FormFeedback,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import {
   deleteSingleProperty,
   downloadDocument1,
-  downloadTaxDocument,
   getBeneficiary,
   getSecondaryUser,
   getToken,
   getUser,
 } from "../../services/user-service";
 //import { Accordion, data , AccordionContext } from "reactstrap";
-import {
-  InputLabel,
-  MenuItem,
-  TextField,
-  TextareaAutosize,
-  Tooltip,
-} from "@mui/material";
+import { Tooltip } from "@mui/material";
 
-import { FormControl, FormLabel, Input, Select, Option } from "@mui/joy";
+import { FormLabel, Input, Option, Select, Textarea } from "@mui/joy";
 
 import {
   faDownload,
@@ -86,23 +72,34 @@ function RealEstateContent() {
   });
 
   const [ownerName, setOwnerName] = useState([]);
-  const handleChange = (event, newValue) => {
+  const handleChange = (event, newValue, stringValue) => {
+    if (stringValue === "propertyType") {
+      setData((prevData) => ({
+        ...prevData,
+        realEstate: {
+          ...prevData.realEstate,
+          propertyType: newValue,
+        },
+      }));
+    }
 
-    // Convert ownerName array to a single string
-    const comingValue = typeof newValue === "string" ? newValue.split(",") : newValue;
-    const ownerString = comingValue.join(", ");
+    if (stringValue === "owner") {
+      // Convert ownerName array to a single string
+      const comingValue =
+        typeof newValue === "string" ? newValue.split(",") : newValue;
+      const ownerString = comingValue.join(", ");
 
-    setData((prevData) => ({
-      ...prevData,
-      realEstate: {
-        ...prevData.realEstate,
-        owner: ownerString,
-      },
-    }));
+      setData((prevData) => ({
+        ...prevData,
+        realEstate: {
+          ...prevData.realEstate,
+          owner: ownerString,
+        },
+      }));
 
-    // Update the ownerName state afterwards
-    setOwnerName(newValue);
-
+      // Update the ownerName state afterwards
+      setOwnerName(newValue);
+    }
   };
 
   // Define an array to store user names
@@ -116,14 +113,11 @@ function RealEstateContent() {
   // Get secondaryUser data
   const secondaryUserDetails = getSecondaryUser();
   let secondaryUserName = "";
-  let bothUserName = "";
 
   // Check if secondary user exists
   if (secondaryUserDetails !== undefined) {
     secondaryUserName =
       secondaryUserDetails.firstName + " " + secondaryUserDetails.lastName;
-    // Combine both user names into one variable
-    bothUserName = secondaryUserName + " & " + primaryUserName;
 
     // Push both user names into the array
     ownerNames.push(primaryUserName, secondaryUserName);
@@ -134,12 +128,11 @@ function RealEstateContent() {
 
   // use state to set the selected images
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedImage1, setSelectedImage1] = useState(null);
 
-  const [error, setError] = useState({
-    errors: {},
-    isError: false,
-  });
+  // const [error] = useState({
+  //   errors: {},
+  //   isError: false,
+  // });
 
   const handleChanges = (e, field) => {
     const newValue = e.target.value;
@@ -190,25 +183,6 @@ function RealEstateContent() {
       }
     }
   };
-  const handleImageChange1 = (event) => {
-    const selectedFile = event.target.files[0];
-    const allowedExtensions = ["pdf"];
-
-    if (selectedFile) {
-      const fileNameParts = selectedFile.name.split(".");
-      const fileExtension =
-        fileNameParts[fileNameParts.length - 1].toLowerCase();
-
-      if (allowedExtensions.includes(fileExtension)) {
-        setSelectedImage1(selectedFile);
-      } else {
-        toast.error("Please Select pdf Format Document Only", {
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
-        event.target.value = "";
-      }
-    }
-  };
 
   const resetForm = () => {
     setIsTextFieldClicked(false);
@@ -251,21 +225,11 @@ function RealEstateContent() {
     setOwnerName([]);
   };
 
-  const [countryName, setCountryName] = React.useState("");
-
-  const CountryHandleChange = (event) => {
-    setCountryName(event.target.value);
-    data.country = event.target.value;
-  };
   // Set the form
   const AddForm = (event) => {
     event.preventDefault();
-    console.log("data: ", JSON.stringify(data));
-    return;
     toggle();
     let token = "Bearer " + getToken();
-    setCardNo(token);
-
     if (
       data.streetAddress === "" ||
       data.zipCode === "" ||
@@ -286,7 +250,7 @@ function RealEstateContent() {
         formData.append(`files`, selectedImage[i]);
       }
     }
-
+    formData.append("data", JSON.stringify(data));
     realEstates(formData, token)
       .then((resp) => {
         AddCard();
@@ -294,7 +258,6 @@ function RealEstateContent() {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         // resetData();
-        getData();
         // window.location.reload();
         //setInputrr ([...inputrr,{streetAddress,mortgage,aptNumber,exampleFile,zipCode,estPropertyVal,country,rentalIncome}])
       })
@@ -306,34 +269,15 @@ function RealEstateContent() {
       });
   };
 
-  //show data in frontend
-  const [category, setCategory] = useState([]);
-  const getData = () => {
-    let userId = getUser().commonId;
-
-    let token = "Bearer " + getToken();
-    getRealEstates(token, userId)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((error) => {
-        // handle error
-        setError({
-          errors: error,
-          isError: true,
-        });
-      });
-  };
-
   // code by purnendu
   const handleRemove = (id, idType) => {
-    if (idType == "realEstateId") {
+    if (idType === "realEstateId") {
       deleteRealEstate(id)
         .then((res) => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
-          getData();
+
           AddCard();
           setShow(false);
         })
@@ -354,7 +298,7 @@ function RealEstateContent() {
   // code for handle download
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
+
     downloadDocument1(id)
       .then((response) => {
         const downloadUrl = URL.createObjectURL(response.data);
@@ -367,174 +311,135 @@ function RealEstateContent() {
       .catch((error) => {});
   };
 
-  const handleView = (newFile) => {
-    let myarry = newFile.split(".");
-    const token = getToken(); // Replace with your actual token
+  // const columns = [
+  //   {
+  //     id: "streetAddress",
+  //     label: "Address",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "aptNumber",
+  //     label: "Apartment",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "zipCode",
+  //     label: "Zip\u00a0Code",
+  //     align: "center",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "city",
+  //     label: "City/Town",
+  //     align: "center",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "state",
+  //     label: "State",
+  //     align: "center",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "country",
+  //     label: "Country",
 
-    downloadTaxDocument("realEstate", newFile)
-      .then((response) => {
-        const downloadUrl = URL.createObjectURL(response.data);
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "mortgage",
+  //     label: "Total\u00a0Mortgage",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //     format: "openMortgage",
+  //   },
+  //   {
+  //     id: "estPropertyVal",
+  //     label: "Property\u00a0Value",
 
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.download = `${myarry[0]}.${myarry[1]}`; // Set the desired file name and extension
-        link.click();
-        URL.revokeObjectURL(downloadUrl);
-      })
-      .catch((error) => {
-        // Handle the error
-      });
-  };
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "propertyTax",
+  //     label: "Property\u00a0Tax",
 
-  const columns = [
-    {
-      id: "streetAddress",
-      label: "Address",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "aptNumber",
-      label: "Apartment",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "zipCode",
-      label: "Zip\u00a0Code",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "city",
-      label: "City/Town",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "state",
-      label: "State",
-      align: "center",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "country",
-      label: "Country",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
 
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "mortgage",
-      label: "Total\u00a0Mortgage",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "openMortgage",
-    },
-    {
-      id: "estPropertyVal",
-      label: "Property\u00a0Value",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "propertyTax",
-      label: "Property\u00a0Tax",
-
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-
-    {
-      id: "equity",
-      label: "Estimated\u00a0Equity",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "caption",
-      label: "Tax\u00a0Doc\u00a0Caption",
-      format: "buttons",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "notes",
-      label: "Note",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      format: "shortText",
-    },
-    {
-      id: "document",
-      label: "Document",
-      format: "button",
-      style: {
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-      align: "center",
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-      format: "action",
-      style: {
-        padding: 0,
-        minWidth: 100,
-        fontWeight: "bold",
-      },
-    },
-  ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const [zipCode, setZipCode] = useState("");
-  const [addressData, setAddressData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [cities, setCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
-
-  var c = [];
+  //   {
+  //     id: "equity",
+  //     label: "Estimated\u00a0Equity",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "caption",
+  //     label: "Tax\u00a0Doc\u00a0Caption",
+  //     format: "buttons",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  //   {
+  //     id: "notes",
+  //     label: "Note",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //     format: "shortText",
+  //   },
+  //   {
+  //     id: "document",
+  //     label: "Document",
+  //     format: "button",
+  //     style: {
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //     align: "center",
+  //   },
+  //   {
+  //     id: "action",
+  //     label: "Action",
+  //     align: "center",
+  //     format: "action",
+  //     style: {
+  //       padding: 0,
+  //       minWidth: 100,
+  //       fontWeight: "bold",
+  //     },
+  //   },
+  // ];
 
   const handleChangesZipCode = (e, field) => {
     const inputValue = e.target.value;
@@ -550,17 +455,6 @@ function RealEstateContent() {
       }));
     }
   };
-  const [cityName, setCityName] = React.useState("");
-
-  const cityHandleChange = (event) => {
-    if (event.target === undefined) {
-      setCityName(event);
-      data.city = event;
-    } else {
-      setCityName(event.target.value);
-      data.city = event.target.value;
-    }
-  };
 
   useEffect(() => {
     const fetchDataFromAPI = () => {
@@ -569,7 +463,6 @@ function RealEstateContent() {
         axios
           .get(apiUrl)
           .then((res) => {
-            setLoading(false);
             if (res.data && res.data.places && res.data.places.length > 0) {
               const placeName = res.data.places[0]["place name"];
               // setData((prevData) => ({
@@ -591,8 +484,6 @@ function RealEstateContent() {
             }
           })
           .catch((error) => {
-            setLoading(false);
-
             // toast.error("Failed to fetch address data from API.");
           });
       } else if (data.realEstate.zipCode.length > 5) {
@@ -614,7 +505,7 @@ function RealEstateContent() {
             state: "",
           },
         }));
-      } else if (zipCode.length <= 4) {
+      } else if (data.realEstate.zipCode.length <= 4) {
         // Reset all fields if zipCode is null
         // setData((prevData) => ({
         //   ...prevData.realEstate,
@@ -632,15 +523,10 @@ function RealEstateContent() {
           },
         }));
       }
-      setLoading(true);
     };
 
     fetchDataFromAPI();
   }, [data.realEstate.zipCode]);
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   // The rest of your code remains unchanged...
 
@@ -688,17 +574,6 @@ function RealEstateContent() {
     });
   };
 
-  // field addition
-
-  const addField = [0, 1, 2, 3, 4];
-  const [visibleField, setVisibleField] = useState(0);
-
-  const handleAddField = () => {
-    if (visibleField <= 4) {
-      setVisibleField(visibleField + 1);
-    }
-  };
-
   // for add field pop
   let [showAdditionField, SetshowAdditionField] = useState(false);
 
@@ -717,14 +592,6 @@ function RealEstateContent() {
   //   }));
   // };
 
-  const [visibleDivs, setVisibleDivs] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-
   //  downalod popup
   const [popupVisibleDownlaod, setPopupVisibleDownlaod] = useState(false);
   const [selectedDownlaod, setSelectDownload] = useState("");
@@ -734,34 +601,6 @@ function RealEstateContent() {
     setSelectDownload(showDetail);
   };
 
-  // show mortgage popup
-  const [mortgagePopupVisible, setMortgagePopupVisible] = useState(false);
-  const [selectedMortgage, setSelectedMortgage] = useState("");
-  const handleOpenMortgagePopup = (mortgage) => {
-    setSelectedMortgage(mortgage);
-    setMortgagePopupVisible(true);
-  };
-  const [selectedRow, setSelectedRow] = useState(null);
-
-  // ... (other code)
-
-  const handleRowClick = (rowData) => {
-    setSelectedRow(rowData);
-  };
-
-  const handleClosePopup = () => {
-    setSelectedRow(null);
-  };
-  // property tax calculator
-  const [popupCalculatorVisible, setPopupCalculatorVisible] = useState(false);
-
-  const openPopup = () => {
-    setPopupCalculatorVisible(true);
-  };
-
-  const closePopup = () => {
-    setPopupCalculatorVisible(false);
-  };
   // new update
   let [form1, setForm1] = useState(false);
 
@@ -776,7 +615,7 @@ function RealEstateContent() {
   //   value:"456211",
   //   address:"bangalore"
   // }
-  let [cardNo, setCardNo] = useState(0);
+
   let [card, setCard] = useState([]); // card = [ {} , {} , {}] - include the form data going to use it for card
 
   let [showDetail, setShowDetail] = useState([]); // this is to display the card details
@@ -805,11 +644,6 @@ function RealEstateContent() {
   useEffect(() => {
     AddCard();
   }, []);
-
-  // mortgage popup on click
-  const showMortgage = (obj) => {
-    handleRowClick(obj);
-  };
 
   // beneficiary addition in form
   const [beneficiary, setBenificiary] = useState([]);
@@ -840,19 +674,18 @@ function RealEstateContent() {
   };
 
   //
-  let [show1, setShow1] = useState(false);
+
   const [benevisible, setbeneVisible] = useState(false);
   const [distributionType, setDistributionType] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
   let [showAdditionField1, setshowAdditionField1] = useState(false);
 
   const handleShowBeneficiary = () => {
     setbeneVisible(true);
-    setShow1(false);
+
     setEstimatedTotalAmount(data.realEstate.estPropertyVal);
     // data.sharedDetails = [];
   };
@@ -1055,7 +888,6 @@ function RealEstateContent() {
   };
 
   const handleOpenBeneficiary = (showDetail) => {
-    setSelectedBeneficiary(showDetail);
     setBeneficiaryVisible(true);
   };
 
@@ -1099,776 +931,520 @@ function RealEstateContent() {
 
       {form1 && (
         <div className="overlay1" style={{ transition: "500ms", height: "" }}>
-          <div className="property_form">
-            <Container className="form1">
-              <Card color="" outline>
-                <CardHeader>
-                  <h3 className="form1-heading">Add Properties</h3>
-                  {/* {JSON.stringify(data)} */}
-                  <div className="Close" onClick={toggle}>
-                    <FontAwesomeIcon icon={faXmark} />
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <Form onSubmit={AddForm}>
-                    <div className="mt-2">
-                      <Tooltip title="Select Owner">
-                        <FormControl>
-                          <FormLabel>Select Owner</FormLabel>
+          <div className="addform_ichest">
+            <div className="addform_main">
+              <div className="addform_heading">
+                <h3 className="addform_heading_h1">
+                  Add RealEstate Properties
+                </h3>
+                <div className="addform_close" onClick={toggle}>
+                  <FontAwesomeIcon icon={faXmark} />
+                </div>
+              </div>
+              <div className="addform_body">
+                <Form onSubmit={AddForm} className="addform_body">
+                  <div className="addform_select_body">
+                    <div className="addform_body_left">
+                      <div>
+                        <Tooltip title="Select Owner" className="mt-2">
+                          <div>
+                            <FormLabel>Select Owner</FormLabel>
 
-                          <Select
-                            value={ownerName}
-                            multiple
-                            onChange={handleChange}
-                            sx={{
-                              minWidth: "13rem",
-                            }}
-                            slotProps={{
-                              listbox: {
-                                sx: {
-                                  width: "100%",
+                            <Select
+                              placeholder="Select Owner"
+                              value={ownerName}
+                              multiple
+                              onChange={(event, newValue) =>
+                                handleChange(event, newValue, "owner")
+                              }
+                              sx={{
+                                minWidth: "13rem",
+                              }}
+                              slotProps={{
+                                listbox: {
+                                  sx: {
+                                    width: "100%",
+                                  },
                                 },
-                              },
-                            }}
-                          >
-                            {ownerNames.map((name) => (
-                              <Option key={name} value={name}>
-                                {name}
-                              </Option>
-                            ))}
-                          </Select>
-                          
-                        </FormControl>
-                      </Tooltip>
-                    </div>
-                    <div className="mt-3">
-                      <Tooltip title="Enter Heading For Property ">
-                        <FormControl>
-                          <FormLabel>Property Heading</FormLabel>
-                          <Input
-                            className="input_mui_joy"
-                            placeholder="Enter property heading"
-                            value={data.realEstate.propertyCaption}
-                            onChange={(e) =>
-                              handleChanges(e, "propertyCaption")
-                            }
-                          />
-                        </FormControl>
-                      </Tooltip>
-                    </div>
-
-                    <div className="mt-3">
-                      <Tooltip title="Select The Type Of Property">
-                        <FormControl
-                          // required
-                          fullWidth
-                          sx={{ minWidth: 120 }}
-                          size="small"
-                        >
-                          <InputLabel id="demo-simple-select-label">
-                            Type Of Property
-                          </InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="propertyType"
-                            label="Type Of Property"
-                            onChange={(e) => handleChanges(e, "propertyType")}
-                            value={data.realEstate.propertyType}
-                          >
-                            <MenuItem value={"Residential"}>
-                              Residential
-                            </MenuItem>
-                            <MenuItem value={"Commercial"}>Commercial</MenuItem>
-                            <MenuItem value={"Industrial"}>Industrial</MenuItem>
-                            <MenuItem value={"Land"}>Land</MenuItem>
-                            <MenuItem
-                              value={"Other"}
-                              onClick={() => {
-                                setOtherPropertyTypes(!otherPropertyTypes);
                               }}
                             >
-                              Other
-                            </MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Tooltip>
-                    </div>
-
-                    {/* Conditionally render the input field for custom text if "Other" is selected */}
-                    {otherPropertyTypes && (
-                      <div className="mt-3">
-                        <Tooltip title="Enter Your Apartment Number ">
-                          <TextField
-                            fullWidth
-                            type="text"
-                            label="Enter Other Property"
-                            id="otherprop"
-                            size="normal"
-                            onChange={(e) =>
-                              handleChanges(e, "otherPropertyType")
-                            }
-                            value={data.realEstate.otherPropertyType}
-                          />
+                              {ownerNames.map((name) => (
+                                <Option key={name} value={name}>
+                                  {name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </div>
                         </Tooltip>
                       </div>
-                    )}
-
-                    <div
-                      className="mt-3 form1-double"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div style={{ width: "49.5%" }}>
-                        <Tooltip title="Enter Your Street Address ">
-                          <TextField
-                            required
-                            fullWidth
-                            type="text"
-                            label="Street Address"
-                            id="streetAddress"
-                            size="normal"
-                            onChange={(e) => handleChanges(e, "streetAddress")}
-                            value={data.realEstate.streetAddress}
-                          />
-                        </Tooltip>
-                        <FormFeedback>
-                          {error.errors?.response?.data?.streetAddress}
-                        </FormFeedback>
-                      </div>
-
-                      <div style={{ width: "49.5%" }}>
-                        <Tooltip title="Enter Your Apartment Number ">
-                          <TextField
-                            fullWidth
-                            type="text"
-                            label="Apartment"
-                            id="aptNumber"
-                            size="normal"
-                            onChange={(e) => handleChanges(e, "aptNumber")}
-                            value={data.realEstate.aptNumber}
-                          />
-                        </Tooltip>
-                      </div>
-                    </div>
-                    <div
-                      className="mt-2 form1-double"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                        marginTop: "-12px",
-                      }}
-                    >
-                      <div style={{ width: "49.5%" }}>
-                        <Tooltip title="Enter a valid Zip-code ">
-                          <TextField
-                            required
-                            fullWidth
-                            type="number"
-                            label="Zip Code"
-                            id="zipCode"
-                            size="normal"
-                            onChange={(e) => handleChangesZipCode(e, "zipCode")}
-                            value={data.realEstate.zipCode}
-                            inputProps={{
-                              minLength: 5,
-                              maxLength: 5,
-                            }}
-                            error={!validateZipCode(data.realEstate.zipCode)}
-                            helperText={
-                              !validateZipCode(data.realEstate.zipCode)
-                                ? "Please enter a valid 5-digit Zip Code"
-                                : ""
-                            }
-                          />
-                        </Tooltip>
-                      </div>
-
-                      {/* <div style={{ width: "49.5%" }}>
-                        <Tooltip title="Enter Your City/Town Name ">
-                          <TextField
-                            fullWidth
-                            type="text"
-                            label="City/Town"
-                            id="placename"
-                            size="normal"
-                            onChange={(e) => handleChanges(e, "city")}
-                            value={data.city}
-                            required
-                          />
-                        </Tooltip>
-                      </div> */}
-
-                      <div style={{ display: "none" }}>
-                        {/* Hidden input for submission */}
-                        <input
-                          type="text"
-                          label="City/Town"
-                          value={data.realEstate.city}
-                          required
-                          readOnly
-                        />
-                      </div>
-
-                      <div className="" style={{ width: "49.5%" }}>
-                        {/* Display-only TextField with Tooltip */}
-                        <Tooltip title="Automatically populate based on the zip code">
-                          <TextField
-                            fullWidth
-                            type="text"
-                            label="City/Town *"
-                            id="placename"
-                            size="normal"
-                            value={data.realEstate.city}
-                            readOnly
-                            disabled // Disable the field to prevent manual input
-                          />
-                        </Tooltip>
-                      </div>
-                    </div>
-                    <div
-                      className="mt-2 form1-double"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      {/* <div style={{ width: "49.5%" }}>
-                        <Tooltip title="Enter your state name ">
-                          <TextField
-                            required
-                            fullWidth
-                            type="text"
-                            label="State"
-                            id="state"
-                            size="normal"
-                            onChange={(e) => handleChanges(e, "state")}
-                            value={data.state}
-
-                          />
-                        </Tooltip>
-                      </div> */}
-                      <div style={{ display: "none" }}>
-                        {/* Hidden input for submission */}
-                        <input
-                          type="text"
-                          label="State"
-                          value={data.realEstate.state}
-                          required
-                          readOnly
-                        />
-                      </div>
-
-                      <div className="" style={{ width: "49.5%" }}>
-                        {/* Display-only TextField with Tooltip */}
-                        <Tooltip title="Automatically populate based on the zip code">
-                          <TextField
-                            fullWidth
-                            type="text"
-                            label="State *"
-                            id="state"
-                            size="normal"
-                            value={data.realEstate.state}
-                            readOnly
-                            disabled // Disable the field to prevent manual input
-                          />
-                        </Tooltip>
-                      </div>
-
-                      {/* <div className="" style={{ width: "49.5%" }}>
-                        <Tooltip title="Enter your country name ">
-                          <TextField
-                            required
-                            fullWidth
-                            type="text"
-                            label="Country"
-                            id="country"
-                            size="normal"
-                            onChange={(e) => handleChanges(e, "country")}
-                            value={data.country}
-                            
-                          />
-                        </Tooltip>
-                      </div> */}
-                      <div style={{ display: "none" }}>
-                        {/* Hidden input for submission */}
-                        <input
-                          type="text"
-                          name="country"
-                          value={data.realEstate.country}
-                          required
-                          readOnly
-                        />
-                      </div>
-
-                      <div className="" style={{ width: "49.5%" }}>
-                        {/* Display-only TextField with Tooltip */}
-                        <Tooltip title="Automatically populate based on the zip code">
-                          <TextField
-                            fullWidth
-                            type="text"
-                            label="Country *"
-                            id="country"
-                            size="normal"
-                            value={data.realEstate.country}
-                            readOnly
-                            disabled // Disable the field to prevent manual input
-                          />
-                        </Tooltip>
-                      </div>
-                    </div>
-                    {/* <div className="mt-2 form1-double" style={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between", marginTop: "-12px" }}> */}
-
-                    <div
-                      className="mt-2 form1-double"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div style={{ width: "49.5%", alignSelf: "flex-end" }}>
-                        <Tooltip title="Enter your estimated Property Value">
-                          <TextField
-                            fullWidth
-                            required
-                            type="number"
-                            label="Estimated Property Value"
-                            id="estPropertyVal"
-                            size="normal"
-                            onChange={(e) => handleChanges(e, "estPropertyVal")}
-                            value={data.realEstate.estPropertyVal}
-                            onClick={() => setIsTextFieldClicked2(true)}
-                            InputProps={{
-                              startAdornment: isTextFieldClicked2 ? (
-                                <div>$</div>
-                              ) : null,
-                            }}
-                          />
-                        </Tooltip>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "49.5%",
-                        }}
-                      >
-                        <Tooltip title="Enter your Estimated Annual Property Tax">
-                          <TextField
-                            required
-                            fullWidth
-                            // placeholder="$"
-                            type="number"
-                            label="Estimated Annual Property Tax"
-                            id="propertyTax"
-                            size="normal"
-                            onChange={(e) => handleChanges(e, "propertyTax")}
-                            value={data.realEstate.propertyTax}
-                            onClick={() => setIsTextFieldClicked(true)}
-                            InputProps={{
-                              startAdornment: isTextFieldClicked ? (
-                                <div>$</div>
-                              ) : null,
-                            }}
-                          />
-                        </Tooltip>
-                        {/* <a onClick={openPopup}>
-                          <Tooltip title="Click to open property tax calculator">
-                            <FontAwesomeIcon
-                              style={{
-                                cursor: "pointer",
-                                display: "flex",
-                                alignItems: "center",
-                                fontSize: "25px",
-                                marginLeft: "10px",
-                                height: "30px",
-                              }}
-                              icon={faCalculator}
+                      <div>
+                        <Tooltip title="Enter Heading For Property ">
+                          <div className="mt-2">
+                            <FormLabel>Property Heading</FormLabel>
+                            <Input
+                              className="input_mui_joy"
+                              placeholder="Enter property heading"
+                              value={data.realEstate.propertyCaption}
+                              onChange={(e) =>
+                                handleChanges(e, "propertyCaption")
+                              }
                             />
-                          </Tooltip>
-                        </a>
-
-                        {popupCalculatorVisible && (
-                          <PropertyTaxCalculatorPopup onClose={closePopup} />
-                        )} */}
+                          </div>
+                        </Tooltip>
                       </div>
-                    </div>
+                      <div>
+                        <Tooltip title="Select The Type Of Property">
+                          <div className="mt-2">
+                            <FormLabel>Type Of Property</FormLabel>
 
-                    {/* mortgages  */}
-
-                    <div className="mt-2">
-                      {mordgages.map((index) => (
-                        <div
-                          key={index}
-                          style={{
-                            marginBottom: "10px",
-                            display:
-                              index <= visibleColumnIndex ? "block" : "none",
-                          }}
-                        >
-                          <div style={{ width: "100%" }}>
-                            <Tooltip
-                              title={`Add your mortgage institution ${
-                                index + 1
-                              }`}
+                            <Select
+                              value={data.realEstate.propertyType}
+                              onChange={(event, newValue) =>
+                                handleChange(event, newValue, "propertyType")
+                              }
                             >
-                              <TextField
-                                fullWidth
-                                type="text"
-                                label={`Mortgage Institution ${index + 1}`}
-                                id={`mortgageInstitution${index + 1}`}
-                                size="normal"
-                                onChange={(e) =>
-                                  handleChanges1(e, "mortgageInstitution", {
-                                    index,
-                                  })
-                                }
-                                value={
-                                  data.mortgages[index]
-                                    ? data.mortgages[index].mortgageInstitution
-                                    : ""
-                                }
-                              />
-                            </Tooltip>
-                          </div>
-                          <div
-                            style={{
-                              width: "100%",
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              marginTop: "8px",
-                            }}
-                          >
-                            <div style={{ width: "49.5%" }}>
-                              <Tooltip
-                                title={`Add your mortgage number ${index + 1}`}
-                              >
-                                <TextField
-                                  fullWidth
-                                  type="text"
-                                  label={`Mortgage Number ${index + 1}`}
-                                  id={`mortgageNumber${index + 1}`}
-                                  size="normal"
-                                  onChange={(e) =>
-                                    handleChanges1(e, "mortgageNumber", {
-                                      index,
-                                    })
-                                  }
-                                  value={
-                                    data.mortgages[index]
-                                      ? data.mortgages[index].mortgageNumber
-                                      : ""
-                                  }
-                                />
-                              </Tooltip>
-                            </div>
-                            <div style={{ width: "49.5%" }}>
-                              <Tooltip title={`Add your mortgage ${index + 1}`}>
-                                <TextField
-                                  fullWidth
-                                  type="number"
-                                  label={`Mortgage ${index + 1}`}
-                                  id={`mortgage${index + 1}`}
-                                  size="normal"
-                                  onChange={(e) =>
-                                    handleChanges1(e, "mortgage", { index })
-                                  }
-                                  value={
-                                    data.mortgages[index]
-                                      ? data.mortgages[index].mortgage
-                                      : ""
-                                  }
-                                  onClick={() => setIsTextFieldClicked3(true)}
-                                  InputProps={{
-                                    startAdornment: isTextFieldClicked3 ? (
-                                      <div>$</div>
-                                    ) : null,
-                                  }}
-                                />
-                              </Tooltip>
-                            </div>
-                          </div>
-                          {index !== 0 && (
-                            <div style={{ width: "100%", marginTop: "4px" }}>
-                              <Button
-                                style={{
-                                  height: "30px",
-                                  width: "30px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  borderRadius: "50%",
-                                  backgroundColor: "rgb(255, 74, 74)",
-                                  border: "none",
+                              <Option value="">
+                                Select Your Type Of Property
+                              </Option>
+                              <Option value="Residential">Residential</Option>
+                              <Option value="Commercial">Commercial</Option>
+                              <Option value="Industrial">Industrial</Option>
+                              <Option value="Land">Land</Option>
+                              <Option
+                                value="Other"
+                                onClick={() => {
+                                  setOtherPropertyTypes(!otherPropertyTypes);
                                 }}
-                                onClick={() => handleRemoveColumn(index)}
                               >
-                                <FontAwesomeIcon icon={faMinus} />
-                              </Button>
+                                Other
+                              </Option>
+                            </Select>
+                          </div>
+                        </Tooltip>
+                      </div>
+
+                      {otherPropertyTypes && (
+                        <div className="mt-2">
+                          <Tooltip title="Enter Your Other Property Type ">
+                            <div>
+                              <FormLabel>Other Property</FormLabel>
+                              <Input
+                                className="input_mui_joy"
+                                placeholder="Enter Other Property"
+                                id="otherprop"
+                                onChange={(e) =>
+                                  handleChanges(e, "otherPropertyType")
+                                }
+                                value={data.realEstate.otherPropertyType}
+                              />
                             </div>
-                          )}
-                        </div>
-                      ))}
-                      {visibleColumnIndex < 4 && (
-                        <div style={{ width: "100%", marginTop: "2px" }}>
-                          <Button
-                            style={{
-                              height: "30px",
-                              width: "30px",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              borderRadius: "50%",
-                              backgroundColor: "#4aafff",
-                              border: "none",
-                            }}
-                            onClick={handleAddColumn}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </Button>
+                          </Tooltip>
                         </div>
                       )}
-                    </div>
-
-                    {/* </div> */}
-
-                    <div
-                      className="mt-2 form1-double"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                        marginTop: "-12px",
-                      }}
-                    >
-                      <div style={{ width: "100%" }}>
-                        <Tooltip title="Upload your property related file it should be under 400 kb">
+                      <div className="address_input">
+                        <div className="mt-2 addform_input_half">
                           <div>
-                            <label
-                              style={{ display: "block", marginBottom: "5px" }}
-                            >
-                              Supporting Document{" "}
-                              <span style={{ color: "red" }}></span>
-                            </label>
-                            <input
-                              style={{
-                                border: "solid 1px lightgray",
-                                borderLeft: "none",
-                                width: "100%",
-                                borderRadius: "5px",
-                              }}
-                              // required
-                              type="file"
-                              name="myfile"
-                              id="exampleFile"
-                              onChange={handleImageChange}
-                              accept=".pdf"
-                              multiple
-                            />
-                          </div>
-                        </Tooltip>
-                      </div>
-                    </div>
-
-                    {/* <div className="mt-3">
-                      <Tooltip title="Select The Type Of Property">
-                        <FormControl
-                          // required
-                          fullWidth
-                          sx={{ minWidth: 120 }}
-                          size="small"
-                        >
-                          <InputLabel id="demo-simple-select-label">
-                            Select Your Single Beneficiary
-                          </InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="username"
-                            label="Select Your Single Beneficiary"
-                            // onChange={(e) => handleUsernameChange(e)}
-                            // value={selectedUsername}
-                          >
-                            {beneficiary.map((benif) => (
-                              <MenuItem
-                                key={benif.username}
-                                value={benif.username}
-                              >
-                                {`${benif.firstName} ${benif.lastName}`}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </Tooltip>
-                    </div> */}
-
-                    <div
-                      className="bene-select mt-3"
-                      onClick={handleShowBeneficiary}
-                      style={{ cursor: "pointer" }}
-                    >
-                      Select Your Beneficiary
-                    </div>
-
-                    <div
-                      className="mt-0 form1-double"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                        marginTop: "-12px",
-                      }}
-                    >
-                      <div style={{ width: "100%" }} className="mt-2">
-                        <Tooltip title="Enter notes for your real estate">
-                          <TextareaAutosize
-                            style={{
-                              width: "100%",
-                              maxHeight: 250,
-                              height: "100%",
-                              border: "solid 1px lightgray",
-                              borderRadius: "5px",
-                              padding: "5px 10px",
-                              color: "black",
-                            }}
-                            placeholder="Notes"
-                            id="notes"
-                            onChange={(e) => handleChanges(e, "notes")}
-                            value={data.realEstate.notes}
-                          />
-                        </Tooltip>
-                      </div>
-                      {/* <div style={{ width: "49.5%" }}>
-                        {mordgages.map((index) => (
-                          <div
-                            className="mt-2"
-                            key={index}
-                            style={{
-                              flexDirection: "row",
-                              display:
-                                index <= visibleColumnIndex ? "flex" : "none",
-                            }}
-                          >
-                            <div style={{ width: "100%" }}>
-                              <Tooltip title={`Add your mortgage ${index + 1}`}>
-                                <TextField
-                                  fullWidth
+                            <Tooltip title="Enter a valid Zip-code ">
+                              <div>
+                                <FormLabel>Zip Code *</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
                                   type="number"
-                                  label={`mortgage ${index + 1}`}
-                                  id={`mortgage${index + 1}`}
-                                  size="normal"
+                                  placeholder="Enter your Zip Code"
+                                  id="zipCode"
                                   onChange={(e) =>
-                                    handleChanges1(e, "mortgage", { index })
+                                    handleChangesZipCode(e, "zipCode")
                                   }
-                                  value={data.mortgages.mortgage}
-                                  onClick={() => setIsTextFieldClicked3(true)}
-                                  InputProps={{
-                                    startAdornment: isTextFieldClicked3 ? (
-                                      <div>$</div>
-                                    ) : null,
+                                  value={data.realEstate.zipCode}
+                                  inputProps={{
+                                    minLength: 5,
+                                    maxLength: 5,
                                   }}
+                                  error={
+                                    !validateZipCode(data.realEstate.zipCode)
+                                  }
+                                  helperText={
+                                    !validateZipCode(data.realEstate.zipCode)
+                                      ? "Please enter a valid 5-digit Zip Code"
+                                      : ""
+                                  }
                                 />
-                              </Tooltip>
-                            </div>
-                          </div>
-                        ))}
-                        <div
-                          style={{
-                            marginTop: "7px",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Button
-                            style={{
-                              height: "30px",
-                              width: "30px",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              borderRadius: "50%",
-                              backgroundColor: "#4aafff",
-                              border: "none",
-                            }}
-                            onClick={handleAddColumn}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </Button>
-                        </div>
-                      </div> */}
-                    </div>
-
-                    {/* <div style={{ marginTop: "7px", display: "flex", alignItems: "center" }}>
-                      <Button style={{
-                        height: "30px",
-                        width: "30px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: "50%",
-                        backgroundColor: "#4aafff",
-                        border: "none"
-                      }}
-                        onClick={handleAddField}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </Button>
-                      Add New Field
-                    </div>
-                    <div style={{ width: "99.5%" }}>
-                      {addField.map((index) => (
-                        <div className="mt-2" key={index} style={{ flexDirection: "row", display: index < visibleField ? "flex" : "none", }}>
-                          <div style={{ width: "97%" }}>
-                            <Tooltip title={`Add New Field ${index + 1}`}>
-                              <TextField
-
-                                fullWidth
-                                type="text"
-                                label={`New Field ${index + 1}`}
-                                id={`addfield${index + 1}`}
-                                size="normal"
-                                onChange={(e) => handleChanges(e, `addfield${index + 1}`)}
-                                value={data[`addfield${index + 1}`] || ''}
-
-                                className="AddField"
-                              />
+                              </div>
                             </Tooltip>
                           </div>
-                          <span className="addFieldClose" onClick={() => setVisibleField(visibleField - 1)} style={{ width: "2%", paddingLeft: "5px" }}><FontAwesomeIcon icon={faXmark} /></span>
                         </div>
-                      ))}
+                        <div className="mt-2 addform_input_half">
+                          <div>
+                            <Tooltip title="Automatically populate based on the zip code">
+                              <div style={{ width: "100%" }}>
+                                <FormLabel>City/Town *</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
+                                  placeholder="City/Town *"
+                                  value={data.realEstate.city}
+                                  readOnly
+                                  disabled
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      </div>
 
-                    </div> */}
-                    {/* Enter Your Benificiary Username */}
+                      <div className="address_input">
+                        <div className="mt-2 addform_input_half">
+                          <div>
+                            <Tooltip title="Automatically populate based on the zip code">
+                              <div>
+                                <FormLabel>State *</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
+                                  placeholder="State *"
+                                  value={data.realEstate.state}
+                                  readOnly
+                                  disabled
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
 
-                    <Container className="text-center">
-                      <Button
-                        className="my-estate-clear-btn"
-                        onClick={resetForm}
-                        type="reset"
-                        outline
-                      >
-                        Clear
-                      </Button>
-                      <Button outline type="" className="my-estate-add-btn">
-                        Add
-                      </Button>
-                    </Container>
-                  </Form>
-                </CardBody>
-              </Card>
-            </Container>
+                        <div className="mt-2 addform_input_half">
+                          <div>
+                            <Tooltip title="Automatically populate based on the zip code">
+                              <div>
+                                <FormLabel>Country *</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
+                                  placeholder="Country *"
+                                  value={data.realEstate.country}
+                                  readOnly
+                                  disabled
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="address_input">
+                        <div className="mt-2 addform_input_half">
+                          <div>
+                            <Tooltip title="Enter Your Street Address ">
+                              <div style={{ width: "100%" }}>
+                                <FormLabel>Street Address</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
+                                  placeholder="Street Address *"
+                                  onChange={(e) =>
+                                    handleChanges(e, "streetAddress")
+                                  }
+                                  value={data.realEstate.streetAddress}
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+
+                        <div className="mt-2 addform_input_half">
+                          <div>
+                            <Tooltip title="Enter Your Apartment Number ">
+                              <div style={{ width: "100%" }}>
+                                <FormLabel>Apartment</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
+                                  placeholder="Apartment"
+                                  onChange={(e) =>
+                                    handleChanges(e, "aptNumber")
+                                  }
+                                  value={data.realEstate.aptNumber}
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="address_input">
+                        <div className="mt-2 addform_input_half">
+                          <div>
+                            <Tooltip title="Enter your estimated Property Value">
+                              <div style={{ width: "100%" }}>
+                                <FormLabel>Property Value</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
+                                  placeholder="Estimated Property Value"
+                                  onChange={(e) =>
+                                    handleChanges(e, "estPropertyVal")
+                                  }
+                                  value={data.realEstate.estPropertyVal}
+                                  onClick={() => setIsTextFieldClicked2(true)}
+                                  startDecorator={
+                                    isTextFieldClicked2 ? <div>$</div> : null
+                                  }
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+
+                        <div className="mt-2 addform_input_half">
+                          <div>
+                            <Tooltip title="Enter your Estimated Annual Property Tax">
+                              <div style={{ width: "100%" }}>
+                                <FormLabel>Annual Property Tax</FormLabel>
+                                <Input
+                                  className="input_mui_joy"
+                                  placeholder="Estimated Annual Property Tax"
+                                  onChange={(e) =>
+                                    handleChanges(e, "propertyTax")
+                                  }
+                                  value={data.realEstate.propertyTax}
+                                  onClick={() => setIsTextFieldClicked(true)}
+                                  startDecorator={
+                                    isTextFieldClicked ? <div>$</div> : null
+                                  }
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="addform_body_right">
+                      <div>
+                        {mordgages.map((index) => (
+                          <div
+                            key={index}
+                            style={{
+                              marginBottom: "10px",
+                              display:
+                                index <= visibleColumnIndex ? "block" : "none",
+                            }}
+                          >
+                            <div>
+                              <div>
+                                <Tooltip
+                                  title={`Add your mortgage institution ${
+                                    index + 1
+                                  }`}
+                                >
+                                  <div
+                                    style={{ width: "100%" }}
+                                    className="mt-2"
+                                  >
+                                    <FormLabel>
+                                      {`Mortgage Institution ${index + 1}`} *
+                                    </FormLabel>
+                                    <Input
+                                      className="input_mui_joy"
+                                      id={`mortgageInstitution${index + 1}`}
+                                      placeholder={`Mortgage Institution ${
+                                        index + 1
+                                      }`}
+                                      onChange={(e) =>
+                                        handleChanges1(
+                                          e,
+                                          "mortgageInstitution",
+                                          {
+                                            index,
+                                          }
+                                        )
+                                      }
+                                      value={
+                                        data.mortgages[index]
+                                          ? data.mortgages[index]
+                                              .mortgageInstitution
+                                          : ""
+                                      }
+                                    />
+                                  </div>
+                                </Tooltip>
+                              </div>
+                            </div>
+
+                            <div className="address_input">
+                              <div className="mt-2 addform_input_half">
+                                <Tooltip
+                                  title={`Add your mortgage number ${
+                                    index + 1
+                                  }`}
+                                >
+                                  <div>
+                                    <FormLabel>
+                                      {`Mortgage Number ${index + 1}`} *
+                                    </FormLabel>
+                                    <Input
+                                      className="input_mui_joy"
+                                      placeholder="mortgageNumber"
+                                      id={`mortgageNumber${index + 1}`}
+                                      onChange={(e) =>
+                                        handleChanges1(e, "mortgageNumber", {
+                                          index,
+                                        })
+                                      }
+                                      value={
+                                        data.mortgages[index]
+                                          ? data.mortgages[index].mortgageNumber
+                                          : ""
+                                      }
+                                    />
+                                  </div>
+                                </Tooltip>
+                              </div>
+                              <div className="mt-2 addform_input_half">
+                                <Tooltip
+                                  title={`Add your mortgage ${index + 1}`}
+                                >
+                                  <div>
+                                    <FormLabel>{`Mortgage ${
+                                      index + 1
+                                    }`}</FormLabel>
+                                    <Input
+                                      className="input_mui_joy"
+                                      type="number"
+                                      placeholder="Mortgage"
+                                      id={`mortgage${index + 1}`}
+                                      onChange={(e) =>
+                                        handleChanges1(e, "mortgage", {
+                                          index,
+                                        })
+                                      }
+                                      value={
+                                        data.mortgages[index]
+                                          ? data.mortgages[index].mortgage
+                                          : ""
+                                      }
+                                      onClick={() =>
+                                        setIsTextFieldClicked3(true)
+                                      }
+                                      startDecorator={
+                                        isTextFieldClicked3 ? (
+                                          <div>$</div>
+                                        ) : null
+                                      }
+                                    />
+                                  </div>
+                                </Tooltip>
+                              </div>
+                            </div>
+                            {index !== 0 && (
+                              <div style={{ marginTop: "4px" }}>
+                                <Button
+                                  style={{
+                                    height: "30px",
+                                    width: "30px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    borderRadius: "50%",
+                                    backgroundColor: "rgb(255, 74, 74)",
+                                    border: "none",
+                                  }}
+                                  onClick={() => handleRemoveColumn(index)}
+                                >
+                                  <FontAwesomeIcon icon={faMinus} />
+                                </Button>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                        {visibleColumnIndex < 4 && (
+                          <div style={{ marginTop: "2px" }}>
+                            <Button
+                              style={{
+                                height: "30px",
+                                width: "30px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                borderRadius: "50%",
+                                backgroundColor: "#4aafff",
+                                border: "none",
+                              }}
+                              onClick={handleAddColumn}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                      <div className="address_input">
+                        <div className="mt-2 addform_input_half">
+                          <div
+                            className="bene-select mt-3"
+                            onClick={handleShowBeneficiary}
+                            style={{ cursor: "pointer" }}
+                          >
+                            Select Beneficiary
+                          </div>
+                        </div>
+                        <div className="mt-2 addform_input_half">
+                          <div style={{ width: "100%" }}>
+                            <Tooltip title="Upload your property related file it should be under 400 kb">
+                              <div>
+                                <FormLabel>Supporting Document</FormLabel>
+                                <input
+                                  style={{
+                                    border: "solid 1px lightgray",
+                                    borderLeft: "none",
+                                    width: "100%",
+                                    borderRadius: "2px",
+                                  }}
+                                  type="file"
+                                  name="myfile"
+                                  id="exampleFile"
+                                  onChange={handleImageChange}
+                                  accept=".pdf"
+                                  multiple
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="mt-2 form1-double"
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          width: "100%",
+                          justifyContent: "space-between",
+                          marginTop: "-12px",
+                        }}
+                      ></div>
+
+                      <div className="address_input">
+                        <div style={{ width: "100%" }} className="mt-2">
+                          <Tooltip title="Enter notes for your real estate">
+                            <FormLabel>Notes</FormLabel>
+                            <Textarea
+                              sx={{ height: "182px", minHeight: "52px" }}
+                              placeholder="Notes"
+                              id="notes"
+                              onChange={(e) => handleChanges(e, "notes")}
+                              value={data.realEstate.notes}
+                            />
+                          </Tooltip>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <Button
+                      className="my-estate-clear-btn"
+                      onClick={resetForm}
+                      type="reset"
+                      outline
+                    >
+                      Clear
+                    </Button>
+                    <Button outline type="" className="my-estate-add-btn">
+                      Add
+                    </Button>
+                  </div>
+                </Form>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -2051,7 +1627,6 @@ function RealEstateContent() {
                         <p
                           onClick={() => {
                             setshowAdditionField1(showDetail);
-                            setShow1(false);
                           }}
                         >
                           Mortgages Details:&nbsp;
@@ -2091,31 +1666,6 @@ function RealEstateContent() {
                       </code>
                     </p>
 
-                    {showDetail.mortgage1 ||
-                    showDetail.mortgage2 ||
-                    showDetail.mortgage3 ||
-                    showDetail.mortgage4 ||
-                    (showDetail.mortgage5 && true) ? (
-                      <Tooltip title={`Click To See Details`}>
-                        <p
-                          onClick={() => {
-                            setSelectedRow(showDetail);
-                            setShow(!show);
-                          }}
-                        >
-                          Total Mortgage:
-                          <code>
-                            <span style={{ color: "red", fontWeight: "bold" }}>
-                              {" "}
-                              ${showDetail.mortgage}0
-                            </span>
-                          </code>
-                        </p>
-                      </Tooltip>
-                    ) : (
-                      ""
-                    )}
-
                     {/* {
                       showDetail.addfield1 || showDetail.addfield2 || showDetail.addfield3 || showDetail.addfield4 || showDetail.addfield5 && true ? (
                         <Tooltip title={`Click To See Details`}>
@@ -2130,7 +1680,6 @@ function RealEstateContent() {
                       <p
                         onClick={() => {
                           handleOpenBeneficiary(showDetail);
-                          setShow1(false);
                         }}
                       >
                         Beneficiary Details{" "}
@@ -2544,7 +2093,6 @@ function RealEstateContent() {
                     className="note_popup_heading_close_btn"
                     onClick={() => {
                       setPopupVisibleDownlaod(false);
-                      setShow1(true);
                     }}
                   >
                     <FontAwesomeIcon icon={faXmark} />
@@ -2858,7 +2406,6 @@ function RealEstateContent() {
                     className="note_popup_heading_close_btn"
                     onClick={() => {
                       setBeneficiaryVisible(false);
-                      setShow1(true);
                     }}
                   >
                     <FontAwesomeIcon icon={faXmark} />
@@ -2986,7 +2533,6 @@ function RealEstateContent() {
                   className="note_popup_heading_close_btn"
                   onClick={() => {
                     setshowAdditionField1(false);
-                    setShow1(true);
                   }}
                 >
                   <FontAwesomeIcon icon={faXmark} />

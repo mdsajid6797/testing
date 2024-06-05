@@ -6,15 +6,14 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Col,
   Container,
   Form,
   FormGroup,
   Input,
-  Label,
+  Label
 } from "reactstrap";
 import validator from "validator";
-import { forgotPassword, getToken, trusteeApproval } from "../services/user-service";
+import { forgotPassword } from "../services/user-service";
 import "./../css/resetpassword.css";
 
 // set signup data

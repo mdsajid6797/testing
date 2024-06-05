@@ -1,28 +1,27 @@
 import {
-  faXmark,
-  faPlus,
-  faMinus,
-  faDownload,
-  faLocationDot,
   faBuildingColumns,
+  faDownload,
   faEye,
   faEyeSlash,
+  faMinus,
+  faPlus,
+  faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FormControl,
+  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
-  Tooltip,
   Switch,
-  FormControlLabel,
+  TextField,
   TextareaAutosize,
+  Tooltip,
 } from "@mui/material";
 
 // import "../../../public/logos/Ally_Financial_logo_PNG4.png";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
   Button,
@@ -34,48 +33,35 @@ import {
 } from "reactstrap";
 import SideBar from "../../components/sidebar/Sidebar";
 import UserBase from "../../components/user/UserBase";
+import "../../css/formPOPup.css";
 import "../../css/myestare.css";
+import { addBank, deleteBank, getBank } from "../../services/bank-service";
 import {
-  bank,
-  bankRemove,
-  downloadDocument1,
-  getToken,
-  getUser,
-  getBeneficiary,
   deleteSingleProperty,
+  downloadDocument1,
+  getBeneficiary,
   getSecondaryUser,
+  getToken,
+  getUser
 } from "../../services/user-service";
 import Deletebutton from "./Deletebutton";
 import UpdateButton from "./UpdateButton";
-import "../../css/formPOPup.css";
-import { addBank, getBank, deleteBank } from "../../services/bank-service";
 
 function Banks() {
   // const [bankName, setBankName] = React.useState("");
   const [selectedImage, setSelectedImage] = useState([]);
-  const [selectedBanks, setSelectedBanks] = useState([]);
+
   const [category, setCategory] = useState([]);
   const [popupVisible, setPopupVisible] = useState(false);
   const [beneficiaryVisible, setBeneficiaryVisible] = useState(false);
-  const [beneficiaryPopup, setBeneficiaryPopup] = useState(false);
+
   const [selectedNote, setSelectedNote] = useState("");
   const [SelectedBeneficiary, setSelectedBeneficiary] = useState("");
   const [popupVisibleDownlaod, setPopupVisibleDownlaod] = useState(false);
   const [selectedDownlaod, setSelectDownload] = useState("");
   const [selectedBeneficiaries, setSelectedBeneficiaries] = useState([]);
   const [beneficiaryDetails, setBeneficiaryDetails] = useState({});
-  // const [visibleField, setVisibleField] = useState(0);
-  // const [selectedAccountType, setSelectedAccountType] = useState('');
-  // const [totalAmount, setTotalAmount] = useState(0);
-  // const [isTextFieldClicked, setIsTextFieldClicked] = useState(false);
-  // const [selectedValue, setSelectedValue] = useState('');
-  // const [hasEffectRun, setHasEffectRun] = useState(false);
-  // const [selectedAccountTypes, setSelectedAccountTypes] = useState(Array(5).fill(''));
-  // const [bankarray, setBankArray] = useState([0]);
-  // const accountType = ["Checking Account", "Savings Account", "Investment Account", "C.D Account"]
-  // let [accountNoShow, setAccountNoShow] = useState(false)
-  // let [visible, setVisible] = useState(0)
-  // const [beneShow, setBeneShow] = useState({})
+
   const [benevisible, setbeneVisible] = useState(false);
   const [estimatedTotalAmount, setEstimatedTotalAmount] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
@@ -154,14 +140,12 @@ function Banks() {
   // Get secondaryUser data
   const secondaryUserDetails = getSecondaryUser();
   let secondaryUserName = "";
-  let bothUserName = "";
+
 
   // Check if secondary user exists
   if (secondaryUserDetails !== undefined) {
     secondaryUserName =
       secondaryUserDetails.firstName + " " + secondaryUserDetails.lastName;
-    // Combine both user names into one variable
-    bothUserName = secondaryUserName + " & " + primaryUserName;
 
     // Push both user names into the array
     ownerNames.push(primaryUserName, secondaryUserName);
@@ -296,7 +280,7 @@ function Banks() {
     }
     formData.append("data", JSON.stringify(data));
     addBank(formData, token)
-      .then((resp) => {
+      .then(() => {
         toast.success("Data Added !!", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
@@ -304,7 +288,7 @@ function Banks() {
         getData();
         AddCard();
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
   const getData = () => {
     let userId = getUser().commonId;
@@ -313,12 +297,12 @@ function Banks() {
       .then((res) => {
         setCategory(res);
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
   const handleRemove = (id, idType) => {
     if (idType == "bankId") {
       deleteBank(id)
-        .then((res) => {
+        .then(() => {
           toast.success("Deleted successfully...", {
             position: toast.POSITION.BOTTOM_CENTER,
           });
@@ -326,10 +310,10 @@ function Banks() {
           AddCard();
           setShow1(false);
         })
-        .catch((error) => {});
+        .catch(() => {});
     } else {
       deleteSingleProperty(id)
-        .then((res) => {
+        .then(() => {
           setBeneficiaryVisible(!beneficiaryVisible);
           setShow1(false);
           AddCard();
@@ -337,12 +321,11 @@ function Banks() {
             position: toast.POSITION.BOTTOM_CENTER,
           });
         })
-        .catch((error) => {});
+        .catch(() => {});
     }
   };
   const handleDownload = (id, fileName) => {
     let myarry = fileName.split(".");
-    let token = "Bearer " + getToken();
     downloadDocument1(id)
       .then((response) => {
         const downloadUrl = URL.createObjectURL(response.data);
@@ -352,7 +335,7 @@ function Banks() {
         link.click();
         URL.revokeObjectURL(downloadUrl);
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
   const handleOpenPopup = (note) => {
     setSelectedNote(note);
@@ -379,7 +362,7 @@ function Banks() {
       .then((res) => {
         setCard(res);
       })
-      .catch((error) => {
+      .catch(() => {
         setCard([]);
       });
   };
@@ -395,7 +378,7 @@ function Banks() {
       .then((res) => {
         setBenificiary(res);
       })
-      .catch((err) => {});
+      .catch(() => {});
   };
   const getBankName = (bankName) => {
     return category.some(
@@ -444,15 +427,6 @@ function Banks() {
       data.bank.safetyBoxNumber = null;
     }
   };
-  const handleChanges = (e, field) => {
-    const newData = { ...data, [field]: e.target.value };
-    setData(newData);
-
-    // const index = parseInt(field.match(/\d+/)[0], 10) - 1;
-    // const newSelectedBankTypes = [...selectedBankTypes];
-    // newSelectedBankTypes[index] = e.target.value;
-    // setSelectedBankTypes(newSelectedBankTypes);
-  };
 
   const handleChangesBank = (e, field) => {
     const newValue = e.target.value;
@@ -466,18 +440,6 @@ function Banks() {
     }));
   };
 
-  const handleChangesAccount = (e, field, index) => {
-    const newValue = e.target.value;
-    setData((prevData) => ({
-      ...prevData,
-      accounts: [
-        {
-          ...prevData.accounts,
-          [field]: newValue,
-        },
-      ],
-    }));
-  };
 
   const handleChanges1 = (e, field, { index }) => {
     const { value } = e.target;
@@ -792,9 +754,6 @@ function Banks() {
   };
 
   const [newBankVisible, setNewBankVisible] = useState(false);
-  const handleOpenNewBank = () => {
-    setNewBankVisible(true);
-  };
 
   const [visibleAccountIndices, setVisibleAccountIndices] = useState([]);
 

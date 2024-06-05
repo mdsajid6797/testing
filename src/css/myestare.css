@@ -630,8 +630,143 @@ code {
   background-color: red;
 }
 
-
 /* Real Estate New Style  */
 .input_mui_joy {
   width: 100%;
+}
+.addform_ichest{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addform_main{
+  background-color: rgb(255, 255, 255);
+  width: 95%;
+  max-width: 1200px;
+  min-width: 280px;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.addform_heading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addform_heading_h1{
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+}
+.addform_close{
+  width: 25px;
+  height: 25px;
+  color: rgb(100, 100, 100) ;
+  background-color: lightgray;
+  transition: all 200ms;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  border-radius: 50%;
+}
+.addform_close:hover{
+  color: black;
+  background-color: rgb(248, 172, 172);
+}
+
+.addform_body{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.addform_select_body{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.addform_body_left{
+  width: 50%;
+  padding: 0px 10px 0px 0px;
+}
+.addform_body_right{
+  width: 50%;
+  height:450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0px 0px 0px 10px;
+}
+.address_input{
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  flex-direction: row;
+}
+.addform_input_half{
+  width: 49.5%;
+}
+
+@media (max-width: 900px) and (min-width: 600px) {
+  .addform_main{
+    width: 95%;
+    max-width: 1200px;
+    min-width: 280px;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  .addform_select_body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .addform_body_left{
+    width: 100%;
+    padding:0;
+  }
+  .addform_body_right{
+    width: 100%;
+    height:450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+  }
+}
+
+@media (max-width: 600px) and (min-width:300px) {
+  .addform_main{
+    width: 95%;
+    max-width: 1200px;
+    min-width: 280px;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  .addform_select_body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .addform_body_left{
+    width: 100%;
+    padding:0;
+  }
+  .addform_body_right{
+    width: 100%;
+    height:590px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+  }
+  .address_input{
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    flex-direction: column;
+  }
+  .addform_input_half{
+    width: 100%;
+  }
 }

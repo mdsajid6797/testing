@@ -9,19 +9,14 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import { Typography } from "@mui/material";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Base from "../components/Base";
 import "../css/responsive.css";
 import "../css/style.css";
+import "./../components/user/whyichest.css";
 import Login from "./Login";
 import Signup from "./Signup";
 import WelcomeIchest from "./my-estate/welcomeIchest";
-import { currentUser } from "../services/user-service";
-import { useNavigate } from "react-router-dom";
-import SignUpPopup from "../components/popup/SignUpPopup";
-import "./../components/user/whyichest.css";
-import AttorneySignUp from "./AttorneySignUp";
-import JointAccount from "./JointAccount";
 
 const Home = () => {
   useEffect(() => {
@@ -39,25 +34,9 @@ const Home = () => {
     setShowLogin(!showLogin);
   };
 
-  // for attorney form
-  const [attorneySignUpPopup, setAttorneySignUpPopup] = useState(false);
-  const handleAttorneySignUpPopup = () => {
-    togglePopup();
-    setAttorneySignUpPopup(!attorneySignUpPopup);
-  };
-
-  // for joint account form
-  const [jointAccountSignUpPopup, setJointAccountSignUpPopup] = useState(false);
-  const handleJointAccountSignUpPopup = () => {
-    togglePopup();
-    setJointAccountSignUpPopup(!jointAccountSignUpPopup);
-  };
-
   const handleBack = () => {
     setShowLogin(false);
     setShowSignin(false);
-    setAttorneySignUpPopup(false);
-    setJointAccountSignUpPopup(false);
   };
   const toggleSignin = () => {
     togglePopup();
@@ -90,12 +69,12 @@ const Home = () => {
 
   //           navigate("/trustee/dashboard");
   //         } else {
- 
+
   //           navigate("/beneficiary/dashboard");
   //         }
   //       })
   //       .catch((error) => {
- 
+
   //       });
   //   }
   // }, []);
@@ -103,13 +82,6 @@ const Home = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const togglePopup = () => {
     setPopupOpen(!isPopupOpen);
-  };
-  const popupRef = useRef(null);
-
-  const handleOutsideClick = (event) => {
-    if (popupRef.current && !popupRef.current.contains(event.target)) {
-      setPopupOpen(false);
-    }
   };
 
   return (
@@ -192,8 +164,11 @@ const Home = () => {
                     OF LIFE
                   </h1> */}
                   <h1 className="banner_taital">
-                    Life is about legacy,<br />
-                    <span style={{fontSize: '0.7em'}}>I-chest.com helps to preserve it</span>
+                    Life is about legacy,
+                    <br />
+                    <span style={{ fontSize: "0.7em" }}>
+                      I-chest.com helps to preserve it
+                    </span>
                   </h1>
                   <p className="banner_text">
                     I-Chest is an online platform that provides users with a
@@ -695,7 +670,9 @@ const Home = () => {
                       target="blank"
                     >
                       <MailIcon fontSize="large" />
-                      <span className="padding_left_15">openapi@i-chest.com</span>
+                      <span className="padding_left_15">
+                        openapi@i-chest.com
+                      </span>
                     </a>
                   </div>
                 </div>

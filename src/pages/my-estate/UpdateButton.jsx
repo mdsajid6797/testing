@@ -1,7 +1,7 @@
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope,faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 import './../../css/editbtn.css';
 function UpdateButton({ URL, id }) {
